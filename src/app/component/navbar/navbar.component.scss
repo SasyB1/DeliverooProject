@@ -1,0 +1,13 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+#LogoDeliveroo {
+  width: 120px;
+}
+.dropdown-toggle::after {
+  display: none;
+}
+.dropdown-toggle .bi-chevron-down {
+  color: #00ccbc;
+}
+.iconDropDownNavbar {
+  color: #00ccbc;
+}
