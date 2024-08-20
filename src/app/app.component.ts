@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './MainComponent/navbar/navbar.component';
@@ -10,5 +11,8 @@ import { NavbarComponent } from './MainComponent/navbar/navbar.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'DeliverooProject';
+  constructor(private translate: TranslateService) {
+    this.translate.setDefaultLang('it');
+    this.translate.use('it');
+  }
 }

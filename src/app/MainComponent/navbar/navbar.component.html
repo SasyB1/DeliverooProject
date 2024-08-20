@@ -16,24 +16,25 @@
           aria-expanded="false"
         >
           <i class="bi bi-chevron-down me-2"></i>
-          Collabora con noi
+          {{ "NAVBAR.COLLABORATE" | translate }}
         </button>
         <ul class="dropdown-menu">
           <li>
             <a class="dropdown-item px-3" href="#"
-              ><i class="bi bi-basket me-2 iconDropDownNavbar"></i>Partner</a
+              ><i class="bi bi-basket me-2 iconDropDownNavbar"></i
+              >{{ "NAVBAR.PARTNER" | translate }}</a
             >
           </li>
           <li>
             <a class="dropdown-item px-3" href="#"
-              ><i class="bi bi-briefcase me-2 iconDropDownNavbar"></i>Lavora con
-              noi</a
+              ><i class="bi bi-briefcase me-2 iconDropDownNavbar"></i
+              >{{ "NAVBAR.JOB" | translate }}</a
             >
           </li>
           <li>
             <a class="dropdown-item px-3" href="#"
-              ><i class="bi bi-building me-2 iconDropDownNavbar"></i>Deliveroo
-              for Work</a
+              ><i class="bi bi-building me-2 iconDropDownNavbar"></i
+              >{{ "NAVBAR.DELIVEROO_FOR_WORK" | translate }}</a
             >
           </li>
         </ul>
@@ -43,8 +44,8 @@
         class="btn btn-light border border-light-subtle no-hover"
         href="#"
         role="button"
-        ><i class="bi bi-house-door me-2 iconDropDownNavbar"></i>Registrati o
-        accedi</a
+        ><i class="bi bi-house-door me-2 iconDropDownNavbar"></i
+        >{{ "NAVBAR.REGISTER_OR_LOGIN" | translate }}</a
       >
 
       <button
@@ -55,7 +56,7 @@
         aria-controls="offcanvasRight"
       >
         <i class="bi bi-person me-2 iconDropDownNavbar"></i>
-        Account
+        {{ "NAVBAR.ACCOUNT" | translate }}
       </button>
 
       <div
@@ -77,14 +78,24 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="offcanvas-body mt-3">
-          <a class="btn btnColor w-100 py-2 fw-bold text-light" href="#"
-            >Registrati o accedi</a
-          >
+        <div class="offcanvas-body d-flex flex-column">
+          <a class="btn btnColor w-100 py-2 fw-bold text-light mb-3" href="#">{{
+            "NAVBAR.REGISTER_OR_LOGIN" | translate
+          }}</a>
           <div class="mt-3">
             <a class="no-style" href="#"
-              ><i class="bi bi-question-circle me-2"></i>FAQ</a
+              ><i class="bi bi-question-circle me-2"></i
+              >{{ "NAVBAR.FAQ" | translate }}</a
             >
+          </div>
+          <div class="mt-auto">
+            <select
+              (change)="onLanguageChange($event)"
+              class="form-select w-100"
+            >
+              <option value="it">Italiano</option>
+              <option value="en">English</option>
+            </select>
           </div>
         </div>
       </div>
