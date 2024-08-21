@@ -60,7 +60,11 @@
 }
 .DeliverooColor {
   background-color: #00ccbc;
-  color: white;
+  color: #000000;
+}
+.DeliverooColor:hover {
+  background-color: #00b3a6;
+  color: #ffffff;
 }
 .color-bg {
   background-color: var(--color-bg) !important;
