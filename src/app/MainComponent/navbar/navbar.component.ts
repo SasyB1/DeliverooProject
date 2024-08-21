@@ -1,5 +1,6 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
+import { ThemeServiceService } from '../../Services/theme-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  constructor(private translate: TranslateService) {}
+  constructor(
+    private translate: TranslateService,
+    private themeSvc: ThemeServiceService
+  ) {}
 
   onLanguageChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
@@ -19,5 +23,8 @@ export class NavbarComponent {
 
   changeLanguage(language: string) {
     this.translate.use(language);
+  }
+  toggleDarkMode() {
+    this.themeSvc.modetoggle();
   }
 }
