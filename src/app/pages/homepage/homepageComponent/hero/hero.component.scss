@@ -1,3 +1,71 @@
+.input-position {
+  width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
 .hero-bg {
-  width: 250px;
+  background-image: url("../../../../../assets/image/deliverooStrip.png");
+  background-repeat: no-repeat;
+  height: 475px;
+  background-size: 600px;
+  background-position: 120px;
+}
+.container-fluid {
+  overflow-x: hidden;
+  position: relative;
+}
+#rightImage {
+  margin-left: -80px;
+}
+@media (max-width: 768px) {
+  .hero-bg {
+    height: 400px;
+  }
+  #rightImage {
+    margin-left: -150px;
+  }
+}
+@media (max-width: 576px) {
+  .hero-bg {
+    height: 280px;
+  }
+
+  .row.align-items-center {
+    height: 100%;
+  }
+
+  .col-lg-8 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.rounded-input {
+  border-radius: 25px;
+  margin-right: 10px;
+  padding: 10px 15px;
+  flex: 1;
+}
+
+.rounded-button {
+  border-radius: 25px;
+  padding: 10px 20px;
+}
+.DeliverooColor {
+  background-color: #00ccbc;
+  color: white;
+}
+.color-bg {
+  background-color: var(--color-bg) !important;
+}
+
+.color-text {
+  color: var(--color-text) !important;
 }
