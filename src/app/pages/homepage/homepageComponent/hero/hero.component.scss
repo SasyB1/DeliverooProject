@@ -22,6 +22,7 @@
 @media (max-width: 768px) {
   .hero-bg {
     height: 400px;
+    overflow-y: hidden;
   }
   #rightImage {
     margin-left: -150px;
