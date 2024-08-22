@@ -1,0 +1,17 @@
+img {
+  width: 120px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+.splide-offset {
+  margin-left: -120px;
+}
+@media (max-width: 530px) {
+  .splide-offset {
+    margin-left: -50px;
+  }
+}

@@ -7,3 +7,10 @@
   --color-bg: #1d1d1c;
   --color-text: white;
 }
+.color-bg {
+  background-color: var(--color-bg) !important;
+}
+
+.color-text {
+  color: var(--color-text) !important;
+}
