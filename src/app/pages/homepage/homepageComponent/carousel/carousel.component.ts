@@ -39,18 +39,22 @@ export class CarouselComponent implements OnInit {
         },
         1200: {
           perPage: 7,
+          height: '140px',
         },
         992: {
           perPage: 6,
         },
         768: {
           perPage: 5,
+          height: '130px',
         },
         576: {
           perPage: 4,
+          height: '120px',
         },
         530: {
           perPage: 3,
+          height: '100px',
         },
       },
     }).mount({ AutoScroll });
@@ -83,18 +87,22 @@ export class CarouselComponent implements OnInit {
         },
         1200: {
           perPage: 7,
+          height: '140px',
         },
         992: {
           perPage: 6,
         },
         768: {
           perPage: 5,
+          height: '130px',
         },
         576: {
           perPage: 4,
+          height: '120px',
         },
         530: {
           perPage: 3,
+          height: '100px',
         },
       },
     }).mount({ AutoScroll });
