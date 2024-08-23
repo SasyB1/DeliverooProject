@@ -1,0 +1,36 @@
+.text-wrap {
+  word-wrap: break-word;
+  max-width: 70%;
+}
+@media (min-width: 769px) {
+  .text-wrap {
+    font-size: 20px;
+  }
+}
+:host {
+  display: block;
+  width: 100%;
+  background-color: var(--color-bg);
+}
+
+.NotificationImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 150px;
+}
+@media (max-width: 576px) {
+  .NotificationImage {
+    width: 250px;
+    height: 100px;
+  }
+}
+.imgButton {
+  width: 125px;
+  height: auto;
+  cursor: pointer;
+}
+.container {
+  height: 350px;
+}
