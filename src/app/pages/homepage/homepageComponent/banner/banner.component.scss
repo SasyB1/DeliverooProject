@@ -1,0 +1,25 @@
+.container-fluid {
+  background-image: url("../../../../../assets/image/bannerBg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.starImage {
+  width: 110px;
+  height: 110px;
+}
+.firstParag {
+  font-size: 18px;
+}
+.secondParag {
+  font-size: 14px;
+}
+@media (max-width: 576px) {
+  .firstParag {
+    font-size: 16px;
+  }
+
+  .secondParag {
+    font-size: 12px;
+  }
+}
