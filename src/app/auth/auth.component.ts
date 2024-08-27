@@ -1,14 +1,63 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { signal, computed } from '@angular/core';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent implements OnInit {
-  container: HTMLElement | null = null;
+  signUpForm: FormGroup;
+  signInForm: FormGroup;
+  userSignal: Signal<any>;
+  container: any;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.signUpForm = this.fb.group({
+      nome: [''],
+      cognome: [''],
+      email: [''],
+      telefono: [''],
+      indirizzo: [''],
+      password: [''],
+      ruolo: [''],
+    });
+
+    this.signInForm = this.fb.group({
+      email: [''],
+      password: [''],
+    });
+    this.userSignal = this.authService.getUserSignal();
+  }
+
+  onSignUp() {
+    if (this.signUpForm.valid) {
+      this.authService.register(this.signUpForm.value).subscribe((response) => {
+        if (response) {
+          this.router.navigate(['/auth']);
+        }
+      });
+    }
+  }
+
+  onSignIn() {
+    if (this.signInForm.valid) {
+      this.authService.login(this.signInForm.value).subscribe((response) => {
+        if (response) {
+          this.router.navigate(['/homepage']);
+        }
+      });
+    }
+  }
 
   ngOnInit() {
     this.container = document.getElementById('container');
