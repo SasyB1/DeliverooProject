@@ -3,20 +3,24 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '../../Services/theme.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../Services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [TranslateModule, FormsModule, RouterLink],
+  imports: [TranslateModule, FormsModule, RouterLink, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
   languageSignal = signal<string>(this.translate.getDefaultLang());
+  isAuthenticated = this.authSvc.isAuthenticated;
 
   constructor(
     public translate: TranslateService,
-    public themeSvc: ThemeService
+    public themeSvc: ThemeService,
+    private authSvc: AuthService
   ) {
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage) {
@@ -24,6 +28,11 @@ export class NavbarComponent {
     } else {
       this.changeLanguage(this.languageSignal());
     }
+  }
+
+  get userEmail(): string | null {
+    const user = this.authSvc.getUserSignal()();
+    return user ? user.email : null;
   }
 
   onLanguageChange(event: Event): void {

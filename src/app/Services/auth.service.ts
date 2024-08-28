@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private userSignal = signal<any>(null);
+  public isAuthenticated = computed(() => !!this.userSignal());
 
   constructor(private http: HttpClient, private router: Router) {
     const savedUser = localStorage.getItem('user');

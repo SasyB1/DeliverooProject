@@ -100,10 +100,15 @@
         </div>
         <div class="offcanvas-body d-flex flex-column color-bg">
           <a
+            *ngIf="!isAuthenticated()"
             class="btn btnColor w-100 py-2 fw-bold text-light mb-3"
             routerLink="auth"
           >
             {{ "NAVBAR.REGISTER_OR_LOGIN" | translate }}
+          </a>
+          <a *ngIf="isAuthenticated()" routerLink="account-details">
+            Dettagli account
+            <p *ngIf="userEmail" class="color-text">{{ userEmail }}</p>
           </a>
           <div class="mt-3">
             <a
