@@ -86,7 +86,11 @@
             class="me-3"
           />
           <label class="switch">
-            <input type="checkbox" (click)="toggleDarkMode()" />
+            <input
+              type="checkbox"
+              [checked]="themeSvc.darkmode"
+              (click)="toggleDarkMode()"
+            />
             <span class="slider"></span>
           </label>
           <button
@@ -114,6 +118,7 @@
           </div>
           <div class="mt-auto">
             <select
+              [value]="languageSignal()"
               (change)="onLanguageChange($event)"
               class="form-select w-100 color-bg color-text"
             >

@@ -10,6 +10,7 @@ bootstrapApplication(AppComponent, {
 }).then((appRef) => {
   const translateService = appRef.injector.get(TranslateService);
   const translateStore = appRef.injector.get(TranslateStore);
-  translateService.setDefaultLang('it');
-  translateService.use('it');
+  const savedLanguage = localStorage.getItem('language') || 'it';
+  translateService.setDefaultLang(savedLanguage);
+  translateService.use(savedLanguage);
 });

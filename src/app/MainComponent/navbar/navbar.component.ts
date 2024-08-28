@@ -1,19 +1,29 @@
+import { Component, signal } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Component } from '@angular/core';
 import { ThemeServiceService } from '../../Services/theme-service.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, FormsModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
+  languageSignal = signal<string>(this.translate.getDefaultLang());
+
   constructor(
-    private translate: TranslateService,
-    private themeSvc: ThemeServiceService
-  ) {}
+    public translate: TranslateService,
+    public themeSvc: ThemeServiceService
+  ) {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      this.changeLanguage(savedLanguage);
+    } else {
+      this.changeLanguage(this.languageSignal());
+    }
+  }
 
   onLanguageChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
@@ -21,9 +31,12 @@ export class NavbarComponent {
     this.changeLanguage(selectedLanguage);
   }
 
-  changeLanguage(language: string) {
+  changeLanguage(language: string): void {
+    this.languageSignal.set(language);
     this.translate.use(language);
+    localStorage.setItem('language', language);
   }
+
   toggleDarkMode() {
     this.themeSvc.modetoggle();
   }

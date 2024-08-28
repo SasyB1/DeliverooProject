@@ -19,9 +19,4 @@ import { AuthComponent } from './auth/auth.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang('it');
-    this.translate.use('it');
-  }
-}
+export class AppComponent {}

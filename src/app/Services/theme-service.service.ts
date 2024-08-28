@@ -4,15 +4,24 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ThemeServiceService {
-  constructor() {}
-
   darkmode = false;
+
+  constructor() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      this.darkmode = savedTheme === 'dark';
+      this.applyTheme();
+    }
+  }
 
   modetoggle() {
     this.darkmode = !this.darkmode;
-    document.documentElement.setAttribute(
-      'data-theme',
-      this.darkmode ? 'dark' : 'light'
-    );
+    this.applyTheme();
+  }
+
+  private applyTheme() {
+    const theme = this.darkmode ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
   }
 }
