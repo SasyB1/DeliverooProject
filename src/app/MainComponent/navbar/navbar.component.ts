@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ThemeServiceService } from '../../Services/theme-service.service';
+import { ThemeService } from '../../Services/theme.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ export class NavbarComponent {
 
   constructor(
     public translate: TranslateService,
-    public themeSvc: ThemeServiceService
+    public themeSvc: ThemeService
   ) {
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage) {
