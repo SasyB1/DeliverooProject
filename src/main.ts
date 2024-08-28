@@ -9,7 +9,6 @@ bootstrapApplication(AppComponent, {
   providers: [...appConfig.providers, provideRouter(routes)],
 }).then((appRef) => {
   const translateService = appRef.injector.get(TranslateService);
-  const translateStore = appRef.injector.get(TranslateStore);
   const savedLanguage = localStorage.getItem('language') || 'it';
   translateService.setDefaultLang(savedLanguage);
   translateService.use(savedLanguage);

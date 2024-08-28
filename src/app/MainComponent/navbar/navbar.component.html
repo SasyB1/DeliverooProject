@@ -55,7 +55,8 @@
       <a
         class="btn btn-light border border-light-subtle no-hover color-text color-bg d-none d-md-block"
         role="button"
-        href="https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjTi-b-soOIAxX5iv0HHUUCHEkQPAgI"
+        routerLink="/auth"
+        routerLinkActive="active"
       >
         <i class="bi bi-house-door me-2 iconDropDownNavbar"></i>
         {{ "NAVBAR.REGISTER_OR_LOGIN" | translate }}
@@ -103,7 +104,8 @@
         <div class="offcanvas-body d-flex flex-column color-bg">
           <a
             class="btn btnColor w-100 py-2 fw-bold text-light mb-3"
-            href="https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjTi-b-soOIAxX5iv0HHUUCHEkQPAgI"
+            routerLink="auth"
+            routerLinkActive="active"
           >
             {{ "NAVBAR.REGISTER_OR_LOGIN" | translate }}
           </a>
