@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { signal, computed } from '@angular/core';
 import { AuthService } from '../Services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-auth',
@@ -43,7 +44,17 @@ export class AuthComponent implements OnInit {
     if (this.signUpForm.valid) {
       this.authService.register(this.signUpForm.value).subscribe((response) => {
         if (response) {
-          this.router.navigate(['/auth']);
+          // Mostra l'alert di successo
+          Swal.fire({
+            title: 'Registrazione completata!',
+            text: 'Verrai reindirizzato alla homepage.',
+            icon: 'success',
+            timer: 1500, // Mostra l'alert per 1.5 secondi
+            showConfirmButton: false,
+          }).then(() => {
+            // Dopo che l'alert è stato chiuso, naviga verso la homepage
+            this.router.navigate(['/homepage']);
+          });
         }
       });
     }

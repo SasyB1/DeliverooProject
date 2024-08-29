@@ -24,7 +24,6 @@ export class AuthService {
         tap((response) => {
           if (response && response.message) {
             console.log('Registrazione:', response.message);
-            this.router.navigate(['auth']);
           }
         }),
         catchError((error) => {
@@ -39,7 +38,6 @@ export class AuthService {
       tap((response: any) => {
         if (response && response.token) {
           this.saveUser(response);
-          this.router.navigate(['homepage']);
         }
       }),
       catchError((error) => {
