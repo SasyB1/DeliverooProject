@@ -50,4 +50,8 @@ export class NavbarComponent {
   toggleDarkMode() {
     this.themeSvc.modetoggle();
   }
+
+  onLogout() {
+    this.authSvc.logout();
+  }
 }

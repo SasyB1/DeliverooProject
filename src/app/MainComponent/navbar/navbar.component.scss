@@ -1,4 +1,3 @@
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 #LogoDeliveroo {
   width: 120px;
 }
@@ -24,11 +23,15 @@
   background-color: #00ccbc;
 }
 .no-style {
+  cursor: pointer;
   text-decoration: none;
-  color: #000;
 }
 .no-style:hover {
-  color: #00ccbc;
+  color: #00ccbc !important;
+}
+
+.logoutPointer {
+  cursor: pointer;
 }
 
 /* Switch Mode */
@@ -87,4 +90,8 @@ input:checked + .slider:before {
 
 .color-text {
   color: var(--color-text) !important;
+}
+
+.marginEmail {
+  margin: 0 0 0 31px;
 }

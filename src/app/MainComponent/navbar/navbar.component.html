@@ -99,26 +99,67 @@
           ></button>
         </div>
         <div class="offcanvas-body d-flex flex-column color-bg">
-          <a
-            *ngIf="!isAuthenticated()"
-            class="btn btnColor w-100 py-2 fw-bold text-light mb-3"
-            routerLink="auth"
-          >
-            {{ "NAVBAR.REGISTER_OR_LOGIN" | translate }}
-          </a>
-          <a *ngIf="isAuthenticated()" routerLink="account-details">
-            Dettagli account
-            <p *ngIf="userEmail" class="color-text">{{ userEmail }}</p>
-          </a>
-          <div class="mt-3">
+          <div *ngIf="!isAuthenticated()">
             <a
-              class="no-style color-text"
-              href="https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjTi-b-soOIAxX5iv0HHUUCHEkQPAgI"
+              class="btn btnColor w-100 py-2 fw-bold text-light mb-3"
+              routerLink="auth"
             >
-              <i class="bi bi-question-circle me-2"></i>
-              {{ "NAVBAR.FAQ" | translate }}
+              {{ "NAVBAR.REGISTER_OR_LOGIN" | translate }}
             </a>
+            <div class="mt-3">
+              <a
+                class="no-style color-text"
+                href="https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjTi-b-soOIAxX5iv0HHUUCHEkQPAgI"
+              >
+                <i class="bi bi-question-circle me-2"></i>
+                {{ "NAVBAR.FAQ" | translate }}
+              </a>
+            </div>
           </div>
+          <div class="row" *ngIf="isAuthenticated()">
+            <div class="list-group">
+              <a
+                routerLink="account-details"
+                class="list-group-item list-group-item-action no-style color-text color-bg"
+              >
+                <div class="d-flex w-100 align-items-center">
+                  <i class="bi bi-person fs-4 me-2"></i>
+                  <p class="mb-1">Dettagli account</p>
+                </div>
+                <p *ngIf="userEmail" class="color-text marginEmail">
+                  {{ userEmail }}
+                </p>
+              </a>
+              <a
+                routerLink="order-history"
+                class="list-group-item list-group-item-action no-style color-text color-bg"
+              >
+                <div class="d-flex w-100 align-items-center">
+                  <i class="bi bi-receipt fs-4 me-2"></i>
+                  <p class="mb-1">Storico ordini</p>
+                </div>
+              </a>
+              <a
+                routerLink="faq"
+                class="list-group-item list-group-item-action no-style color-text color-bg"
+              >
+                <div class="d-flex w-100 align-items-center">
+                  <i class="bi bi-question-circle fs-4 me-2"></i>
+                  <p class="mb-1">FAQ</p>
+                </div>
+              </a>
+              <a
+                class="list-group-item list-group-item-action text-danger logoutPointer color-bg"
+                (click)="onLogout()"
+              >
+                <div class="d-flex w-100 align-items-center">
+                  <i class="bi bi-box-arrow-right fs-4 me-2"></i>
+                  <p class="mb-1">Log out</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
           <div class="mt-auto">
             <select
               [value]="languageSignal()"
