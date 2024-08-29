@@ -43,9 +43,25 @@
               placeholder="Password"
             />
           </div>
-          <div class="input-group">
-            <i class="bx bxs-user"></i>
-            <input formControlName="ruolo" type="text" placeholder="Ruolo" />
+          <div class="input-group radio-group d-flex justify-content-center">
+            <label class="radio-label">
+              Ospite
+              <input
+                formControlName="ruolo"
+                type="radio"
+                value="Ospite"
+                class="form-radio"
+              />
+            </label>
+            <label class="radio-label">
+              Ristoratore
+              <input
+                formControlName="ruolo"
+                type="radio"
+                value="Ristoratore"
+                class="form-radio"
+              />
+            </label>
           </div>
           <button (click)="onSignUp()">Sign up</button>
           <p class="color-text">

@@ -259,3 +259,31 @@ body {
     font-size: 2rem;
   }
 }
+
+.input-group.radio-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-group.radio-group i {
+  font-size: 18px;
+  color: #aaa;
+  margin-right: 10px;
+}
+
+.input-group.radio-group input.form-radio {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.input-group.radio-group input.form-radio:checked {
+  accent-color: #007bff;
+}

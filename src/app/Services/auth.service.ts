@@ -18,12 +18,20 @@ export class AuthService {
   }
 
   register(userData: any) {
-    return this.http.post('https://localhost:7223/register', userData).pipe(
-      catchError((error) => {
-        console.error('Registration error:', error);
-        return of(null);
-      })
-    );
+    return this.http
+      .post<any>('https://localhost:7223/register', userData)
+      .pipe(
+        tap((response) => {
+          if (response && response.message) {
+            console.log('Registrazione:', response.message);
+            this.router.navigate(['auth']);
+          }
+        }),
+        catchError((error) => {
+          alert('Errore durante la registrazione. Per favore, riprova.');
+          return of(null);
+        })
+      );
   }
 
   login(credentials: any) {
@@ -31,6 +39,7 @@ export class AuthService {
       tap((response: any) => {
         if (response && response.token) {
           this.saveUser(response);
+          this.router.navigate(['homepage']);
         }
       }),
       catchError((error) => {
