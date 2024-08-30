@@ -1,0 +1,707 @@
+<div class="container-fluid">
+  <div class="row flex-column">
+    <div class="col d-flex align-items-center p-0 border-bottom pb-3">
+      <img
+        src="../../../../../assets/image/scooterDeliveroo.png"
+        alt="Scooter Deliveroo"
+        class="me-3"
+      />
+      <div class="d-flex flex-column">
+        <p class="m-0 fsSidebar">Adesso</p>
+        <p class="m-0 fw-bold">Centro Storico</p>
+      </div>
+      <a
+        type="button"
+        class="ms-auto"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Cambia
+      </a>
+    </div>
+    <div class="col d-flex flex-column pt-2 gap-1 pb-1 border-bottom">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="deliveryOption"
+          id="consegna"
+          value="consegna"
+        />
+        <label class="form-check-label" for="consegna"> Consegna </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="deliveryOption"
+          id="ritiro"
+          value="ritiro"
+        />
+        <label class="form-check-label" for="ritiro"> Ritiro </label>
+      </div>
+    </div>
+    <div class="col px-0 pt-2 border-bottom pb-1">
+      <div class="accordion" id="accordionExample2">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button
+              class="accordion-button collapsed"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              Ordina
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample2"
+          >
+            <div class="accordion-body gap-1">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="orderOptions"
+                  id="consegnaRapida"
+                  value="consegnaRapida"
+                />
+                <label class="form-check-label" for="consegnaRapida">
+                  Consegna più rapida
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="orderOptions"
+                  id="consigliati"
+                  value="consigliati"
+                />
+                <label class="form-check-label" for="consigliati">
+                  Consigliati
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="orderOptions"
+                  id="distanza"
+                  value="distanza"
+                />
+                <label class="form-check-label" for="distanza">
+                  Distanza
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="orderOptions"
+                  id="piuVotati"
+                  value="piuVotati"
+                />
+                <label class="form-check-label" for="piuVotati">
+                  I più votati
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col px-0 pt-2 border-bottom pb-1">
+      <div class="accordion" id="accordionExample3">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button
+              class="accordion-button collapsed"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              Offerte
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample3"
+          >
+            <div class="accordion-body gap-1">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="tutteOfferte"
+                  value="tutteOfferte"
+                />
+                <label class="form-check-label" for="tutteOfferte">
+                  Tutte le offerte disponibili
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="offerteZona"
+                  value="offerteZona"
+                />
+                <label class="form-check-label" for="offerteZona">
+                  Offerte nella tua zona
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="articoliSelezionati"
+                  value="articoliSelezionati"
+                />
+                <label class="form-check-label" for="articoliSelezionati">
+                  Articoli selezionati
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="spesaMinimaBassa"
+                  value="spesaMinimaBassa"
+                />
+                <label class="form-check-label" for="spesaMinimaBassa">
+                  Offerte con spesa minima bassa
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="septemberOffers"
+                  value="septemberOffers"
+                />
+                <label class="form-check-label" for="septemberOffers">
+                  September Offers
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col px-0 pt-2 border-bottom pb-1">
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Regimi alimentari
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body gap-1">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="halal"
+                  value="halal"
+                />
+                <label class="form-check-label" for="halal"> Halal </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="senzaGlutine"
+                  value="senzaGlutine"
+                />
+                <label class="form-check-label" for="senzaGlutine">
+                  Senza Glutine
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="veganFriendly"
+                  value="veganFriendly"
+                />
+                <label class="form-check-label" for="veganFriendly">
+                  Vegan Friendly
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="vegetariano"
+                  value="vegetariano"
+                />
+                <label class="form-check-label" for="vegetariano">
+                  Vegetariano
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col px-0 pt-2 border-bottom pb-1">
+      <div class="accordion" id="accordionExample4">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button
+              class="accordion-button collapsed"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseFour"
+              aria-expanded="false"
+              aria-controls="collapseFour"
+            >
+              Cucine
+            </button>
+          </h2>
+          <div
+            id="collapseFour"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingFour"
+            data-bs-parent="#accordionExample4"
+          >
+            <div class="accordion-body gap-1">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="americano"
+                  value="americano"
+                />
+                <label class="form-check-label" for="americano">
+                  Americano
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="asiaticoFusion"
+                  value="asiaticoFusion"
+                />
+                <label class="form-check-label" for="asiaticoFusion">
+                  Asiatico fusion
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="cinese"
+                  value="cinese"
+                />
+                <label class="form-check-label" for="cinese"> Cinese </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="colazione"
+                  value="colazione"
+                />
+                <label class="form-check-label" for="colazione">
+                  Colazione
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="giapponese"
+                  value="giapponese"
+                />
+                <label class="form-check-label" for="giapponese">
+                  Giapponese
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="greco"
+                  value="greco"
+                />
+                <label class="form-check-label" for="greco"> Greco </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="hawaiano"
+                  value="hawaiano"
+                />
+                <label class="form-check-label" for="hawaiano">
+                  Hawaiano
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="healthy"
+                  value="healthy"
+                />
+                <label class="form-check-label" for="healthy"> Healthy </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="indiano"
+                  value="indiano"
+                />
+                <label class="form-check-label" for="indiano"> Indiano </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="italiano"
+                  value="italiano"
+                />
+                <label class="form-check-label" for="italiano">
+                  Italiano
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="messicano"
+                  value="messicano"
+                />
+                <label class="form-check-label" for="messicano">
+                  Messicano
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="peruviano"
+                  value="peruviano"
+                />
+                <label class="form-check-label" for="peruviano">
+                  Peruviano
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="spagnolo"
+                  value="spagnolo"
+                />
+                <label class="form-check-label" for="spagnolo">
+                  Spagnolo
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="spesa"
+                  value="spesa"
+                />
+                <label class="form-check-label" for="spesa"> Spesa </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="thailandese"
+                  value="thailandese"
+                />
+                <label class="form-check-label" for="thailandese">
+                  Thailandese
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="turco"
+                  value="turco"
+                />
+                <label class="form-check-label" for="turco"> Turco </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col px-0 pt-2 border-bottom pb-1">
+      <div class="accordion" id="accordionExample5">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFive">
+            <button
+              class="accordion-button collapsed"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseFive"
+              aria-expanded="false"
+              aria-controls="collapseFive"
+            >
+              Piatti
+            </button>
+          </h2>
+          <div
+            id="collapseFive"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingFive"
+            data-bs-parent="#accordionExample5"
+          >
+            <div class="accordion-body gap-1">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="bakery"
+                  value="bakery"
+                />
+                <label class="form-check-label" for="bakery"> Bakery </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="bubbleTea"
+                  value="bubbleTea"
+                />
+                <label class="form-check-label" for="bubbleTea">
+                  Bubble tea
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="burrito"
+                  value="burrito"
+                />
+                <label class="form-check-label" for="burrito"> Burrito </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="carne"
+                  value="carne"
+                />
+                <label class="form-check-label" for="carne"> Carne </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="dessert"
+                  value="dessert"
+                />
+                <label class="form-check-label" for="dessert"> Dessert </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="fruttiDiMare"
+                  value="fruttiDiMare"
+                />
+                <label class="form-check-label" for="fruttiDiMare">
+                  Frutti di mare
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="hamburger"
+                  value="hamburger"
+                />
+                <label class="form-check-label" for="hamburger">
+                  Hamburger
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="hotDogs"
+                  value="hotDogs"
+                />
+                <label class="form-check-label" for="hotDogs"> Hot dogs </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="insalate"
+                  value="insalate"
+                />
+                <label class="form-check-label" for="insalate">
+                  Insalate
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="kebab"
+                  value="kebab"
+                />
+                <label class="form-check-label" for="kebab"> Kebab </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="noodles"
+                  value="noodles"
+                />
+                <label class="form-check-label" for="noodles"> Noodles </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="pasta"
+                  value="pasta"
+                />
+                <label class="form-check-label" for="pasta"> Pasta </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="piadina"
+                  value="piadina"
+                />
+                <label class="form-check-label" for="piadina"> Piadina </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="pizza"
+                  value="pizza"
+                />
+                <label class="form-check-label" for="pizza"> Pizza </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="poke"
+                  value="poke"
+                />
+                <label class="form-check-label" for="poke"> Poke </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="pollo"
+                  value="pollo"
+                />
+                <label class="form-check-label" for="pollo"> Pollo </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="ramen"
+                  value="ramen"
+                />
+                <label class="form-check-label" for="ramen"> Ramen </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="sandwich"
+                  value="sandwich"
+                />
+                <label class="form-check-label" for="sandwich">
+                  Sandwich
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="sushi"
+                  value="sushi"
+                />
+                <label class="form-check-label" for="sushi"> Sushi </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="tacos"
+                  value="tacos"
+                />
+                <label class="form-check-label" for="tacos"> Tacos </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Titolo del Modale</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">Contenuto del modale...</div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Chiudi
+          </button>
+          <button type="button" class="btn btn-primary">Salva modifiche</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

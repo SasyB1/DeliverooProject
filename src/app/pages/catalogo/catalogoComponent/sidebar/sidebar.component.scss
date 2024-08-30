@@ -1,0 +1,39 @@
+img {
+  width: 45px;
+}
+.fsSidebar {
+  font-size: 14px;
+}
+a {
+  text-decoration: none;
+  color: #35b8b2;
+}
+.form-check-input:checked {
+  background-color: #35b8b2;
+  border-color: #35b8b2;
+}
+.form-check-input:checked::after {
+  background-color: #35b8b2;
+}
+.accordion-button {
+  border: none;
+  box-shadow: none;
+}
+
+.accordion-item {
+  border: none;
+  border-radius: 0;
+}
+
+.accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+.accordion-button:not(.collapsed) {
+  background-color: #35b8b2;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
