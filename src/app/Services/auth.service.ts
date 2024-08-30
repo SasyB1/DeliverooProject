@@ -2,6 +2,9 @@ import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { iLoginRequest } from '../Models/LoginRequest';
+import { iRegisterRequest } from '../Models/RegisterRequest';
+import { iLoginResponse } from '../Models/LoginResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +20,7 @@ export class AuthService {
     }
   }
 
-  register(userData: any) {
+  register(userData: iRegisterRequest) {
     return this.http
       .post<any>('https://localhost:7223/register', userData)
       .pipe(
@@ -33,7 +36,7 @@ export class AuthService {
       );
   }
 
-  login(credentials: any) {
+  login(credentials: iLoginRequest) {
     return this.http.post('https://localhost:7223/login', credentials).pipe(
       tap((response: any) => {
         if (response && response.token) {
@@ -53,7 +56,7 @@ export class AuthService {
     this.router.navigate(['auth']);
   }
 
-  private saveUser(user: any) {
+  private saveUser(user: iLoginResponse) {
     localStorage.setItem('user', JSON.stringify(user));
     this.userSignal.set(user);
   }

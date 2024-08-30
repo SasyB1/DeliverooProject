@@ -44,15 +44,13 @@ export class AuthComponent implements OnInit {
     if (this.signUpForm.valid) {
       this.authService.register(this.signUpForm.value).subscribe((response) => {
         if (response) {
-          // Mostra l'alert di successo
           Swal.fire({
             title: 'Registrazione completata!',
             text: 'Verrai reindirizzato alla homepage.',
             icon: 'success',
-            timer: 1500, // Mostra l'alert per 1.5 secondi
+            timer: 1500,
             showConfirmButton: false,
           }).then(() => {
-            // Dopo che l'alert è stato chiuso, naviga verso la homepage
             this.router.navigate(['/homepage']);
           });
         }

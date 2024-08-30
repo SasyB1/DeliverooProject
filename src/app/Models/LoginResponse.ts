@@ -1,4 +1,4 @@
-interface iLoginResponse {
+export interface iLoginResponse {
   ID_Utente: number;
   Nome: string;
   Cognome: string;

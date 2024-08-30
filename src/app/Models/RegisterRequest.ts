@@ -1,4 +1,4 @@
-interface iRegisterRequest {
+export interface iRegisterRequest {
   nome: string;
   cognome: string;
   email: string;
