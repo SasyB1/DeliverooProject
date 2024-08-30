@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { iSuggestion } from '../../../../Models/OSMSuggestion';
+import { iSuggestion } from '../../../../Models/OSMSuggestion'; // Assicurati che il percorso sia corretto
+import { iRistorante } from '../../../../Models/Ristorante';
+import { RistoranteService } from '../../../../Services/Ristorante.service';
 
 @Component({
   selector: 'app-hero',
@@ -17,19 +19,25 @@ export class HeroComponent {
   userLat: number | null = null;
   userLon: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private ristoranteService: RistoranteService,
+    private router: Router
+  ) {}
 
-  onInput(event: any): void {
-    const query = event.target.value;
+  onInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
 
     if (query.length > 2) {
-      this.http
-        .get(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${query}&addressdetails=1&limit=5`
-        )
-        .subscribe((results: any) => {
+      this.ristoranteService.getSuggestions(query).subscribe({
+        next: (results: iSuggestion[]) => {
           this.suggestions = results;
-        });
+        },
+        error: (error) => {
+          console.error('Errore nella richiesta:', error);
+          this.suggestions = [];
+        },
+      });
     } else {
       this.suggestions = [];
     }
@@ -40,24 +48,24 @@ export class HeroComponent {
     this.userLat = parseFloat(suggestion.lat);
     this.userLon = parseFloat(suggestion.lon);
     this.suggestions = [];
-    // Effettua la ricerca dei ristoranti nelle vicinanze
     this.searchAddress();
   }
 
   searchAddress(): void {
     if (this.userLat !== null && this.userLon !== null) {
-      const maxDistanceKm = 10; // Esempio: 10 km di raggio
-      this.http
-        .get(`https://localhost:7223/vicini`, {
-          params: {
-            latitudine: this.userLat.toString(),
-            longitudine: this.userLon.toString(),
-            distanzaMassimaKm: maxDistanceKm.toString(),
+      const maxDistanceKm = 10;
+      this.ristoranteService
+        .getRistoranti(this.userLat, this.userLon, maxDistanceKm)
+        .subscribe({
+          next: (ristoranti: iRistorante[]) => {
+            console.log('Ristoranti nelle vicinanze:', ristoranti);
+            this.router.navigate(['/catalogo'], {
+              state: { ristoranti },
+            });
           },
-        })
-        .subscribe((ristoranti: any) => {
-          console.log('Ristoranti nelle vicinanze:', ristoranti);
-          // Gestisci la lista dei ristoranti come preferisci
+          error: (error) => {
+            console.error('Errore nella ricerca dei ristoranti:', error);
+          },
         });
     }
   }
