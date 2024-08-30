@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { iSuggestion } from '../../../../Models/OSMSuggestion';
 
 @Component({
   selector: 'app-hero',
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class HeroComponent {
   searchQuery: string = '';
-  suggestions: any[] = [];
+  suggestions: iSuggestion[] = [];
   userLat: number | null = null;
   userLon: number | null = null;
 
@@ -34,7 +35,7 @@ export class HeroComponent {
     }
   }
 
-  selectSuggestion(suggestion: any): void {
+  selectSuggestion(suggestion: iSuggestion): void {
     this.searchQuery = suggestion.display_name;
     this.userLat = parseFloat(suggestion.lat);
     this.userLon = parseFloat(suggestion.lon);
