@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { iSuggestion } from '../../../../Models/OSMSuggestion'; // Assicurati che il percorso sia corretto
+import { iSuggestion } from '../../../../Models/OSMSuggestion';
 import { iRistorante } from '../../../../Models/Ristorante';
 import { RistoranteService } from '../../../../Services/Ristorante.service';
 
@@ -48,6 +48,7 @@ export class HeroComponent {
     this.userLat = parseFloat(suggestion.lat);
     this.userLon = parseFloat(suggestion.lon);
     this.suggestions = [];
+    this.ristoranteService.setCityName(suggestion.display_name);
     this.searchAddress();
   }
 

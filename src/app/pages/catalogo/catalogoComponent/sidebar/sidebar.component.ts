@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RistoranteService } from '../../../../Services/Ristorante.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent {}
+export class SidebarComponent implements OnInit {
+  cityName: string = '';
+
+  constructor(private ristoranteService: RistoranteService) {}
+
+  ngOnInit(): void {
+    this.cityName = this.ristoranteService.getCityName();
+  }
+}

@@ -13,6 +13,7 @@ export class RistoranteService {
   private apiUrlSuggestions = 'https://nominatim.openstreetmap.org/search';
 
   ristoranti = signal<iRistorante[]>([]);
+  cityName = signal<string>('');
 
   constructor(private http: HttpClient) {}
 
@@ -51,5 +52,13 @@ export class RistoranteService {
     if (savedRistoranti) {
       this.ristoranti.set(JSON.parse(savedRistoranti));
     }
+  }
+
+  setCityName(newCityName: string): void {
+    this.cityName.set(newCityName);
+  }
+
+  getCityName(): string {
+    return this.cityName();
   }
 }
