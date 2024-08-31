@@ -1,24 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect } from '@angular/core';
 import { SidebarComponent } from './catalogoComponent/sidebar/sidebar.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { RistoranteService } from '../../Services/Ristorante.service';
 import { iRistorante } from '../../Models/Ristorante';
+import { CommonModule } from '@angular/common';
+import { DispayWindowComponent } from './catalogoComponent/dispay-window/dispay-window.component';
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [SidebarComponent],
+  imports: [SidebarComponent, DispayWindowComponent],
   templateUrl: './catalogo.component.html',
-  styleUrl: './catalogo.component.scss',
+  styleUrls: ['./catalogo.component.scss'],
 })
-export class CatalogoComponent implements OnInit {
-  ristoranti: iRistorante[] = [];
-
-  constructor(private router: Router, private route: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state) {
-      this.ristoranti = navigation.extras.state['ristoranti'] || [];
-    }
-  }
-}
+export class CatalogoComponent {}

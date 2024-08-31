@@ -1,10 +1,10 @@
 export interface iRistorante {
   ID_Ristorante: number;
-  Nome: string;
-  Indirizzo: string;
-  Telefono: string;
-  Email: string;
+  nome: string;
+  indirizzo: string;
+  telefono: string;
+  email: string;
   ID_Utente: number;
-  Latitudine: number;
-  Longitudine: number;
+  latitudine: number;
+  longitudine: number;
 }

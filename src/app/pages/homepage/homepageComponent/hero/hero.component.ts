@@ -59,9 +59,10 @@ export class HeroComponent {
         .subscribe({
           next: (ristoranti: iRistorante[]) => {
             console.log('Ristoranti nelle vicinanze:', ristoranti);
-            this.router.navigate(['/catalogo'], {
-              state: { ristoranti },
-            });
+
+            this.ristoranteService.setRistoranti(ristoranti);
+
+            this.router.navigate(['/catalogo']);
           },
           error: (error) => {
             console.error('Errore nella ricerca dei ristoranti:', error);

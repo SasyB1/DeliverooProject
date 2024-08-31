@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { iRistorante } from '../Models/Ristorante';
 import { iSuggestion } from '../Models/OSMSuggestion';
 
@@ -10,6 +11,8 @@ import { iSuggestion } from '../Models/OSMSuggestion';
 export class RistoranteService {
   private apiUrlRistoranti = 'https://localhost:7223/vicini';
   private apiUrlSuggestions = 'https://nominatim.openstreetmap.org/search';
+
+  ristoranti = signal<iRistorante[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +26,9 @@ export class RistoranteService {
       .set('longitudine', longitudine.toString())
       .set('distanzaMassimaKm', distanzaMassimaKm.toString());
 
-    return this.http.get<iRistorante[]>(this.apiUrlRistoranti, { params });
+    return this.http
+      .get<iRistorante[]>(this.apiUrlRistoranti, { params })
+      .pipe(tap((newRistoranti) => this.setRistoranti(newRistoranti)));
   }
 
   getSuggestions(query: string): Observable<iSuggestion[]> {
@@ -34,5 +39,17 @@ export class RistoranteService {
       .set('limit', '5');
 
     return this.http.get<iSuggestion[]>(this.apiUrlSuggestions, { params });
+  }
+
+  setRistoranti(newRistoranti: iRistorante[]): void {
+    this.ristoranti.set(newRistoranti);
+    localStorage.setItem('ristoranti', JSON.stringify(newRistoranti));
+  }
+
+  loadRistoranti(): void {
+    const savedRistoranti = localStorage.getItem('ristoranti');
+    if (savedRistoranti) {
+      this.ristoranti.set(JSON.parse(savedRistoranti));
+    }
   }
 }
