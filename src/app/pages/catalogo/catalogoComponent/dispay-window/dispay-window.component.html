@@ -1,4 +1,28 @@
-<p>dispay-window works!</p>
+<p>Inserisci un indirizzo per scoprire le opzioni disponibili nella tua zona</p>
+<div class="input-group">
+  <input
+    type="text"
+    class="form-control rounded-input m-0"
+    placeholder="Inserisci il tuo indirizzo"
+    [(ngModel)]="searchQuery"
+    (input)="onInput($event)"
+  />
+  <button
+    class="btn DeliverooColor rounded-button fw-bold"
+    type="button"
+    (click)="searchAddress()"
+  >
+    Cerca
+  </button>
+</div>
+<ul *ngIf="suggestions.length > 0" class="autocomplete-list">
+  <li
+    *ngFor="let suggestion of suggestions"
+    (click)="selectSuggestion(suggestion)"
+  >
+    {{ suggestion.display_name }}
+  </li>
+</ul>
 <div *ngFor="let ristorante of ristoranti()">
   <h2>{{ ristorante.nome }}</h2>
   <p>{{ ristorante.indirizzo }}</p>

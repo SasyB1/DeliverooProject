@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { RistoranteService } from '../../../../Services/Ristorante.service';
 
 @Component({
@@ -6,14 +6,16 @@ import { RistoranteService } from '../../../../Services/Ristorante.service';
   standalone: true,
   imports: [],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
   cityName: string = '';
 
-  constructor(private ristoranteService: RistoranteService) {}
-
-  ngOnInit(): void {
-    this.cityName = this.ristoranteService.getCityName();
+  constructor(private ristoranteService: RistoranteService) {
+    effect(() => {
+      this.cityName = this.ristoranteService.cityName();
+    });
   }
+
+  ngOnInit(): void {}
 }

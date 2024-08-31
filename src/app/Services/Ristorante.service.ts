@@ -12,6 +12,7 @@ export class RistoranteService {
   private apiUrlRistoranti = 'https://localhost:7223/vicini';
   private apiUrlSuggestions = 'https://nominatim.openstreetmap.org/search';
 
+  // Utilizzo dei segnali
   ristoranti = signal<iRistorante[]>([]);
   cityName = signal<string>('');
 
