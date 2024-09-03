@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RistoranteService } from '../../../../Services/Ristorante.service';
 import { iSuggestion } from '../../../../Models/OSMSuggestion';
+import { RestaurantService } from '../../../../Services/Restaurant.service';
 
 @Component({
   selector: 'app-dispay-window',
@@ -18,7 +18,7 @@ export class DispayWindowComponent {
   userLat: number | null = null;
   userLon: number | null = null;
 
-  constructor(private ristoranteService: RistoranteService) {
+  constructor(private ristoranteService: RestaurantService) {
     this.ristoranteService.loadRistoranti();
 
     effect(() => {

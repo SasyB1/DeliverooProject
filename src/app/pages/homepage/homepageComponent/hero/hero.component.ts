@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { iSuggestion } from '../../../../Models/OSMSuggestion';
-import { iRistorante } from '../../../../Models/Ristorante';
-import { RistoranteService } from '../../../../Services/Ristorante.service';
+
+import { iRestaurant } from '../../../../Models/Restaurant';
+import { RestaurantService } from '../../../../Services/Restaurant.service';
 
 @Component({
   selector: 'app-hero',
@@ -20,7 +21,7 @@ export class HeroComponent {
   userLon: number | null = null;
 
   constructor(
-    private ristoranteService: RistoranteService,
+    private ristoranteService: RestaurantService,
     private router: Router
   ) {}
 
@@ -58,7 +59,7 @@ export class HeroComponent {
       this.ristoranteService
         .getRistoranti(this.userLat, this.userLon, maxDistanceKm)
         .subscribe({
-          next: (ristoranti: iRistorante[]) => {
+          next: (ristoranti: iRestaurant[]) => {
             console.log('Ristoranti nelle vicinanze:', ristoranti);
 
             this.ristoranteService.setRistoranti(ristoranti);

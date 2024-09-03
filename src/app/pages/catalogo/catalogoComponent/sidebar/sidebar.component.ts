@@ -1,5 +1,5 @@
 import { Component, effect, OnInit } from '@angular/core';
-import { RistoranteService } from '../../../../Services/Ristorante.service';
+import { RestaurantService } from '../../../../Services/Restaurant.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +11,7 @@ import { RistoranteService } from '../../../../Services/Ristorante.service';
 export class SidebarComponent implements OnInit {
   cityName: string = '';
 
-  constructor(private ristoranteService: RistoranteService) {
+  constructor(private ristoranteService: RestaurantService) {
     effect(() => {
       this.cityName = this.ristoranteService.cityName();
     });

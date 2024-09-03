@@ -1,4 +1,4 @@
-export interface iRistorante {
+export interface iRestaurant {
   ID_Ristorante: number;
   nome: string;
   indirizzo: string;
