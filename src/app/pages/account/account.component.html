@@ -1,0 +1,59 @@
+<form (ngSubmit)="createRestaurant()">
+  <div>
+    <label for="nome">Nome:</label>
+    <input id="nome" [(ngModel)]="newRestaurant.nome" name="nome" required />
+  </div>
+  <div>
+    <label for="indirizzo">Indirizzo:</label>
+    <input
+      id="indirizzo"
+      [(ngModel)]="searchQuery"
+      name="indirizzo"
+      (input)="onInput($event)"
+      required
+    />
+    <ul *ngIf="suggestions.length > 0" class="autocomplete-list">
+      <li
+        *ngFor="let suggestion of suggestions"
+        (click)="selectSuggestion(suggestion)"
+      >
+        {{ suggestion.display_name }}
+      </li>
+    </ul>
+  </div>
+  <div>
+    <label for="telefono">Telefono:</label>
+    <input
+      id="telefono"
+      [(ngModel)]="newRestaurant.telefono"
+      name="telefono"
+      required
+    />
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" [(ngModel)]="newRestaurant.email" name="email" required />
+  </div>
+  <div>
+    <label for="image">Immagine:</label>
+    <input id="image" type="file" (change)="onFileChange($event)" />
+  </div>
+  <div *ngFor="let orario of newRestaurant.orariApertura; let i = index">
+    <label>
+      Giorno {{ i }}:
+      <input
+        type="time"
+        [(ngModel)]="orario.oraApertura"
+        [name]="'oraApertura' + i"
+        required
+      />
+      <input
+        type="time"
+        [(ngModel)]="orario.oraChiusura"
+        [name]="'oraChiusura' + i"
+        required
+      />
+    </label>
+  </div>
+  <button type="submit">Crea Ristorante</button>
+</form>
