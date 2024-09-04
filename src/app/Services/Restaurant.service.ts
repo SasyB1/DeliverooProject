@@ -74,6 +74,7 @@ export class RestaurantService {
     formData.append('latitudine', restaurant.latitudine.toString());
     formData.append('longitudine', restaurant.longitudine.toString());
     formData.append('orariApertura', JSON.stringify(restaurant.orariApertura));
+
     if (file) {
       formData.append('immagine', file, file.name);
     }

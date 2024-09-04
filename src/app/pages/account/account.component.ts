@@ -24,8 +24,10 @@ export class AccountComponent implements OnInit {
     longitudine: 0,
     orariApertura: this.getEmptyOrariApertura(),
   };
-  suggestions: iSuggestion[] = [];
   searchQuery: string = '';
+  suggestions: iSuggestion[] = [];
+  selectedLat: number | null = null;
+  selectedLon: number | null = null;
   imageFile?: File;
 
   constructor(private restaurantService: RestaurantService) {}
@@ -63,9 +65,11 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  selectSuggestion(suggestion: any) {
+  selectSuggestion(suggestion: iSuggestion): void {
     this.searchQuery = suggestion.display_name;
     this.newRestaurant.indirizzo = suggestion.display_name;
+    this.newRestaurant.latitudine = parseFloat(suggestion.lat);
+    this.newRestaurant.longitudine = parseFloat(suggestion.lon);
     this.suggestions = [];
   }
 
