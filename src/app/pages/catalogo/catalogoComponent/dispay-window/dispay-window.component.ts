@@ -23,7 +23,9 @@ export class DispayWindowComponent {
 
     effect(() => {
       const ristoranti = this.ristoranti();
-      console.log('Ristoranti ricevuti nel DispayWindowComponent:', ristoranti);
+      console.log('Ristoranti ricevuti:', ristoranti);
+      // Controlla se il campo immaginePath è presente
+      ristoranti.forEach((r) => console.log(r.immaginePath));
     });
   }
 
@@ -70,5 +72,11 @@ export class DispayWindowComponent {
           },
         });
     }
+  }
+  getImageUrl(immaginePath: string | null): string {
+    if (!immaginePath) {
+      return '';
+    }
+    return `https://localhost:7223${immaginePath}`;
   }
 }

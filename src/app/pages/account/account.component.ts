@@ -19,6 +19,7 @@ export class AccountComponent implements OnInit {
     indirizzo: '',
     telefono: '',
     email: '',
+    immaginePath: '',
     ID_Utente: 0,
     latitudine: 0,
     longitudine: 0,

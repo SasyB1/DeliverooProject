@@ -27,4 +27,9 @@
   <h2>{{ ristorante.nome }}</h2>
   <p>{{ ristorante.indirizzo }}</p>
   <p>{{ ristorante.telefono }}</p>
+  <img
+    *ngIf="ristorante.immaginePath"
+    [src]="getImageUrl(ristorante.immaginePath)"
+    alt="Immagine Ristorante"
+  />
 </div>

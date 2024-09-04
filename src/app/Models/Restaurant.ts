@@ -10,4 +10,5 @@ export interface iRestaurant {
   latitudine: number;
   longitudine: number;
   orariApertura: iOpeningHours[];
+  immaginePath: string;
 }
