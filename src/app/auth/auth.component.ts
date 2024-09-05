@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss',
+  styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
   signUpForm: FormGroup;
@@ -28,7 +28,6 @@ export class AuthComponent implements OnInit {
       cognome: [''],
       email: [''],
       telefono: [''],
-      indirizzo: [''],
       password: [''],
       ruolo: [''],
     });

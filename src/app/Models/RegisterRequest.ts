@@ -3,7 +3,6 @@ export interface iRegisterRequest {
   cognome: string;
   email: string;
   telefono: string;
-  indirizzo: string;
   password: string;
   ruolo: string;
 }

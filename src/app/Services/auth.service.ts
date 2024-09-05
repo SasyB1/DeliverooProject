@@ -64,4 +64,31 @@ export class AuthService {
   getUserSignal() {
     return this.userSignal;
   }
+
+  updateUser(userData: iRegisterRequest) {
+    const currentUser = this.getUserSignal()();
+
+    if (!currentUser || !currentUser.iD_Utente) {
+      console.error('Errore: ID utente non trovato!');
+      return of(null);
+    }
+
+    return this.http
+      .put<any>(
+        `https://localhost:7223/update/${currentUser.iD_Utente}`,
+        userData
+      )
+      .pipe(
+        tap((response) => {
+          if (response) {
+            console.log('Utente aggiornato nel database:', response);
+            this.saveUser(response);
+          }
+        }),
+        catchError((error) => {
+          console.error("Errore durante l'aggiornamento utente:", error);
+          return of(null);
+        })
+      );
+  }
 }

@@ -1,108 +1,55 @@
 import { Component, OnInit } from '@angular/core';
-import { iSuggestion } from '../../Models/OSMSuggestion';
-import { iRestaurant } from '../../Models/Restaurant';
-import { RestaurantService } from '../../Services/Restaurant.service';
-import { iOpeningHours } from '../../Models/OpeningHours';
-import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../Services/auth.service';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { iRegisterRequest } from '../../Models/RegisterRequest';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [RouterModule, CommonModule, ReactiveFormsModule],
   templateUrl: './account.component.html',
-  styleUrl: './account.component.scss',
+  styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
-  newRestaurant: iRestaurant = {
-    nome: '',
-    indirizzo: '',
-    telefono: '',
-    email: '',
-    immaginePath: '',
-    ID_Utente: 0,
-    latitudine: 0,
-    longitudine: 0,
-    orariApertura: this.getEmptyOrariApertura(),
-  };
-  searchQuery: string = '';
-  suggestions: iSuggestion[] = [];
-  selectedLat: number | null = null;
-  selectedLon: number | null = null;
-  imageFile?: File;
+  userForm!: FormGroup;
 
-  constructor(private restaurantService: RestaurantService) {}
+  constructor(private authService: AuthService, private fb: FormBuilder) {}
 
-  ngOnInit(): void {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      const user = JSON.parse(userJson);
-      if (user && user.iD_Utente) {
-        this.newRestaurant.ID_Utente = user.iD_Utente;
-      } else {
-        console.error('ID utente non trovato nel localStorage');
-      }
-    } else {
-      console.error('Nessun utente salvato nel localStorage');
+  ngOnInit() {
+    const user = this.authService.getUserSignal()();
+    if (!user || !user.iD_Utente) {
+      console.error('Errore: Utente non trovato o ID utente non disponibile');
+      return;
     }
+
+    this.userForm = this.fb.group({
+      nome: [user?.nome],
+      cognome: [user?.cognome],
+      email: [user?.email],
+      telefono: [user?.telefono],
+      ruolo: [user?.ruolo || 'Ospite', []],
+      password: [user?.password],
+    });
   }
 
-  onInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const query = input.value;
+  onUpdate() {
+    if (this.userForm.valid) {
+      const formData = this.userForm.value;
 
-    if (query.length > 2) {
-      this.restaurantService.getSuggestions(query).subscribe({
-        next: (results: iSuggestion[]) => {
-          this.suggestions = results;
+      this.authService.updateUser(formData).subscribe(
+        (response) => {
+          if (response) {
+            console.log('Utente aggiornato con successo:', response);
+            alert('Dati aggiornati con successo');
+          }
         },
-        error: (error) => {
-          console.error('Errore nella richiesta:', error);
-          this.suggestions = [];
-        },
-      });
-    } else {
-      this.suggestions = [];
+        (error) => {
+          console.error("Errore durante l'aggiornamento utente:", error);
+          alert("Errore durante l'aggiornamento utente");
+        }
+      );
     }
-  }
-
-  selectSuggestion(suggestion: iSuggestion): void {
-    this.searchQuery = suggestion.display_name;
-    this.newRestaurant.indirizzo = suggestion.display_name;
-    this.newRestaurant.latitudine = parseFloat(suggestion.lat);
-    this.newRestaurant.longitudine = parseFloat(suggestion.lon);
-    this.suggestions = [];
-  }
-
-  getEmptyOrariApertura(): iOpeningHours[] {
-    return Array.from({ length: 7 }, (_, index) => ({
-      giornoSettimana: index,
-      oraApertura: '09:00',
-      oraChiusura: '15:00',
-    }));
-  }
-
-  onFileChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.imageFile = input.files[0];
-    }
-  }
-
-  createRestaurant(): void {
-    console.log(
-      'Orari di Apertura JSON:',
-      JSON.stringify(this.newRestaurant.orariApertura)
-    );
-    this.restaurantService
-      .createRestaurant(this.newRestaurant, this.imageFile)
-      .subscribe({
-        next: (response) => {
-          console.log('Ristorante creato con successo:', response);
-        },
-        error: (error) => {
-          console.error('Errore nella creazione del ristorante:', error);
-        },
-      });
   }
 }
