@@ -1,4 +1,4 @@
-<div *ngIf="userForm" class="color-bg">
+<div class="color-bg">
   <div class="account-header text-white p-4">
     <div class="container">
       <div class="row align-items-center">
@@ -18,8 +18,10 @@
               >Dettaglio account</a
             >
             <a
+              *ngIf="userForm.get('ruolo')?.value === 'Ristoratore'"
               class="nav-link btn color-bg color-text me-2"
               routerLink="/account/restaurant"
+              routerLinkActive="active"
               >Ristoranti</a
             >
           </nav>
@@ -27,9 +29,11 @@
       </div>
     </div>
   </div>
-  <router-outlet></router-outlet>
 
-  <div class="account-details container mt-4 p-4 w-50 color-text">
+  <div
+    *ngIf="!isRestaurantRoute()"
+    class="account-details container mt-4 p-4 w-50 color-text"
+  >
     <h2 class="mb-4">Dettaglio account</h2>
     <form [formGroup]="userForm" (ngSubmit)="onUpdate()">
       <div class="row mb-3">
@@ -78,7 +82,7 @@
         </div>
       </div>
       <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-12">
           <label for="password" class="form-label">Password </label>
           <input
             type="password"
@@ -108,5 +112,46 @@
 
       <button type="submit" class="btn btn-primary mt-4">Aggiorna dati</button>
     </form>
+    <div class="delete-account mt-5 p-4 border rounded">
+      <h3>Elimina account</h3>
+      <p>
+        Digita "CANCELLA" nella casella qui sotto per inviarci la tua richiesta
+        di eliminazione dell'account.
+      </p>
+      <p>
+        Dopo aver inviato la richiesta, non potrai più fare il login, accedere
+        al credito o ripristinare il tuo account.
+      </p>
+      <p>
+        Entro un mese elimineremo l'account e i dati personali a esso associati
+        conformemente alla nostra
+        <a href="#">informativa sulla privacy</a>. L'eliminazione dell'account è
+        definitiva.
+      </p>
+
+      <form [formGroup]="deleteAccountForm" (ngSubmit)="onDeleteAccount()">
+        <div class="form-group">
+          <label for="confirmDelete">Digita "CANCELLA"</label>
+          <input
+            type="text"
+            id="confirmDelete"
+            class="form-control"
+            formControlName="confirmDelete"
+            placeholder="Digita 'CANCELLA'"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-danger mt-3"
+          [disabled]="
+            deleteAccountForm.get('confirmDelete')?.value !== 'CANCELLA'
+          "
+        >
+          Elimina l'account per sempre
+        </button>
+      </form>
+    </div>
   </div>
 </div>
+<router-outlet></router-outlet>

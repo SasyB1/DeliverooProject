@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { iRegisterRequest } from '../../Models/RegisterRequest';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-account',
@@ -14,8 +18,13 @@ import { iRegisterRequest } from '../../Models/RegisterRequest';
 })
 export class AccountComponent implements OnInit {
   userForm!: FormGroup;
+  deleteAccountForm!: FormGroup;
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     const user = this.authService.getUserSignal()();
@@ -23,15 +32,24 @@ export class AccountComponent implements OnInit {
       console.error('Errore: Utente non trovato o ID utente non disponibile');
       return;
     }
+    const ruoloMapped = user.ruolo === 0 ? 'Ospite' : 'Ristoratore';
 
     this.userForm = this.fb.group({
       nome: [user?.nome],
       cognome: [user?.cognome],
       email: [user?.email],
       telefono: [user?.telefono],
-      ruolo: [user?.ruolo || 'Ospite', []],
+      ruolo: [ruoloMapped],
       password: [user?.password],
     });
+
+    this.deleteAccountForm = this.fb.group({
+      confirmDelete: ['', Validators.required],
+    });
+  }
+
+  isRestaurantRoute(): boolean {
+    return this.router.url.includes('restaurant');
   }
 
   onUpdate() {
@@ -50,6 +68,27 @@ export class AccountComponent implements OnInit {
           alert("Errore durante l'aggiornamento utente");
         }
       );
+    }
+  }
+
+  onDeleteAccount() {
+    if (this.deleteAccountForm.get('confirmDelete')?.value === 'CANCELLA') {
+      const userId = this.authService.getUserSignal()().iD_Utente;
+
+      this.authService.deleteUser(userId).subscribe(
+        (response) => {
+          console.log('Account eliminato con successo:', response);
+          alert('Account eliminato con successo');
+          this.authService.logout();
+          this.router.navigate(['/auth']);
+        },
+        (error) => {
+          console.error("Errore durante l'eliminazione dell'account:", error);
+          alert("Errore durante l'eliminazione dell'account");
+        }
+      );
+    } else {
+      alert('Devi digitare "CANCELLA" per confermare l\'eliminazione.');
     }
   }
 }

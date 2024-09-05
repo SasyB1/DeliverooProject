@@ -91,4 +91,17 @@ export class AuthService {
         })
       );
   }
+  deleteUser(userId: number): Observable<any> {
+    return this.http
+      .delete<any>(`https://localhost:7223/delete/${userId}`)
+      .pipe(
+        tap((response) => {
+          console.log('Account eliminato con successo:', response);
+        }),
+        catchError((error) => {
+          console.error("Errore durante l'eliminazione dell'account:", error);
+          return of(null);
+        })
+      );
+  }
 }

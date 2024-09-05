@@ -1,11 +1,7 @@
 .account-header {
-  background-color: #00c4cc; /* Colore verde acqua come da immagine */
-  color: white; /* Testo bianco */
+  background-color: #00c4cc;
+  color: white;
   padding: 40px 0;
-
-  h1 {
-    font-weight: 600;
-  }
 
   p {
     font-size: 18px;
@@ -15,15 +11,11 @@
 
   .nav-link {
     background-color: white;
-  }
-
-  .nav-link.active {
-    background-color: white;
     border-radius: 20px;
   }
-
-  .btn-light {
-    border-radius: 20px;
-    font-weight: bold;
-  }
+}
+.delete-account {
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
 }
