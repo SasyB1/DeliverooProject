@@ -32,6 +32,7 @@ export class AccountComponent implements OnInit {
       console.error('Errore: Utente non trovato o ID utente non disponibile');
       return;
     }
+
     const ruoloMapped = user.ruolo === 0 ? 'Ospite' : 'Ristoratore';
 
     this.userForm = this.fb.group({
@@ -39,7 +40,7 @@ export class AccountComponent implements OnInit {
       cognome: [user?.cognome],
       email: [user?.email],
       telefono: [user?.telefono],
-      ruolo: [ruoloMapped],
+      ruolo: [{ value: ruoloMapped, disabled: true }],
       password: [user?.password],
     });
 
@@ -54,7 +55,9 @@ export class AccountComponent implements OnInit {
 
   onUpdate() {
     if (this.userForm.valid) {
-      const formData = this.userForm.value;
+      const formData = this.userForm.getRawValue();
+
+      console.log('Dati inviati:', formData);
 
       this.authService.updateUser(formData).subscribe(
         (response) => {

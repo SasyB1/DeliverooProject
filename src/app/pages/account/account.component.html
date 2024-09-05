@@ -112,7 +112,10 @@
 
       <button type="submit" class="btn btn-primary mt-4">Aggiorna dati</button>
     </form>
-    <div class="delete-account mt-5 p-4 border rounded">
+    <div
+      class="delete-account mt-5 p-4 border rounded"
+      *ngIf="userForm.get('ruolo')?.value === 'Ospite'"
+    >
       <h3>Elimina account</h3>
       <p>
         Digita "CANCELLA" nella casella qui sotto per inviarci la tua richiesta
