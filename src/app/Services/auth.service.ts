@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { iLoginRequest } from '../Models/LoginRequest';
 import { iRegisterRequest } from '../Models/RegisterRequest';
 import { iLoginResponse } from '../Models/LoginResponse';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -103,5 +104,28 @@ export class AuthService {
           return of(null);
         })
       );
+  }
+  decodeToken(token: string): any {
+    const payload = token.split('.')[1];
+    const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  }
+  checkTokenExpiration() {
+    const user = this.userSignal();
+    if (user && user.token) {
+      const decodedToken: any = this.decodeToken(user.token);
+      const expirationDate = decodedToken.exp * 1000;
+      if (Date.now() > expirationDate) {
+        this.logout();
+      }
+    }
   }
 }

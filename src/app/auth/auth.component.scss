@@ -284,6 +284,23 @@ body {
   cursor: pointer;
 }
 
-.input-group.radio-group input.form-radio:checked {
-  accent-color: #007bff;
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+.custom-radio-btn {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid #35b8b2;
+  margin-right: 10px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+input[type="radio"]:checked + .custom-radio-btn {
+  background-color: #35b8b2;
+}
+
+input[type="radio"]:hover + .custom-radio-btn {
+  border-color: #35b8b2;
 }

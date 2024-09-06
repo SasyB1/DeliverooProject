@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { iOpeningHours } from '../../../Models/OpeningHours';
 import { iSuggestion } from '../../../Models/OSMSuggestion';
 import { iRestaurant } from '../../../Models/Restaurant';
@@ -31,6 +31,8 @@ export class RestaurantComponent implements OnInit {
   selectedLon: number | null = null;
   imageFile?: File;
 
+  ristoranti = signal<iRestaurant[]>([]);
+
   constructor(private restaurantService: RestaurantService) {}
 
   ngOnInit(): void {
@@ -39,12 +41,25 @@ export class RestaurantComponent implements OnInit {
       const user = JSON.parse(userJson);
       if (user && user.iD_Utente) {
         this.newRestaurant.ID_Utente = user.iD_Utente;
+        this.getRestaurantsByUser(user.iD_Utente);
       } else {
         console.error('ID utente non trovato nel localStorage');
       }
     } else {
       console.error('Nessun utente salvato nel localStorage');
     }
+  }
+
+  getRestaurantsByUser(iD_Utente: number): void {
+    this.restaurantService.getRestaurantsByUser(iD_Utente).subscribe({
+      next: (ristoranti: iRestaurant[]) => {
+        this.ristoranti.set(ristoranti);
+        console.log('Ristoranti ottenuti con successo:', ristoranti);
+      },
+      error: (error) => {
+        console.error('Errore nel recupero dei ristoranti:', error);
+      },
+    });
   }
 
   onInput(event: Event): void {
@@ -94,15 +109,41 @@ export class RestaurantComponent implements OnInit {
       'Orari di Apertura JSON:',
       JSON.stringify(this.newRestaurant.orariApertura)
     );
+
     this.restaurantService
       .createRestaurant(this.newRestaurant, this.imageFile)
       .subscribe({
         next: (response) => {
           console.log('Ristorante creato con successo:', response);
+          this.ristoranti.update((currentRistoranti: iRestaurant[]) => {
+            const updatedRistoranti = [...currentRistoranti, response];
+            console.log('Ristoranti aggiornati:', updatedRistoranti);
+            return updatedRistoranti;
+          });
+          this.resetForm();
         },
         error: (error) => {
           console.error('Errore nella creazione del ristorante:', error);
         },
       });
+  }
+
+  resetForm(): void {
+    this.newRestaurant = {
+      nome: '',
+      indirizzo: '',
+      telefono: '',
+      email: '',
+      immaginePath: '',
+      ID_Utente: this.newRestaurant.ID_Utente,
+      latitudine: 0,
+      longitudine: 0,
+      orariApertura: this.getEmptyOrariApertura(),
+    };
+    this.imageFile = undefined;
+    this.searchQuery = '';
+  }
+  getImageUrl(immaginePath: string | null): string {
+    return this.restaurantService.getImageUrl(immaginePath);
   }
 }

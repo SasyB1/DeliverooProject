@@ -1,7 +1,13 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient, HttpEventType, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpEventType,
+  HttpParams,
+  HttpResponse,
+} from '@angular/common/http';
+import { filter, map, Observable, tap } from 'rxjs';
+
 import { iSuggestion } from '../Models/OSMSuggestion';
 import { iRestaurant } from '../Models/Restaurant';
 
@@ -12,7 +18,7 @@ export class RestaurantService {
   private apiUrlRistoranti = 'https://localhost:7223/vicini';
   private apiUrlSuggestions = 'https://nominatim.openstreetmap.org/search';
   private apiUrlCreaRistorante = 'https://localhost:7223/crea-ristorante';
-
+  private apiUrlRistorantiUser = 'https://localhost:7223/GetRestaurantsByUser';
   // Utilizzo dei segnali
   ristoranti = signal<iRestaurant[]>([]);
   cityName = signal<string>('');
@@ -64,7 +70,10 @@ export class RestaurantService {
     return this.cityName();
   }
 
-  createRestaurant(restaurant: iRestaurant, file?: File): Observable<any> {
+  createRestaurant(
+    restaurant: iRestaurant,
+    file?: File
+  ): Observable<iRestaurant> {
     const formData: FormData = new FormData();
     formData.append('nome', restaurant.nome);
     formData.append('indirizzo', restaurant.indirizzo);
@@ -80,21 +89,37 @@ export class RestaurantService {
     }
 
     return this.http
-      .post(this.apiUrlCreaRistorante, formData, {
+      .post<iRestaurant>(this.apiUrlCreaRistorante, formData, {
         observe: 'events',
         reportProgress: true,
       })
       .pipe(
-        tap((event) => {
+        tap((event: HttpEvent<any>) => {
           if (event.type === HttpEventType.UploadProgress) {
             console.log(
               'Upload Progress: ',
               Math.round((event.loaded / event.total!) * 100)
             );
-          } else if (event.type === HttpEventType.Response) {
-            console.log('Upload Complete', event.body);
           }
-        })
+        }),
+        filter(
+          (event): event is HttpResponse<iRestaurant> =>
+            event.type === HttpEventType.Response
+        ),
+        map(
+          (response: HttpResponse<iRestaurant>) => response.body as iRestaurant
+        )
       );
+  }
+
+  getRestaurantsByUser(iD_Utente: number): Observable<any> {
+    return this.http.get(`${this.apiUrlRistorantiUser}/${iD_Utente}`);
+  }
+
+  getImageUrl(immaginePath: string | null): string {
+    if (!immaginePath) {
+      return '';
+    }
+    return `https://localhost:7223${immaginePath}`;
   }
 }

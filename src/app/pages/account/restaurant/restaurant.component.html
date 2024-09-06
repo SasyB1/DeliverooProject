@@ -1,59 +1,125 @@
-<form (ngSubmit)="createRestaurant()">
-  <div>
-    <label for="nome">Nome:</label>
-    <input id="nome" [(ngModel)]="newRestaurant.nome" name="nome" required />
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="mb-4 text-success">I tuoi ristoranti</h2>
+      <div class="row">
+        <div *ngFor="let ristorante of ristoranti()" class="col-md-6 mb-4">
+          <div class="card h-100 shadow-sm">
+            <img
+              *ngIf="ristorante.immaginePath"
+              [src]="getImageUrl(ristorante.immaginePath)"
+              class="card-img-top fixed-size-img"
+              alt="Immagine del ristorante"
+            />
+            <div class="card-body">
+              <h5 class="card-title text-primary">{{ ristorante.nome }}</h5>
+              <p class="card-text">
+                <i class="bx bx-map"></i> {{ ristorante.indirizzo }}
+              </p>
+              <p class="card-text">
+                <i class="bx bx-phone"></i> {{ ristorante.telefono }}
+              </p>
+            </div>
+            <div class="card-footer text-center">
+              <button class="btn btn-outline-danger btn-sm">
+                Rimuovi Ristorante
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm p-4">
+        <h2 class="mb-4 text-info">Crea un nuovo ristorante</h2>
+        <form (ngSubmit)="createRestaurant()">
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome:</label>
+            <input
+              id="nome"
+              [(ngModel)]="newRestaurant.nome"
+              name="nome"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="indirizzo" class="form-label">Indirizzo:</label>
+            <input
+              id="indirizzo"
+              [(ngModel)]="searchQuery"
+              name="indirizzo"
+              (input)="onInput($event)"
+              class="form-control"
+              required
+            />
+            <ul *ngIf="suggestions.length > 0" class="list-group mt-2">
+              <li
+                *ngFor="let suggestion of suggestions"
+                (click)="selectSuggestion(suggestion)"
+                class="list-group-item list-group-item-action"
+              >
+                {{ suggestion.display_name }}
+              </li>
+            </ul>
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Telefono:</label>
+            <input
+              id="telefono"
+              [(ngModel)]="newRestaurant.telefono"
+              name="telefono"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input
+              id="email"
+              [(ngModel)]="newRestaurant.email"
+              name="email"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Immagine:</label>
+            <input
+              id="image"
+              type="file"
+              (change)="onFileChange($event)"
+              class="form-control"
+            />
+          </div>
+          <div
+            *ngFor="let orario of newRestaurant.orariApertura; let i = index"
+            class="mb-3"
+          >
+            <label>Giorno {{ i }}:</label>
+            <div class="d-flex">
+              <input
+                type="time"
+                [(ngModel)]="orario.oraApertura"
+                [name]="'oraApertura' + i"
+                class="form-control me-2"
+                required
+              />
+              <input
+                type="time"
+                [(ngModel)]="orario.oraChiusura"
+                [name]="'oraChiusura' + i"
+                class="form-control"
+                required
+              />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success w-100">
+            Crea Ristorante
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
-  <div>
-    <label for="indirizzo">Indirizzo:</label>
-    <input
-      id="indirizzo"
-      [(ngModel)]="searchQuery"
-      name="indirizzo"
-      (input)="onInput($event)"
-      required
-    />
-    <ul *ngIf="suggestions.length > 0" class="autocomplete-list">
-      <li
-        *ngFor="let suggestion of suggestions"
-        (click)="selectSuggestion(suggestion)"
-      >
-        {{ suggestion.display_name }}
-      </li>
-    </ul>
-  </div>
-  <div>
-    <label for="telefono">Telefono:</label>
-    <input
-      id="telefono"
-      [(ngModel)]="newRestaurant.telefono"
-      name="telefono"
-      required
-    />
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input id="email" [(ngModel)]="newRestaurant.email" name="email" required />
-  </div>
-  <div>
-    <label for="image">Immagine:</label>
-    <input id="image" type="file" (change)="onFileChange($event)" />
-  </div>
-  <div *ngFor="let orario of newRestaurant.orariApertura; let i = index">
-    <label>
-      Giorno {{ i }}:
-      <input
-        type="time"
-        [(ngModel)]="orario.oraApertura"
-        [name]="'oraApertura' + i"
-        required
-      />
-      <input
-        type="time"
-        [(ngModel)]="orario.oraChiusura"
-        [name]="'oraChiusura' + i"
-        required
-      />
-    </label>
-  </div>
-  <button type="submit">Crea Ristorante</button>
-</form>
+</div>

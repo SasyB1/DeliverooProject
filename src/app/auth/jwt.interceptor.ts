@@ -4,6 +4,9 @@ import { AuthService } from '../Services/auth.service';
 
 export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
+
+  authService.checkTokenExpiration();
+
   const user = authService.getUserSignal();
   const token = user()?.token;
 

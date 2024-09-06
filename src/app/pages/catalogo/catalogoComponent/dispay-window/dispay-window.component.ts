@@ -74,9 +74,6 @@ export class DispayWindowComponent {
     }
   }
   getImageUrl(immaginePath: string | null): string {
-    if (!immaginePath) {
-      return '';
-    }
-    return `https://localhost:7223${immaginePath}`;
+    return this.ristoranteService.getImageUrl(immaginePath);
   }
 }
