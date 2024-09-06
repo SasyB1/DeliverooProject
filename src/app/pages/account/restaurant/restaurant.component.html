@@ -97,7 +97,7 @@
             *ngFor="let orario of newRestaurant.orariApertura; let i = index"
             class="mb-3"
           >
-            <label>Giorno {{ i }}:</label>
+            <label>{{ daysOfWeek[i] }}:</label>
             <div class="d-flex">
               <input
                 type="time"

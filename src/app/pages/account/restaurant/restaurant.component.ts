@@ -30,6 +30,15 @@ export class RestaurantComponent implements OnInit {
   selectedLat: number | null = null;
   selectedLon: number | null = null;
   imageFile?: File;
+  daysOfWeek: string[] = [
+    'Domenica',
+    'Lunedì',
+    'Martedì',
+    'Mercoledì',
+    'Giovedì',
+    'Venerdì',
+    'Sabato',
+  ];
 
   ristoranti = signal<iRestaurant[]>([]);
 
