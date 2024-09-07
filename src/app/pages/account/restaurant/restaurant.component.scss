@@ -22,56 +22,52 @@
 
 .fixed-size-img {
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: cover;
 }
 
 .card-body {
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
 }
 
 .card-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
   color: #333;
 }
 
 .card-text {
-  font-size: 0.9rem;
-  color: #777;
+  font-size: 0.85rem;
+  color: #555;
 }
 
-.create-restaurant-form {
-  padding: 2rem;
+.card-footer {
+  padding: 0.5rem;
   background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  margin-top: 1.5rem;
+  text-align: center;
 }
 
-.create-restaurant-form .form-control {
-  margin-bottom: 1.2rem;
+.colorDel {
+  color: #35b8b2;
 }
-
-.btn-primary {
-  background-color: #28a745;
-  border-color: #28a745;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+.colorDelbg {
+  background-color: #35b8b2;
 }
+@media (max-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
-.btn-primary:hover {
-  background-color: #218838;
-  border-color: #218838;
-}
+  .row-cols-1 .col {
+    display: flex;
+    justify-content: center;
+  }
 
-.list-group-item {
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.list-group-item:hover {
-  background-color: #e9ecef;
+  .card {
+    width: 100%;
+    max-width: 400px;
+  }
 }
