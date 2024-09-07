@@ -10,14 +10,19 @@ import { iMenu } from '../../../../Models/Menu';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './restaurant-details.component.html',
-  styleUrl: './restaurant-details.component.scss',
+  styleUrls: ['./restaurant-details.component.scss'],
 })
 export class RestaurantDetailsComponent implements OnInit {
   restaurantId!: number;
   menus: iMenu[] = [];
   newMenuName: string = '';
   newPiattoData: {
-    [key: number]: { name: string; description: string; price: number | null };
+    [key: number]: {
+      name: string;
+      description: string;
+      price: number | null;
+      immagine: File | null;
+    };
   } = {};
 
   constructor(
@@ -47,6 +52,7 @@ export class RestaurantDetailsComponent implements OnInit {
               name: '',
               description: '',
               price: null,
+              immagine: null,
             };
           }
           this.menuService.getPiattiByMenu(menu.iD_Menu).subscribe(
@@ -93,23 +99,43 @@ export class RestaurantDetailsComponent implements OnInit {
       piatto.description &&
       piatto.price !== null
     ) {
-      this.menuService
-        .createPiatto(piatto.name, piatto.description, piatto.price, menuId)
-        .subscribe(
-          () => {
-            this.newPiattoData[menuId] = {
-              name: '',
-              description: '',
-              price: null,
-            };
-            this.loadMenus();
-          },
-          (error) => {
-            console.error('Errore durante la creazione del piatto:', error);
-          }
-        );
+      const formData = new FormData();
+      formData.append('nome', piatto.name);
+      formData.append('descrizione', piatto.description);
+      formData.append('prezzo', piatto.price.toString());
+      formData.append('idMenu', menuId.toString());
+
+      if (piatto.immagine) {
+        formData.append('immagine', piatto.immagine);
+      }
+
+      this.menuService.createPiattoWithImage(formData).subscribe(
+        () => {
+          this.newPiattoData[menuId] = {
+            name: '',
+            description: '',
+            price: null,
+            immagine: null,
+          };
+          this.loadMenus();
+        },
+        (error) => {
+          console.error('Errore durante la creazione del piatto:', error);
+        }
+      );
     } else {
       console.error('Dati del piatto incompleti o non validi', piatto);
     }
+  }
+
+  onFileSelected(event: any, menuId: number): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.newPiattoData[menuId].immagine = file;
+    }
+  }
+
+  getImageUrl(immaginePath: string | null): string {
+    return this.menuService.getImageUrl(immaginePath);
   }
 }

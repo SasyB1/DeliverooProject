@@ -12,9 +12,16 @@
             >
               <div *ngFor="let piatto of menu.piatti" class="piatto-item">
                 <div class="piatto-content">
+                  <img
+                    *ngIf="piatto.immaginePath"
+                    [src]="getImageUrl(piatto.immaginePath)"
+                    alt="{{ piatto.nome }}"
+                    class="piatto-img img-fluid"
+                  />
+
                   <h5>{{ piatto.nome }}</h5>
                   <p>{{ piatto.descrizione }}</p>
-                  <p>Prezzo: €{{ piatto.prezzo }}</p>
+                  <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
                 </div>
               </div>
             </div>
@@ -106,6 +113,14 @@
                 placeholder="Inserisci prezzo"
                 name="piattoPrice{{ menu.iD_Menu }}"
                 [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="piattoImage">Immagine del piatto</label>
+              <input
+                type="file"
+                class="form-control"
+                (change)="onFileSelected($event, menu.iD_Menu)"
               />
             </div>
 

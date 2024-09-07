@@ -3,4 +3,5 @@ export interface iPiatto {
   nome: string;
   descrizione: string;
   prezzo: number;
+  immaginePath: string;
 }

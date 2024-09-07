@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { iMenu } from '../Models/Menu';
 import { iPiatto } from '../Models/Piatto';
 
@@ -27,20 +27,14 @@ export class MenuService {
     return this.http.get<iPiatto[]>(`${this.apiUrl}/get-piatti/${idMenu}`);
   }
 
-  createPiatto(
-    name: string,
-    description: string,
-    price: number,
-    menuId: number
-  ): Observable<any> {
-    const formData = new FormData();
-    formData.append('nome', name);
-    formData.append('descrizione', description);
-    formData.append('prezzo', price.toString());
-    formData.append('idMenu', menuId.toString());
-
-    console.log('Dati inviati al server:', formData);
-
+  createPiattoWithImage(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/create-piatto`, formData);
+  }
+
+  getImageUrl(immaginePath: string | null): string {
+    if (!immaginePath) {
+      return '';
+    }
+    return `https://localhost:7223${immaginePath}`;
   }
 }
