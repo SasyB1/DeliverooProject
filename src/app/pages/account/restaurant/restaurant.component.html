@@ -12,7 +12,10 @@
       </button>
       <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
         <div *ngFor="let ristorante of ristoranti()" class="col mb-4">
-          <div class="card h-100 shadow-sm">
+          <div
+            class="card h-100 shadow-sm"
+            (click)="navigateToDetails(ristorante.iD_Ristorante)"
+          >
             <img
               *ngIf="ristorante.immaginePath"
               [src]="getImageUrl(ristorante.immaginePath)"

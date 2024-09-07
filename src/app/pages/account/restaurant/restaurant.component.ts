@@ -5,6 +5,7 @@ import { iRestaurant } from '../../../Models/Restaurant';
 import { RestaurantService } from '../../../Services/Restaurant.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant',
@@ -42,7 +43,10 @@ export class RestaurantComponent implements OnInit {
 
   ristoranti = signal<iRestaurant[]>([]);
 
-  constructor(private restaurantService: RestaurantService) {}
+  constructor(
+    private restaurantService: RestaurantService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const userJson = localStorage.getItem('user');
@@ -62,8 +66,8 @@ export class RestaurantComponent implements OnInit {
   getRestaurantsByUser(iD_Utente: number): void {
     this.restaurantService.getRestaurantsByUser(iD_Utente).subscribe({
       next: (ristoranti: iRestaurant[]) => {
+        console.log('Ristoranti ottenuti:', ristoranti);
         this.ristoranti.set(ristoranti);
-        console.log('Ristoranti ottenuti con successo:', ristoranti);
       },
       error: (error) => {
         console.error('Errore nel recupero dei ristoranti:', error);
@@ -154,5 +158,12 @@ export class RestaurantComponent implements OnInit {
   }
   getImageUrl(immaginePath: string | null): string {
     return this.restaurantService.getImageUrl(immaginePath);
+  }
+  navigateToDetails(restaurantId?: number): void {
+    if (restaurantId) {
+      this.router.navigate([`/account/restaurant/details`, restaurantId]);
+    } else {
+      console.error('ID del ristorante non trovato');
+    }
   }
 }

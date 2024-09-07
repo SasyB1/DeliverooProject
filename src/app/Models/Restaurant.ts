@@ -1,7 +1,7 @@
 import { iOpeningHours } from './OpeningHours';
 
 export interface iRestaurant {
-  ID_Ristorante?: number;
+  iD_Ristorante?: number;
   nome: string;
   indirizzo: string;
   telefono: string;

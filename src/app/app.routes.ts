@@ -4,6 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { AccountComponent } from './pages/account/account.component';
 import { RestaurantComponent } from './pages/account/restaurant/restaurant.component';
+import { RestaurantDetailsComponent } from './pages/account/restaurant/restaurant-details/restaurant-details.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
@@ -17,6 +18,10 @@ export const routes: Routes = [
       {
         path: 'restaurant',
         component: RestaurantComponent,
+      },
+      {
+        path: 'restaurant/details/:id',
+        component: RestaurantDetailsComponent,
       },
     ],
   },
