@@ -1,1 +1,129 @@
-<p>restaurant-details works!</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Menù del Ristorante</h2>
+      <div *ngFor="let menu of menus" class="mb-3">
+        <div class="card">
+          <div class="card-body position-relative">
+            <h3 class="card-title">{{ menu.nome }}</h3>
+            <div
+              class="piatti-container"
+              *ngIf="menu.piatti && menu.piatti.length > 0"
+            >
+              <div *ngFor="let piatto of menu.piatti" class="piatto-item">
+                <div class="piatto-content">
+                  <h5>{{ piatto.nome }}</h5>
+                  <p>{{ piatto.descrizione }}</p>
+                  <p>Prezzo: €{{ piatto.prezzo }}</p>
+                </div>
+              </div>
+            </div>
+
+            <p *ngIf="!menu.piatti || menu.piatti.length === 0">
+              Nessun piatto disponibile per questo menu.
+            </p>
+            <button
+              type="button"
+              class="btn btn-outline-primary mt-3 add-piatto-btn"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="'#addPiattoModal' + menu.iD_Menu"
+            >
+              <i class="bi bi-plus"></i> Aggiungi Piatti
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h3>Aggiungi un nuovo menu</h3>
+          <div class="form-group mb-3">
+            <label for="menuName">Nome del menu</label>
+            <input
+              id="menuName"
+              [(ngModel)]="newMenuName"
+              class="form-control"
+              placeholder="Inserisci nome del menu"
+            />
+          </div>
+          <button class="btn btn-primary w-100" (click)="createMenu()">
+            Aggiungi Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngFor="let menu of menus"
+    class="modal fade"
+    [id]="'addPiattoModal' + menu.iD_Menu"
+    tabindex="-1"
+    aria-labelledby="addPiattoModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPiattoModalLabel">
+            Aggiungi Piatti a {{ menu.nome }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group mb-3">
+              <label for="piattoName">Nome del piatto</label>
+              <input
+                [(ngModel)]="newPiattoData[menu.iD_Menu].name"
+                class="form-control"
+                placeholder="Inserisci nome del piatto"
+                name="piattoName{{ menu.iD_Menu }}"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="piattoDescription">Descrizione del piatto</label>
+              <input
+                [(ngModel)]="newPiattoData[menu.iD_Menu].description"
+                class="form-control"
+                placeholder="Inserisci descrizione"
+                name="piattoDescription{{ menu.iD_Menu }}"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="piattoPrice">Prezzo</label>
+              <input
+                [(ngModel)]="newPiattoData[menu.iD_Menu].price"
+                type="number"
+                class="form-control"
+                placeholder="Inserisci prezzo"
+                name="piattoPrice{{ menu.iD_Menu }}"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="'#addPiattoModal' + menu.iD_Menu"
+              (click)="createPiatto(menu.iD_Menu)"
+            >
+              Aggiungi Piatto
+            </button>
+            <div>
+              <p>menu id: {{ menu.iD_Menu }}</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
