@@ -54,3 +54,51 @@ p {
     display: block !important;
   }
 }
+
+.btn-primary,
+.btn-outline-primary {
+  background-color: #35b8b2;
+  border-color: #35b8b2;
+}
+
+.btn-outline-primary {
+  color: #35b8b2;
+}
+
+.btn-outline-primary:hover {
+  background-color: #35b8b2;
+  color: white;
+}
+
+.form-check-input {
+  accent-color: #35b8b2;
+}
+
+button[data-bs-toggle="modal"] {
+  background-color: #35b8b2;
+  border-color: #35b8b2;
+  color: white;
+}
+
+button[data-bs-toggle="modal"]:hover,
+.btn-primary:hover,
+.btn-outline-primary:hover {
+  background-color: #2a938d;
+  border-color: #2a938d;
+}
+.card-body .form-check-input {
+  accent-color: #35b8b2;
+}
+
+.form-check-input:checked {
+  background-color: #35b8b2;
+  border-color: #35b8b2;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(53, 184, 178, 0.25);
+}
+.colorHeaderModal {
+  background-color: #35b8b2;
+  color: white;
+}

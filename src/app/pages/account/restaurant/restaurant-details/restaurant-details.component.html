@@ -19,17 +19,17 @@
   </div>
   <div class="row">
     <div class="col-md-8">
-      <h2>Menù del Ristorante</h2>
+      <h2 class="color-text">Menù del Ristorante</h2>
       <div *ngFor="let menu of menus" class="mb-3">
-        <div class="card">
+        <div class="card color-bg">
           <div class="card-body position-relative">
-            <h3 class="card-title">{{ menu.nome }}</h3>
+            <h3 class="card-title color-text">{{ menu.nome }}</h3>
             <div
               class="piatti-container"
               *ngIf="menu.piatti && menu.piatti.length > 0"
             >
               <div *ngFor="let piatto of menu.piatti" class="piatto-item">
-                <div class="piatto-content">
+                <div class="piatto-content text-center">
                   <img
                     *ngIf="piatto.immaginePath"
                     [src]="getImageUrl(piatto.immaginePath)"
@@ -42,7 +42,10 @@
                 </div>
               </div>
             </div>
-            <p *ngIf="!menu.piatti || menu.piatti.length === 0">
+            <p
+              class="color-text pt-4"
+              *ngIf="!menu.piatti || menu.piatti.length === 0"
+            >
               Nessun piatto disponibile per questo menu.
             </p>
             <button
@@ -58,7 +61,7 @@
       </div>
     </div>
     <div class="col-md-4 d-none d-md-block">
-      <div class="card mb-4">
+      <div class="card mb-4 color-bg color-text">
         <div class="card-body">
           <h3>Aggiungi categorie al ristorante</h3>
           <div class="form-group mb-3">
@@ -93,7 +96,7 @@
           </button>
         </div>
       </div>
-      <div class="card">
+      <div class="card color-bg color-text">
         <div class="card-body">
           <h3>Aggiungi un nuovo menu</h3>
           <div class="form-group mb-3">
@@ -114,8 +117,8 @@
   </div>
   <div class="modal fade" id="addCategorieModal" tabindex="-1">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content color-bg color-text">
+        <div class="modal-header colorHeaderModal">
           <h5 class="modal-title">Aggiungi Categorie al Ristorante</h5>
           <button
             type="button"
@@ -159,8 +162,8 @@
   </div>
   <div class="modal fade" id="addMenuModal" tabindex="-1">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content color-bg color-text">
+        <div class="modal-header colorHeaderModal">
           <h5 class="modal-title">Aggiungi un nuovo menu</h5>
           <button
             type="button"
