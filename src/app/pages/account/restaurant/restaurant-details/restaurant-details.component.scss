@@ -45,3 +45,12 @@
 p {
   margin: 0;
 }
+@media (max-width: 768px) {
+  .d-md-block {
+    display: none !important;
+  }
+
+  .d-md-none {
+    display: block !important;
+  }
+}

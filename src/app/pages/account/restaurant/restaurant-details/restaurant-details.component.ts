@@ -97,6 +97,7 @@ export class RestaurantDetailsComponent implements OnInit {
         this.selectedCategories = associatedCategories;
       });
   }
+
   onCategoryChange(event: any, categoryId: number): void {
     if (event.target.checked) {
       this.selectedCategories.push(categoryId);
@@ -111,13 +112,16 @@ export class RestaurantDetailsComponent implements OnInit {
   addCategoriesToRestaurant(): void {
     if (this.selectedCategories.length > 0) {
       this.restaurantService
-        .addCategoriesToRestaurant(this.restaurantId, this.selectedCategories)
+        .aggiornaCategorieRistorante(this.restaurantId, this.selectedCategories)
         .subscribe(
           () => {
-            console.log('Categorie aggiunte al ristorante con successo');
+            console.log('Categorie aggiornate con successo');
           },
           (error) => {
-            console.error("Errore durante l'aggiunta delle categorie:", error);
+            console.error(
+              "Errore durante l'aggiornamento delle categorie:",
+              error
+            );
           }
         );
     } else {
