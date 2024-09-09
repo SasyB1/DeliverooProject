@@ -4,6 +4,8 @@ import { MenuService } from '../../../../Services/menu.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { iMenu } from '../../../../Models/Menu';
+import { iCategoria } from '../../../../Models/Category';
+import { RestaurantService } from '../../../../Services/Restaurant.service';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -25,19 +27,25 @@ export class RestaurantDetailsComponent implements OnInit {
     };
   } = {};
 
+  categorie: iCategoria[] = [];
+  selectedCategories: number[] = [];
+
   constructor(
     private route: ActivatedRoute,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private restaurantService: RestaurantService
   ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.restaurantId = +id;
+      this.loadMenus();
+      this.loadCategories();
+      this.loadAssociatedCategories();
     } else {
       console.error('ID ristorante non trovato nella URL');
     }
-    this.loadMenus();
   }
 
   loadMenus(): void {
@@ -75,6 +83,46 @@ export class RestaurantDetailsComponent implements OnInit {
           );
         });
       });
+  }
+
+  loadCategories(): void {
+    this.restaurantService.getCategories().subscribe((categories) => {
+      this.categorie = categories;
+    });
+  }
+  loadAssociatedCategories(): void {
+    this.restaurantService
+      .getCategorieAssociate(this.restaurantId)
+      .subscribe((associatedCategories) => {
+        this.selectedCategories = associatedCategories;
+      });
+  }
+  onCategoryChange(event: any, categoryId: number): void {
+    if (event.target.checked) {
+      this.selectedCategories.push(categoryId);
+    } else {
+      const index = this.selectedCategories.indexOf(categoryId);
+      if (index > -1) {
+        this.selectedCategories.splice(index, 1);
+      }
+    }
+  }
+
+  addCategoriesToRestaurant(): void {
+    if (this.selectedCategories.length > 0) {
+      this.restaurantService
+        .addCategoriesToRestaurant(this.restaurantId, this.selectedCategories)
+        .subscribe(
+          () => {
+            console.log('Categorie aggiunte al ristorante con successo');
+          },
+          (error) => {
+            console.error("Errore durante l'aggiunta delle categorie:", error);
+          }
+        );
+    } else {
+      console.error('Nessuna categoria selezionata.');
+    }
   }
 
   createMenu(): void {

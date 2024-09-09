@@ -18,14 +18,12 @@
                     alt="{{ piatto.nome }}"
                     class="piatto-img img-fluid"
                   />
-
                   <h5>{{ piatto.nome }}</h5>
                   <p>{{ piatto.descrizione }}</p>
                   <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
                 </div>
               </div>
             </div>
-
             <p *ngIf="!menu.piatti || menu.piatti.length === 0">
               Nessun piatto disponibile per questo menu.
             </p>
@@ -42,6 +40,41 @@
       </div>
     </div>
     <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Aggiungi categorie al ristorante</h3>
+          <div class="form-group mb-3">
+            <label>Seleziona una o più categorie</label>
+            <div *ngFor="let categoria of categorie">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [id]="'categoria-' + categoria.iD_Categoria"
+                  [value]="categoria.iD_Categoria"
+                  [checked]="
+                    selectedCategories.includes(categoria.iD_Categoria)
+                  "
+                  (change)="onCategoryChange($event, categoria.iD_Categoria)"
+                />
+                <label
+                  class="form-check-label"
+                  [for]="'categoria-' + categoria.iD_Categoria"
+                >
+                  {{ categoria.nome }}
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="btn btn-primary w-100"
+            (click)="addCategoriesToRestaurant()"
+          >
+            Aggiungi Categorie
+          </button>
+        </div>
+      </div>
       <div class="card">
         <div class="card-body">
           <h3>Aggiungi un nuovo menu</h3>

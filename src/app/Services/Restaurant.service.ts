@@ -10,6 +10,7 @@ import { filter, map, Observable, tap } from 'rxjs';
 
 import { iSuggestion } from '../Models/OSMSuggestion';
 import { iRestaurant } from '../Models/Restaurant';
+import { iCategoria } from '../Models/Category';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,9 @@ export class RestaurantService {
   private apiUrlSuggestions = 'https://nominatim.openstreetmap.org/search';
   private apiUrlCreaRistorante = 'https://localhost:7223/crea-ristorante';
   private apiUrlRistorantiUser = 'https://localhost:7223/GetRestaurantsByUser';
+  private apiUrlCategorie = 'https://localhost:7223/categorie';
+  private apiUrlAggiungiCategorie = 'https://localhost:7223/aggiungi-categorie';
+
   // Utilizzo dei segnali
   ristoranti = signal<iRestaurant[]>([]);
   cityName = signal<string>('');
@@ -116,6 +120,27 @@ export class RestaurantService {
     return this.http.get(`${this.apiUrlRistorantiUser}/${iD_Utente}`);
   }
 
+  getCategories(): Observable<iCategoria[]> {
+    return this.http.get<iCategoria[]>(this.apiUrlCategorie);
+  }
+
+  addCategoriesToRestaurant(
+    restaurantId: number,
+    selectedCategories: number[]
+  ): Observable<any> {
+    const formData = new FormData();
+    formData.append('idRistorante', restaurantId.toString());
+    selectedCategories.forEach((categoryId) => {
+      formData.append('categoryIds', categoryId.toString());
+    });
+
+    return this.http.post(this.apiUrlAggiungiCategorie, formData);
+  }
+  getCategorieAssociate(restaurantId: number): Observable<number[]> {
+    return this.http.get<number[]>(
+      `https://localhost:7223/get-categorie-associate/${restaurantId}`
+    );
+  }
   getImageUrl(immaginePath: string | null): string {
     if (!immaginePath) {
       return '';
