@@ -50,44 +50,50 @@ export class RestaurantDetailsComponent implements OnInit {
   }
 
   loadMenus(): void {
-    this.menuService
-      .getMenusByRestaurant(this.restaurantId)
-      .subscribe((menus: iMenu[]) => {
+    this.menuService.getMenusByRestaurant(this.restaurantId).subscribe(
+      (menus: iMenu[]) => {
         this.menus = menus;
-
-        this.menus.forEach((menu: iMenu) => {
-          if (!this.newPiattoData[menu.iD_Menu]) {
-            this.newPiattoData[menu.iD_Menu] = {
-              name: '',
-              description: '',
-              price: null,
-              immagine: null,
-            };
-          }
-          this.menuService.getPiattiByMenu(menu.iD_Menu).subscribe(
-            (piatti) => {
-              console.log(
-                `Piatti caricati per il menu ${menu.iD_Menu}:`,
-                piatti
-              );
-              menu.piatti = piatti;
-            },
-            (error) => {
-              if (error.status === 404) {
-                console.error(
-                  `Nessun piatto trovato per il menu ${menu.iD_Menu}`
-                );
-                menu.piatti = [];
-              } else {
-                console.error(
-                  `Errore durante il recupero dei piatti per il menu ${menu.iD_Menu}:`,
-                  error
-                );
-              }
+        if (this.menus.length === 0) {
+          console.log('Nessun menu trovato per questo ristorante.');
+        } else {
+          this.menus.forEach((menu: iMenu) => {
+            if (!this.newPiattoData[menu.iD_Menu]) {
+              this.newPiattoData[menu.iD_Menu] = {
+                name: '',
+                description: '',
+                price: null,
+                immagine: null,
+              };
             }
-          );
-        });
-      });
+            this.menuService.getPiattiByMenu(menu.iD_Menu).subscribe(
+              (piatti) => {
+                console.log(
+                  `Piatti caricati per il menu ${menu.iD_Menu}:`,
+                  piatti
+                );
+                menu.piatti = piatti;
+              },
+              (error) => {
+                if (error.status === 404) {
+                  console.error(
+                    `Nessun piatto trovato per il menu ${menu.iD_Menu}`
+                  );
+                  menu.piatti = [];
+                } else {
+                  console.error(
+                    `Errore durante il recupero dei piatti per il menu ${menu.iD_Menu}:`,
+                    error
+                  );
+                }
+              }
+            );
+          });
+        }
+      },
+      (error) => {
+        console.error('Errore durante il recupero dei menu:', error);
+      }
+    );
   }
 
   loadCategories(): void {
@@ -218,5 +224,21 @@ export class RestaurantDetailsComponent implements OnInit {
 
   setPiattoHover(idPiatto: number | null): void {
     this.piattoInHover = idPiatto;
+  }
+  deleteMenu(idMenu: number): void {
+    if (idMenu && confirm('Sei sicuro di voler eliminare questo menu?')) {
+      this.menuService.deleteMenu(idMenu).subscribe(
+        () => {
+          console.log(`Menu ${idMenu} eliminato con successo`);
+          this.loadMenus();
+        },
+        (error) => {
+          console.error(
+            `Errore durante l'eliminazione del menu ${idMenu}:`,
+            error
+          );
+        }
+      );
+    }
   }
 }

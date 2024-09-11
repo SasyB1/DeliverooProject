@@ -64,6 +64,13 @@
             </p>
             <button
               type="button"
+              class="btn btn-outline-danger"
+              (click)="deleteMenu(menu.iD_Menu)"
+            >
+              <i class="bi bi-trash"></i> Elimina Menu
+            </button>
+            <button
+              type="button"
               class="btn btn-outline-primary mt-3 add-piatto-btn"
               data-bs-toggle="modal"
               [attr.data-bs-target]="'#addPiattoModal' + menu.iD_Menu"
@@ -76,6 +83,23 @@
     </div>
     <div class="col-md-4 d-none d-md-block">
       <div class="card mb-4 color-bg color-text">
+        <div class="card-body">
+          <h3>Aggiungi un nuovo menu</h3>
+          <div class="form-group mb-3">
+            <label for="menuName">Nome del menu</label>
+            <input
+              id="menuName"
+              [(ngModel)]="newMenuName"
+              class="form-control"
+              placeholder="Inserisci nome del menu"
+            />
+          </div>
+          <button class="btn btn-primary w-100" (click)="createMenu()">
+            Aggiungi Menu
+          </button>
+        </div>
+      </div>
+      <div class="card color-bg color-text">
         <div class="card-body">
           <h3>Aggiungi categorie al ristorante</h3>
           <div class="form-group mb-3">
@@ -107,23 +131,6 @@
             (click)="addCategoriesToRestaurant()"
           >
             Aggiungi Categorie
-          </button>
-        </div>
-      </div>
-      <div class="card color-bg color-text">
-        <div class="card-body">
-          <h3>Aggiungi un nuovo menu</h3>
-          <div class="form-group mb-3">
-            <label for="menuName">Nome del menu</label>
-            <input
-              id="menuName"
-              [(ngModel)]="newMenuName"
-              class="form-control"
-              placeholder="Inserisci nome del menu"
-            />
-          </div>
-          <button class="btn btn-primary w-100" (click)="createMenu()">
-            Aggiungi Menu
           </button>
         </div>
       </div>

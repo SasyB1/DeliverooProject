@@ -40,4 +40,7 @@ export class MenuService {
   deletePiatto(idPiatto: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete-piatto/${idPiatto}`);
   }
+  deleteMenu(idMenu: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete-menu/${idMenu}`);
+  }
 }
