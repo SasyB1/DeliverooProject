@@ -43,4 +43,10 @@ export class MenuService {
   deleteMenu(idMenu: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete-menu/${idMenu}`);
   }
+  updateMenu(idMenu: number, nuovoNome: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('idMenu', idMenu.toString());
+    formData.append('nuovoNome', nuovoNome);
+    return this.http.put(`${this.apiUrl}/update-menu`, formData);
+  }
 }

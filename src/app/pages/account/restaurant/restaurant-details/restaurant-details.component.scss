@@ -48,7 +48,7 @@
 }
 
 .piatto-content:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Oscura leggermente la card */
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .piatto-delete-btn {
@@ -59,7 +59,7 @@
 }
 
 .piatto-content:hover .piatto-delete-btn {
-  display: block; /* Mostra il bottone solo al hover */
+  display: block;
 }
 
 p {
@@ -124,4 +124,26 @@ button[data-bs-toggle="modal"]:hover,
 .colorHeaderModal {
   background-color: #35b8b2;
   color: white;
+}
+.edit-icon {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #35b8b2;
+  cursor: pointer;
+}
+
+.edit-icon:hover {
+  color: #2a8c86;
+}
+.limited-width {
+  max-width: 250px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+@media (max-width: 576px) {
+  .limited-width {
+    max-width: 150px;
+  }
 }

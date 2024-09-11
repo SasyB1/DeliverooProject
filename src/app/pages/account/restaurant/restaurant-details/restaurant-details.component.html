@@ -23,7 +23,17 @@
       <div *ngFor="let menu of menus" class="mb-3">
         <div class="card color-bg">
           <div class="card-body position-relative">
-            <h3 class="card-title color-text">{{ menu.nome }}</h3>
+            <div class="d-flex align-items-center">
+              <h3 class="card-title color-text mb-0 text-wrap limited-width">
+                {{ menu.nome }}
+              </h3>
+              <i
+                class="bi bi-pencil ms-2 edit-icon"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#editMenuModal' + menu.iD_Menu"
+              ></i>
+            </div>
+
             <div
               class="piatti-container"
               *ngIf="menu.piatti && menu.piatti.length > 0"
@@ -280,6 +290,52 @@
               (click)="createPiatto(menu.iD_Menu)"
             >
               Aggiungi Piatto
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngFor="let menu of menus"
+    class="modal fade"
+    [id]="'editMenuModal' + menu.iD_Menu"
+    tabindex="-1"
+    aria-labelledby="editMenuModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editMenuModalLabel">
+            Modifica Menu - {{ menu.nome }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group mb-3">
+              <label for="editMenuName{{ menu.iD_Menu }}">Nome del menu</label>
+              <input
+                [(ngModel)]="menu.nome"
+                class="form-control"
+                name="editMenuName{{ menu.iD_Menu }}"
+                placeholder="Inserisci nuovo nome del menu"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-outline-primary w-100"
+              (click)="updateMenu(menu.iD_Menu)"
+              data-bs-dismiss="modal"
+            >
+              Salva Modifiche
             </button>
           </form>
         </div>

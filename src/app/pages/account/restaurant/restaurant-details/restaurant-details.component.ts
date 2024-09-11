@@ -241,4 +241,19 @@ export class RestaurantDetailsComponent implements OnInit {
       );
     }
   }
+  updateMenu(idMenu: number): void {
+    const menu = this.menus.find((m) => m.iD_Menu === idMenu);
+    if (menu && menu.nome.trim()) {
+      this.menuService.updateMenu(idMenu, menu.nome).subscribe(
+        () => {
+          this.loadMenus();
+        },
+        (error) => {
+          console.error('Errore durante la modifica del menu:', error);
+        }
+      );
+    } else {
+      console.error('Nome del menu non valido.');
+    }
+  }
 }
