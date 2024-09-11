@@ -4,4 +4,5 @@ export interface iPiatto {
   descrizione: string;
   prezzo: number;
   immaginePath: string;
+  cancellato: boolean;
 }

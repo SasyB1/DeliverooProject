@@ -34,24 +34,26 @@
                 (mouseenter)="setPiattoHover(piatto.iD_Piatto)"
                 (mouseleave)="setPiattoHover(null)"
               >
-                <div class="piatto-content text-center">
-                  <img
-                    *ngIf="piatto.immaginePath"
-                    [src]="getImageUrl(piatto.immaginePath)"
-                    alt="{{ piatto.nome }}"
-                    class="piatto-img img-fluid"
-                  />
-                  <h5>{{ piatto.nome }}</h5>
-                  <p>{{ piatto.descrizione }}</p>
-                  <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
-                  <button
-                    *ngIf="piattoInHover === piatto.iD_Piatto"
-                    class="btn btn-danger piatto-delete-btn"
-                    (click)="deletePiatto(piatto.iD_Piatto, menu.iD_Menu)"
-                  >
-                    <i class="bi bi-dash"></i>
-                  </button>
-                </div>
+                <ng-container *ngIf="!piatto.cancellato">
+                  <div class="piatto-content text-center">
+                    <img
+                      *ngIf="piatto.immaginePath"
+                      [src]="getImageUrl(piatto.immaginePath)"
+                      alt="{{ piatto.nome }}"
+                      class="piatto-img img-fluid"
+                    />
+                    <h5>{{ piatto.nome }}</h5>
+                    <p>{{ piatto.descrizione }}</p>
+                    <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
+                    <button
+                      *ngIf="piattoInHover === piatto.iD_Piatto"
+                      class="btn btn-danger piatto-delete-btn"
+                      (click)="deletePiatto(piatto.iD_Piatto, menu.iD_Menu)"
+                    >
+                      <i class="bi bi-dash"></i>
+                    </button>
+                  </div>
+                </ng-container>
               </div>
             </div>
             <p
