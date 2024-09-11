@@ -52,6 +52,13 @@ export class AuthComponent implements OnInit {
           }).then(() => {
             this.router.navigate(['/homepage']);
           });
+        } else {
+          Swal.fire({
+            title: 'Errore di Registrazione',
+            text: "L'email è già registrata. Usa un'altra email.",
+            icon: 'error',
+            showConfirmButton: true,
+          });
         }
       });
     }
@@ -59,11 +66,24 @@ export class AuthComponent implements OnInit {
 
   onSignIn() {
     if (this.signInForm.valid) {
-      this.authService.login(this.signInForm.value).subscribe((response) => {
-        if (response) {
-          this.router.navigate(['/homepage']);
+      this.authService.login(this.signInForm.value).subscribe(
+        (response) => {
+          if (response) {
+            this.router.navigate(['/homepage']);
+          }
+        },
+        (error) => {
+          if (error.status === 401) {
+            if (error.error === "L'account è stato cancellato.") {
+              alert('Il tuo account è stato cancellato e non puoi accedere.');
+            } else {
+              alert('Credenziali non valide. Riprova.');
+            }
+          } else {
+            alert('Errore durante il login. Per favore, riprova.');
+          }
         }
-      });
+      );
     }
   }
 

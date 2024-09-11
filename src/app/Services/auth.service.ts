@@ -31,7 +31,11 @@ export class AuthService {
           }
         }),
         catchError((error) => {
-          alert('Errore durante la registrazione. Per favore, riprova.');
+          if (error.status === 409) {
+            alert("L'email è già registrata. Per favore, usa un'altra email.");
+          } else {
+            alert('Errore durante la registrazione. Per favore, riprova.');
+          }
           return of(null);
         })
       );
@@ -45,7 +49,18 @@ export class AuthService {
         }
       }),
       catchError((error) => {
-        console.error('Login error:', error);
+        console.log('Errore durante il login:', error);
+
+        if (
+          error.status === 401 &&
+          error.error &&
+          error.error.message === "L'account è stato cancellato."
+        ) {
+          alert('Account eliminato.');
+        } else {
+          console.error('Login error:', error);
+          alert('Credenziali non valide. Riprova.');
+        }
         return of(null);
       })
     );
