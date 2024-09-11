@@ -4,6 +4,7 @@ import { AuthService } from '../../Services/auth.service';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -35,12 +36,17 @@ export class AccountComponent implements OnInit {
 
     const ruoloMapped = user.ruolo === 0 ? 'Ospite' : 'Ristoratore';
 
+    const ruoloControl = new FormControl({
+      value: ruoloMapped,
+      disabled: ruoloMapped === 'Ristoratore',
+    });
+
     this.userForm = this.fb.group({
       nome: [user?.nome],
       cognome: [user?.cognome],
       email: [user?.email],
       telefono: [user?.telefono],
-      ruolo: [{ value: ruoloMapped, disabled: true }],
+      ruolo: ruoloControl,
       password: [user?.password],
     });
 
