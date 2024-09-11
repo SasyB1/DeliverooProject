@@ -29,6 +29,7 @@ export class RestaurantDetailsComponent implements OnInit {
 
   categorie: iCategoria[] = [];
   selectedCategories: number[] = [];
+  piattoInHover: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +66,10 @@ export class RestaurantDetailsComponent implements OnInit {
           }
           this.menuService.getPiattiByMenu(menu.iD_Menu).subscribe(
             (piatti) => {
+              console.log(
+                `Piatti caricati per il menu ${menu.iD_Menu}:`,
+                piatti
+              );
               menu.piatti = piatti;
             },
             (error) => {
@@ -189,5 +194,29 @@ export class RestaurantDetailsComponent implements OnInit {
 
   getImageUrl(immaginePath: string | null): string {
     return this.menuService.getImageUrl(immaginePath);
+  }
+
+  deletePiatto(id: number, menuId: number): void {
+    console.log('Eliminazione del piatto con ID:', id);
+    if (id && confirm('Sei sicuro di voler eliminare questo piatto?')) {
+      this.menuService.deletePiatto(id).subscribe(
+        () => {
+          console.log(`Piatto ${id} eliminato con successo`);
+          this.loadMenus();
+        },
+        (error) => {
+          console.error(
+            `Errore durante l'eliminazione del piatto ${id}:`,
+            error
+          );
+        }
+      );
+    } else {
+      console.error('ID piatto non valido o non definito');
+    }
+  }
+
+  setPiattoHover(idPiatto: number | null): void {
+    this.piattoInHover = idPiatto;
   }
 }

@@ -28,7 +28,12 @@
               class="piatti-container"
               *ngIf="menu.piatti && menu.piatti.length > 0"
             >
-              <div *ngFor="let piatto of menu.piatti" class="piatto-item">
+              <div
+                *ngFor="let piatto of menu.piatti"
+                class="piatto-item"
+                (mouseenter)="setPiattoHover(piatto.iD_Piatto)"
+                (mouseleave)="setPiattoHover(null)"
+              >
                 <div class="piatto-content text-center">
                   <img
                     *ngIf="piatto.immaginePath"
@@ -39,6 +44,13 @@
                   <h5>{{ piatto.nome }}</h5>
                   <p>{{ piatto.descrizione }}</p>
                   <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
+                  <button
+                    *ngIf="piattoInHover === piatto.iD_Piatto"
+                    class="btn btn-danger piatto-delete-btn"
+                    (click)="deletePiatto(piatto.iD_Piatto, menu.iD_Menu)"
+                  >
+                    <i class="bi bi-dash"></i>
+                  </button>
                 </div>
               </div>
             </div>

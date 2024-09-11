@@ -1,5 +1,5 @@
 export interface iPiatto {
-  id: number;
+  iD_Piatto: number;
   nome: string;
   descrizione: string;
   prezzo: number;

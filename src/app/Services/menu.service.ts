@@ -37,4 +37,7 @@ export class MenuService {
     }
     return `https://localhost:7223${immaginePath}`;
   }
+  deletePiatto(idPiatto: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete-piatto/${idPiatto}`);
+  }
 }

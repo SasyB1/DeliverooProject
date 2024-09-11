@@ -24,7 +24,6 @@ export class DispayWindowComponent {
     effect(() => {
       const ristoranti = this.ristoranti();
       console.log('Ristoranti ricevuti:', ristoranti);
-      // Controlla se il campo immaginePath è presente
       ristoranti.forEach((r) => console.log(r.immaginePath));
     });
   }
