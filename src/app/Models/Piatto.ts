@@ -5,4 +5,5 @@ export interface iPiatto {
   prezzo: number;
   immaginePath: string;
   cancellato: boolean;
+  immagine?: File | null;
 }

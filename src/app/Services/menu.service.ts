@@ -49,4 +49,7 @@ export class MenuService {
     formData.append('nuovoNome', nuovoNome);
     return this.http.put(`${this.apiUrl}/update-menu`, formData);
   }
+  updatePiatto(formData: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update-piatto`, formData);
+  }
 }

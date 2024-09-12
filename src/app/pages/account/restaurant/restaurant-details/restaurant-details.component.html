@@ -57,6 +57,16 @@
                     <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
                     <button
                       *ngIf="piattoInHover === piatto.iD_Piatto"
+                      class="btn btn-outline-primary piatto-update-btn"
+                      data-bs-toggle="modal"
+                      [attr.data-bs-target]="
+                        '#updatePiattoModal' + piatto.iD_Piatto
+                      "
+                    >
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button
+                      *ngIf="piattoInHover === piatto.iD_Piatto"
                       class="btn btn-danger piatto-delete-btn"
                       (click)="deletePiatto(piatto.iD_Piatto, menu.iD_Menu)"
                     >
@@ -87,6 +97,95 @@
             >
               <i class="bi bi-plus"></i> Aggiungi Piatti
             </button>
+          </div>
+        </div>
+        <div
+          *ngFor="let piatto of menu.piatti"
+          class="modal fade"
+          [id]="'updatePiattoModal' + piatto.iD_Piatto"
+          tabindex="-1"
+          aria-labelledby="updatePiattoModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updatePiattoModalLabel">
+                  Modifica Piatto - {{ piatto.nome }}
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group mb-3">
+                    <label for="updatePiattoName{{ piatto.iD_Piatto }}"
+                      >Nome del piatto</label
+                    >
+                    <input
+                      [(ngModel)]="piatto.nome"
+                      class="form-control"
+                      placeholder="Inserisci nuovo nome del piatto"
+                      name="updatePiattoName{{ piatto.iD_Piatto }}"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="updatePiattoDescription{{ piatto.iD_Piatto }}"
+                      >Descrizione del piatto</label
+                    >
+                    <input
+                      [(ngModel)]="piatto.descrizione"
+                      class="form-control"
+                      placeholder="Inserisci nuova descrizione"
+                      name="updatePiattoDescription{{ piatto.iD_Piatto }}"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="updatePiattoPrice{{ piatto.iD_Piatto }}"
+                      >Prezzo</label
+                    >
+                    <input
+                      [(ngModel)]="piatto.prezzo"
+                      type="number"
+                      class="form-control"
+                      placeholder="Inserisci nuovo prezzo"
+                      name="updatePiattoPrice{{ piatto.iD_Piatto }}"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="updatePiattoImage{{ piatto.iD_Piatto }}"
+                      >Immagine del piatto</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      (change)="
+                        onFileSelectedForUpdate(
+                          $event,
+                          menu.iD_Menu,
+                          piatto.iD_Piatto
+                        )
+                      "
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="updatePiatto(piatto.iD_Piatto, menu.iD_Menu)"
+                    data-bs-dismiss="modal"
+                  >
+                    Salva Modifiche
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>

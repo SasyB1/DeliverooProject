@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { iMenu } from '../../../../Models/Menu';
 import { iCategoria } from '../../../../Models/Category';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
+import { iPiatto } from '../../../../Models/Piatto';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -30,6 +31,7 @@ export class RestaurantDetailsComponent implements OnInit {
   categorie: iCategoria[] = [];
   selectedCategories: number[] = [];
   piattoInHover: number | null = null;
+  selectedPiatto: iPiatto | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -197,6 +199,26 @@ export class RestaurantDetailsComponent implements OnInit {
       this.newPiattoData[menuId].immagine = file;
     }
   }
+  onFileSelectedForUpdate(event: any, menuId: number, piattoId: number): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      console.log("File selezionato per l'aggiornamento:", file);
+      const menu = this.menus.find((menu) => menu.iD_Menu === menuId);
+      const piatto = menu?.piatti.find((p) => p.iD_Piatto === piattoId);
+
+      if (piatto) {
+        piatto.immagine = file;
+        console.log(
+          "Immagine associata al piatto per l'update:",
+          piatto.immagine
+        );
+      } else {
+        console.log('Piatto non trovato');
+      }
+    } else {
+      console.log("Nessun file selezionato per l'aggiornamento");
+    }
+  }
 
   getImageUrl(immaginePath: string | null): string {
     return this.menuService.getImageUrl(immaginePath);
@@ -254,6 +276,37 @@ export class RestaurantDetailsComponent implements OnInit {
       );
     } else {
       console.error('Nome del menu non valido.');
+    }
+  }
+  updatePiatto(piattoId: number, menuId: number): void {
+    const piatto = this.menus
+      .find((menu) => menu.iD_Menu === menuId)
+      ?.piatti.find((piatto) => piatto.iD_Piatto === piattoId);
+
+    if (piatto && piatto.nome && piatto.descrizione && piatto.prezzo !== null) {
+      const formData = new FormData();
+      formData.append('idPiatto', piattoId.toString());
+      formData.append('nome', piatto.nome);
+      formData.append('descrizione', piatto.descrizione);
+      formData.append('prezzo', piatto.prezzo.toString());
+      if (piatto.immagine) {
+        console.log('Nuova immagine selezionata:', piatto.immagine);
+        formData.append('immagine', piatto.immagine);
+      }
+      formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+      this.menuService.updatePiatto(formData).subscribe(
+        () => {
+          this.loadMenus();
+          console.log('Piatto aggiornato con successo.');
+        },
+        (error) => {
+          console.error("Errore durante l'aggiornamento del piatto:", error);
+        }
+      );
+    } else {
+      console.error('Dati del piatto incompleti o non validi.');
     }
   }
 }
