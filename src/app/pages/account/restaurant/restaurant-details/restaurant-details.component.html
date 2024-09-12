@@ -114,24 +114,64 @@
           <h3>Aggiungi categorie al ristorante</h3>
           <div class="form-group mb-3">
             <label>Seleziona una o più categorie</label>
-            <div *ngFor="let categoria of categorie">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  [id]="'categoria-' + categoria.iD_Categoria"
-                  [value]="categoria.iD_Categoria"
-                  [checked]="
-                    selectedCategories.includes(categoria.iD_Categoria)
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div
+                  *ngFor="
+                    let categoria of categorie
+                      | slice : 0 : categorie.length / 2
                   "
-                  (change)="onCategoryChange($event, categoria.iD_Categoria)"
-                />
-                <label
-                  class="form-check-label"
-                  [for]="'categoria-' + categoria.iD_Categoria"
                 >
-                  {{ categoria.nome }}
-                </label>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      [id]="'categoria-' + categoria.iD_Categoria"
+                      [value]="categoria.iD_Categoria"
+                      [checked]="
+                        selectedCategories.includes(categoria.iD_Categoria)
+                      "
+                      (change)="
+                        onCategoryChange($event, categoria.iD_Categoria)
+                      "
+                    />
+                    <label
+                      class="form-check-label"
+                      [for]="'categoria-' + categoria.iD_Categoria"
+                    >
+                      {{ categoria.nome }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div
+                  *ngFor="
+                    let categoria of categorie
+                      | slice : categorie.length / 2 : categorie.length
+                  "
+                >
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      [id]="'categoria-' + categoria.iD_Categoria"
+                      [value]="categoria.iD_Categoria"
+                      [checked]="
+                        selectedCategories.includes(categoria.iD_Categoria)
+                      "
+                      (change)="
+                        onCategoryChange($event, categoria.iD_Categoria)
+                      "
+                    />
+                    <label
+                      class="form-check-label"
+                      [for]="'categoria-' + categoria.iD_Categoria"
+                    >
+                      {{ categoria.nome }}
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -68,24 +68,21 @@ export class AuthComponent implements OnInit {
     if (this.signInForm.valid) {
       this.authService.login(this.signInForm.value).subscribe(
         (response) => {
-          if (response) {
+          if (response && !response.error) {
             this.router.navigate(['/homepage']);
-          }
-        },
-        (error) => {
-          if (error.status === 401) {
-            if (error.error === "L'account è stato cancellato.") {
-              alert('Il tuo account è stato cancellato e non puoi accedere.');
-            } else {
-              alert('Credenziali non valide. Riprova.');
-            }
-          } else {
-            alert('Errore durante il login. Per favore, riprova.');
+          } else if (response && response.error) {
+            Swal.fire({
+              title: 'Errore di Login',
+              text: response.message,
+              icon: 'error',
+              showConfirmButton: true,
+            });
           }
         }
       );
     }
   }
+
 
   ngOnInit() {
     this.container = document.getElementById('container');
