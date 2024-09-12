@@ -22,6 +22,7 @@ export class RestaurantService {
   private apiUrlRistorantiUser = 'https://localhost:7223/GetRestaurantsByUser';
   private apiUrlCategorie = 'https://localhost:7223/categorie';
   private apiUrlAggiungiCategorie = 'https://localhost:7223/aggiorna-categorie';
+  private apiUrlRistorantiUpdate = 'https://localhost:7223/update-ristorante';
 
   // Utilizzo dei segnali
   ristoranti = signal<iRestaurant[]>([]);
@@ -145,5 +146,57 @@ export class RestaurantService {
       return '';
     }
     return `https://localhost:7223${immaginePath}`;
+  }
+  updateRestaurant(
+    restaurant: iRestaurant,
+    file?: File
+  ): Observable<iRestaurant> {
+    if (!restaurant.iD_Ristorante) {
+      throw new Error('ID del ristorante non definito');
+    }
+
+    const formData: FormData = new FormData();
+    formData.append('idRistorante', restaurant.iD_Ristorante.toString());
+    formData.append('nome', restaurant.nome);
+    formData.append('indirizzo', restaurant.indirizzo);
+    formData.append('telefono', restaurant.telefono);
+    formData.append('email', restaurant.email);
+    formData.append('latitudine', restaurant.latitudine.toString());
+    formData.append('longitudine', restaurant.longitudine.toString());
+
+    const updatedOpeningHours = restaurant.orariApertura.map((orario) => ({
+      ID_OrarioApertura: orario.iD_OrarioApertura,
+      GiornoSettimana: orario.giornoSettimana,
+      OraApertura: orario.oraApertura,
+      OraChiusura: orario.oraChiusura,
+    }));
+    formData.append('orariApertura', JSON.stringify(updatedOpeningHours));
+
+    if (file) {
+      formData.append('immagine', file, file.name);
+    }
+
+    return this.http
+      .put<iRestaurant>(`${this.apiUrlRistorantiUpdate}`, formData, {
+        observe: 'events',
+        reportProgress: true,
+      })
+      .pipe(
+        tap((event: HttpEvent<any>) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            console.log(
+              'Upload Progress: ',
+              Math.round((event.loaded / event.total!) * 100)
+            );
+          }
+        }),
+        filter(
+          (event): event is HttpResponse<iRestaurant> =>
+            event.type === HttpEventType.Response
+        ),
+        map(
+          (response: HttpResponse<iRestaurant>) => response.body as iRestaurant
+        )
+      );
   }
 }

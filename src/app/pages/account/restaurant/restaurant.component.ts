@@ -28,6 +28,7 @@ export class RestaurantComponent implements OnInit {
   };
   searchQuery: string = '';
   suggestions: iSuggestion[] = [];
+  editSuggestions: iSuggestion[] = [];
   selectedLat: number | null = null;
   selectedLon: number | null = null;
   imageFile?: File;
@@ -66,7 +67,7 @@ export class RestaurantComponent implements OnInit {
   getRestaurantsByUser(iD_Utente: number): void {
     this.restaurantService.getRestaurantsByUser(iD_Utente).subscribe({
       next: (ristoranti: iRestaurant[]) => {
-        console.log('Ristoranti ottenuti:', ristoranti);
+        console.log('Ristoranti ottenuti con orari di apertura:', ristoranti);
         this.ristoranti.set(ristoranti);
       },
       error: (error) => {
@@ -104,9 +105,10 @@ export class RestaurantComponent implements OnInit {
 
   getEmptyOrariApertura(): iOpeningHours[] {
     return Array.from({ length: 7 }, (_, index) => ({
+      ID_OrarioApertura: 0,
       giornoSettimana: index,
       oraApertura: '09:00',
-      oraChiusura: '15:00',
+      oraChiusura: '21:00',
     }));
   }
 
@@ -165,5 +167,59 @@ export class RestaurantComponent implements OnInit {
     } else {
       console.error('ID del ristorante non trovato');
     }
+  }
+  updateRistorante(ristorante: iRestaurant): void {
+    if (!ristorante.orariApertura || ristorante.orariApertura.length === 0) {
+      ristorante.orariApertura = this.getEmptyOrariApertura();
+    }
+
+    const fileToUpload = this.imageFile ? this.imageFile : undefined;
+
+    this.restaurantService
+      .updateRestaurant(ristorante, fileToUpload)
+      .subscribe({
+        next: (updatedRestaurant) => {
+          console.log('Ristorante aggiornato:', updatedRestaurant);
+          this.ristoranti.update((currentRistoranti: iRestaurant[]) => {
+            return currentRistoranti.map((r) =>
+              r.iD_Ristorante === updatedRestaurant.iD_Ristorante
+                ? updatedRestaurant
+                : r
+            );
+          });
+          this.imageFile = undefined;
+        },
+        error: (error) => {
+          console.error("Errore nell'aggiornamento del ristorante:", error);
+        },
+      });
+  }
+
+  onInputEdit(event: Event, ristorante: iRestaurant): void {
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
+
+    if (query.length > 2) {
+      this.restaurantService.getSuggestions(query).subscribe({
+        next: (results: iSuggestion[]) => {
+          this.editSuggestions = results;
+        },
+        error: (error) => {
+          console.error('Errore nella richiesta:', error);
+          this.editSuggestions = [];
+        },
+      });
+    } else {
+      this.editSuggestions = [];
+    }
+  }
+  selectEditSuggestion(suggestion: iSuggestion, ristorante: iRestaurant): void {
+    ristorante.indirizzo = suggestion.display_name;
+    ristorante.latitudine = parseFloat(suggestion.lat);
+    ristorante.longitudine = parseFloat(suggestion.lon);
+    this.editSuggestions = [];
+  }
+  trackByIndex(index: number, item: any): number {
+    return index;
   }
 }

@@ -71,3 +71,10 @@
     max-width: 400px;
   }
 }
+.card-hover {
+  position: relative;
+}
+
+.card-hover:hover .btn {
+  display: block !important;
+}

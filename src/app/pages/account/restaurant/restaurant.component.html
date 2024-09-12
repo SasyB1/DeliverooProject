@@ -13,7 +13,7 @@
       <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
         <div *ngFor="let ristorante of ristoranti()" class="col mb-4">
           <div
-            class="card h-100 shadow-sm"
+            class="card h-100 shadow-sm position-relative card-hover"
             (click)="navigateToDetails(ristorante.iD_Ristorante)"
           >
             <img
@@ -27,6 +27,170 @@
               <p class="card-text color-text">
                 <i class="bx bx-map"></i> {{ ristorante.indirizzo }}
               </p>
+            </div>
+            <button
+              class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 d-none"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="
+                '#editRistoranteModal' + ristorante.iD_Ristorante
+              "
+              (click)="$event.stopPropagation()"
+            >
+              <i class="bi bi-pencil"></i> Modifica
+            </button>
+          </div>
+          <div
+            class="modal fade"
+            [id]="'editRistoranteModal' + ristorante.iD_Ristorante"
+            tabindex="-1"
+            aria-labelledby="editRistoranteModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editRistoranteModalLabel">
+                    Modifica Ristorante - {{ ristorante.nome }}
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group mb-3">
+                      <label
+                        for="editRistoranteName{{ ristorante.iD_Ristorante }}"
+                        >Nome del ristorante</label
+                      >
+                      <input
+                        [(ngModel)]="ristorante.nome"
+                        class="form-control"
+                        placeholder="Inserisci il nome"
+                        name="editRistoranteName{{ ristorante.iD_Ristorante }}"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label
+                        for="editRistoranteIndirizzo{{
+                          ristorante.iD_Ristorante
+                        }}"
+                        >Indirizzo</label
+                      >
+                      <input
+                        [(ngModel)]="ristorante.indirizzo"
+                        class="form-control"
+                        placeholder="Inserisci l'indirizzo"
+                        name="editRistoranteIndirizzo{{
+                          ristorante.iD_Ristorante
+                        }}"
+                        (input)="onInputEdit($event, ristorante)"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                      <ul
+                        *ngIf="editSuggestions.length > 0"
+                        class="list-group mt-2"
+                      >
+                        <li
+                          *ngFor="let suggestion of editSuggestions"
+                          (click)="selectEditSuggestion(suggestion, ristorante)"
+                          class="list-group-item list-group-item-action"
+                        >
+                          {{ suggestion.display_name }}
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label
+                        for="editRistoranteTelefono{{
+                          ristorante.iD_Ristorante
+                        }}"
+                        >Telefono</label
+                      >
+                      <input
+                        [(ngModel)]="ristorante.telefono"
+                        class="form-control"
+                        placeholder="Inserisci il telefono"
+                        name="editRistoranteTelefono{{
+                          ristorante.iD_Ristorante
+                        }}"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label
+                        for="editRistoranteEmail{{ ristorante.iD_Ristorante }}"
+                        >Email</label
+                      >
+                      <input
+                        [(ngModel)]="ristorante.email"
+                        class="form-control"
+                        placeholder="Inserisci l'email"
+                        name="editRistoranteEmail{{ ristorante.iD_Ristorante }}"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label
+                        for="editRistoranteImmagine{{
+                          ristorante.iD_Ristorante
+                        }}"
+                        >Immagine</label
+                      >
+                      <input
+                        type="file"
+                        class="form-control"
+                        (change)="onFileChange($event)"
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label>Orari di Apertura:</label>
+                      <div
+                        *ngFor="
+                          let orario of ristorante.orariApertura;
+                          let i = index
+                        "
+                        class="mb-3"
+                      >
+                        <label>{{ daysOfWeek[i] }}:</label>
+                        <div class="d-flex">
+                          <input
+                            type="time"
+                            [(ngModel)]="
+                              ristorante.orariApertura[i].oraApertura
+                            "
+                            [name]="'oraApertura' + i"
+                            class="form-control me-2"
+                            required
+                          />
+                          <input
+                            type="time"
+                            [(ngModel)]="
+                              ristorante.orariApertura[i].oraChiusura
+                            "
+                            [name]="'oraChiusura' + i"
+                            class="form-control"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      (click)="updateRistorante(ristorante)"
+                      data-bs-dismiss="modal"
+                    >
+                      Salva Modifiche
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>

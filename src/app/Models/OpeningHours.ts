@@ -1,5 +1,5 @@
 export interface iOpeningHours {
-  ID_OrarioApertura?: number;
+  iD_OrarioApertura?: number;
   giornoSettimana: number;
   oraApertura: string;
   oraChiusura: string;
