@@ -180,13 +180,7 @@ export class RestaurantComponent implements OnInit {
       .subscribe({
         next: (updatedRestaurant) => {
           console.log('Ristorante aggiornato:', updatedRestaurant);
-          this.ristoranti.update((currentRistoranti: iRestaurant[]) => {
-            return currentRistoranti.map((r) =>
-              r.iD_Ristorante === updatedRestaurant.iD_Ristorante
-                ? updatedRestaurant
-                : r
-            );
-          });
+          this.getRestaurantsByUser(this.newRestaurant.ID_Utente);
           this.imageFile = undefined;
         },
         error: (error) => {
