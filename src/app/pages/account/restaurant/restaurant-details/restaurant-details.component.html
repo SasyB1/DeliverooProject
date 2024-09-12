@@ -57,7 +57,7 @@
                     <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
                     <button
                       *ngIf="piattoInHover === piatto.iD_Piatto"
-                      class="btn btn-outline-primary piatto-update-btn"
+                      class="btn btn-outline-primary piatto-update-btn my-2"
                       data-bs-toggle="modal"
                       [attr.data-bs-target]="
                         '#updatePiattoModal' + piatto.iD_Piatto
@@ -84,7 +84,7 @@
             </p>
             <button
               type="button"
-              class="btn btn-outline-danger"
+              class="btn btn-outline-danger mt-2"
               (click)="deleteMenu(menu.iD_Menu)"
             >
               <i class="bi bi-trash"></i> Elimina Menu
