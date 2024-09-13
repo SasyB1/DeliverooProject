@@ -29,7 +29,12 @@ export class RestaurantService {
   ristoranti = signal<iRestaurant[]>([]);
   cityName = signal<string>('');
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const savedCityName = localStorage.getItem('cityName');
+    if (savedCityName) {
+      this.cityName.set(savedCityName);
+    }
+  }
 
   getRistoranti(
     latitudine: number,
@@ -70,6 +75,7 @@ export class RestaurantService {
 
   setCityName(newCityName: string): void {
     this.cityName.set(newCityName);
+    localStorage.setItem('cityName', newCityName);
   }
 
   getCityName(): string {

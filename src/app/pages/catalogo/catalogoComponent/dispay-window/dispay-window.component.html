@@ -23,6 +23,51 @@
     {{ suggestion.display_name }}
   </li>
 </ul>
+<p class="py-1 m-0 fs-4 fw-bold">Ristoranti che consegnano a {{ cityName }}</p>
+<div class="container-fluid pt-2 position-relative">
+  <button
+    class="scroll-button left"
+    (click)="scrollLeft()"
+    *ngIf="canScrollLeft()"
+  >
+    <i class="bi bi-arrow-left"></i>
+  </button>
+
+  <div class="scroll-container" id="scrollableDiv" #scrollableDiv>
+    <div class="category-button">
+      <img src="../../../../../assets/image/restaurant.png" alt="Ristoranti" />
+      <div class="category-label">Ristoranti</div>
+    </div>
+    <div class="category-button">
+      <img src="../../../../../assets/image/grocery.png" alt="Spesa" />
+      <div class="category-label">Spesa</div>
+    </div>
+    <div class="category-button">
+      <img src="../../../../../assets/image/offers.png" alt="Offerte" />
+      <div class="category-label">Offerte</div>
+    </div>
+    <div class="category-button">
+      <img
+        src="../../../../../assets/image/dessert.png"
+        alt="Dolci e dessert"
+      />
+      <div class="category-label">Dolci e dessert</div>
+    </div>
+    <div class="category-button">
+      <img src="../../../../../assets/image/pickup.png" alt="Ritiro" />
+      <div class="category-label">Ritiro</div>
+    </div>
+  </div>
+
+  <button
+    class="scroll-button right"
+    (click)="scrollRight()"
+    *ngIf="canScrollRight()"
+  >
+    <i class="bi bi-arrow-right"></i>
+  </button>
+</div>
+
 <div *ngFor="let ristorante of ristoranti()">
   <h2>{{ ristorante.nome }}</h2>
   <p>{{ ristorante.indirizzo }}</p>
