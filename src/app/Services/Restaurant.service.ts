@@ -23,6 +23,7 @@ export class RestaurantService {
   private apiUrlCategorie = 'https://localhost:7223/categorie';
   private apiUrlAggiungiCategorie = 'https://localhost:7223/aggiorna-categorie';
   private apiUrlRistorantiUpdate = 'https://localhost:7223/update-ristorante';
+  private apiUrlRistorantiDelete = 'https://localhost:7223/delete-ristorante';
 
   // Utilizzo dei segnali
   ristoranti = signal<iRestaurant[]>([]);
@@ -198,5 +199,10 @@ export class RestaurantService {
           (response: HttpResponse<iRestaurant>) => response.body as iRestaurant
         )
       );
+  }
+  deleteRestaurant(idRistorante: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.apiUrlRistorantiDelete}/${idRistorante}`
+    );
   }
 }

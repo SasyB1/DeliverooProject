@@ -28,12 +28,6 @@
   background-color: #e9ecef;
 }
 
-.add-piatto-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
 .piatto-img {
   height: 150px;
   width: 100%;
@@ -101,17 +95,6 @@ button[data-bs-toggle="modal"] {
   color: white;
 }
 
-button[data-bs-toggle="modal"]:hover,
-.btn-primary:hover,
-.btn-outline-primary:hover {
-  background-color: #2a938d;
-  border-color: #2a938d;
-}
-
-.card-body .form-check-input {
-  accent-color: #35b8b2;
-}
-
 .form-check-input:checked {
   background-color: #35b8b2;
   border-color: #35b8b2;
@@ -125,6 +108,7 @@ button[data-bs-toggle="modal"]:hover,
   background-color: #35b8b2;
   color: white;
 }
+
 .edit-icon {
   font-size: 1rem;
   font-weight: bold;
@@ -135,6 +119,7 @@ button[data-bs-toggle="modal"]:hover,
 .edit-icon:hover {
   color: #2a8c86;
 }
+
 .limited-width {
   max-width: 250px;
   word-wrap: break-word;
@@ -146,4 +131,12 @@ button[data-bs-toggle="modal"]:hover,
   .limited-width {
     max-width: 150px;
   }
+}
+.add-piatto-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.colorDelbg {
+  background-color: #35b8b2;
 }

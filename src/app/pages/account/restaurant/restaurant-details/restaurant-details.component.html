@@ -40,7 +40,7 @@
             >
               <div
                 *ngFor="let piatto of menu.piatti"
-                class="piatto-item"
+                class="piatto-item color-bg color-text pb-2"
                 (mouseenter)="setPiattoHover(piatto.iD_Piatto)"
                 (mouseleave)="setPiattoHover(null)"
               >
@@ -55,23 +55,30 @@
                     <h5>{{ piatto.nome }}</h5>
                     <p>{{ piatto.descrizione }}</p>
                     <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
-                    <button
+                    <div
                       *ngIf="piattoInHover === piatto.iD_Piatto"
-                      class="btn btn-outline-primary piatto-update-btn my-2"
-                      data-bs-toggle="modal"
-                      [attr.data-bs-target]="
-                        '#updatePiattoModal' + piatto.iD_Piatto
-                      "
+                      class="position-absolute top-0 end-0 m-2 d-flex gap-2"
                     >
-                      <i class="bi bi-pencil"></i>
-                    </button>
-                    <button
-                      *ngIf="piattoInHover === piatto.iD_Piatto"
-                      class="btn btn-danger piatto-delete-btn"
-                      (click)="deletePiatto(piatto.iD_Piatto, menu.iD_Menu)"
-                    >
-                      <i class="bi bi-dash"></i>
-                    </button>
+                      <button
+                        class="btn btn-danger btn-sm me-2"
+                        (click)="
+                          deletePiatto(piatto.iD_Piatto, menu.iD_Menu);
+                          $event.stopPropagation()
+                        "
+                      >
+                        <i class="bi bi-trash">Elimina</i>
+                      </button>
+                      <button
+                        class="btn btn-outline-primary btn-sm"
+                        data-bs-toggle="modal"
+                        [attr.data-bs-target]="
+                          '#updatePiattoModal' + piatto.iD_Piatto
+                        "
+                        (click)="$event.stopPropagation()"
+                      >
+                        <i class="bi bi-pencil">Modifica</i>
+                      </button>
+                    </div>
                   </div>
                 </ng-container>
               </div>
@@ -108,8 +115,8 @@
           aria-hidden="true"
         >
           <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
+            <div class="modal-content color-bg color-text">
+              <div class="modal-header colorDelbg">
                 <h5 class="modal-title" id="updatePiattoModalLabel">
                   Modifica Piatto - {{ piatto.nome }}
                 </h5>
@@ -175,14 +182,16 @@
                       "
                     />
                   </div>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary"
-                    (click)="updatePiatto(piatto.iD_Piatto, menu.iD_Menu)"
-                    data-bs-dismiss="modal"
-                  >
-                    Salva Modifiche
-                  </button>
+                  <div class="d-flex justify-content-center">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary fw-bold"
+                      (click)="updatePiatto(piatto.iD_Piatto, menu.iD_Menu)"
+                      data-bs-dismiss="modal"
+                    >
+                      Salva Modifiche
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -203,7 +212,7 @@
               placeholder="Inserisci nome del menu"
             />
           </div>
-          <button class="btn btn-primary w-100" (click)="createMenu()">
+          <button class="btn btn-primary w-100 fw-bold" (click)="createMenu()">
             Aggiungi Menu
           </button>
         </div>
@@ -276,7 +285,7 @@
           </div>
 
           <button
-            class="btn btn-primary w-100"
+            class="btn btn-primary w-100 fw-bold"
             (click)="addCategoriesToRestaurant()"
           >
             Aggiungi Categorie
@@ -367,8 +376,8 @@
     aria-hidden="true"
   >
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content color-bg color-text">
+        <div class="modal-header colorDelbg">
           <h5 class="modal-title" id="addPiattoModalLabel">
             Aggiungi Piatti a {{ menu.nome }}
           </h5>
@@ -421,15 +430,17 @@
               />
             </div>
 
-            <button
-              type="button"
-              class="btn btn-outline-primary"
-              data-bs-toggle="modal"
-              [attr.data-bs-target]="'#addPiattoModal' + menu.iD_Menu"
-              (click)="createPiatto(menu.iD_Menu)"
-            >
-              Aggiungi Piatto
-            </button>
+            <div class="d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn btn-outline-primary fw-bold"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#addPiattoModal' + menu.iD_Menu"
+                (click)="createPiatto(menu.iD_Menu)"
+              >
+                Aggiungi Piatto
+              </button>
+            </div>
           </form>
         </div>
       </div>

@@ -216,4 +216,19 @@ export class RestaurantComponent implements OnInit {
   trackByIndex(index: number, item: any): number {
     return index;
   }
+  deleteRestaurant(idRistorante: number): void {
+    if (confirm('Sei sicuro di voler eliminare questo ristorante?')) {
+      this.restaurantService.deleteRestaurant(idRistorante).subscribe({
+        next: () => {
+          console.log('Ristorante eliminato con successo');
+          this.ristoranti.update((currentRistoranti: iRestaurant[]) =>
+            currentRistoranti.filter((r) => r.iD_Ristorante !== idRistorante)
+          );
+        },
+        error: (error) => {
+          console.error("Errore nell'eliminazione del ristorante:", error);
+        },
+      });
+    }
+  }
 }

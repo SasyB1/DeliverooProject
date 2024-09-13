@@ -22,22 +22,33 @@
               class="card-img-top fixed-size-img"
               alt="Immagine del ristorante"
             />
-            <div class="card-body color-bg">
+            <div class="card-body color-bg pb-2 text-center">
               <h5 class="card-title colorDel">{{ ristorante.nome }}</h5>
               <p class="card-text color-text">
                 <i class="bx bx-map"></i> {{ ristorante.indirizzo }}
               </p>
             </div>
-            <button
-              class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 d-none"
-              data-bs-toggle="modal"
-              [attr.data-bs-target]="
-                '#editRistoranteModal' + ristorante.iD_Ristorante
-              "
-              (click)="$event.stopPropagation()"
-            >
-              <i class="bi bi-pencil"></i> Modifica
-            </button>
+            <div class="position-absolute top-0 end-0 m-2 d-flex hover-buttons">
+              <button
+                class="btn btn-danger btn-sm me-2"
+                (click)="
+                  deleteRestaurant(ristorante.iD_Ristorante!);
+                  $event.stopPropagation()
+                "
+              >
+                <i class="bi bi-trash">Elimina</i>
+              </button>
+              <button
+                class="btn btn-secondary btn-sm"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="
+                  '#editRistoranteModal' + ristorante.iD_Ristorante!
+                "
+                (click)="$event.stopPropagation()"
+              >
+                <i class="bi bi-pencil">Modifica</i>
+              </button>
+            </div>
           </div>
           <div
             class="modal fade"
@@ -47,8 +58,8 @@
             aria-hidden="true"
           >
             <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
+              <div class="modal-content color-bg color-text">
+                <div class="modal-header colorDelbg">
                   <h5 class="modal-title" id="editRistoranteModalLabel">
                     Modifica Ristorante - {{ ristorante.nome }}
                   </h5>
@@ -180,14 +191,16 @@
                       </div>
                     </div>
 
-                    <button
-                      type="button"
-                      class="btn btn-outline-primary"
-                      (click)="updateRistorante(ristorante)"
-                      data-bs-dismiss="modal"
-                    >
-                      Salva Modifiche
-                    </button>
+                    <div class="d-flex justify-content-center">
+                      <button
+                        type="button"
+                        class="btn colorDelbg fw-bold text-light"
+                        (click)="updateRistorante(ristorante)"
+                        data-bs-dismiss="modal"
+                      >
+                        Salva Modifiche
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
