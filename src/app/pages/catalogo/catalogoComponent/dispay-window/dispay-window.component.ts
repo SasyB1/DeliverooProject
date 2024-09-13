@@ -58,7 +58,7 @@ export class DispayWindowComponent {
 
   searchAddress(): void {
     if (this.userLat !== null && this.userLon !== null) {
-      const maxDistanceKm = 10;
+      const maxDistanceKm = 50;
       this.ristoranteService
         .getRistoranti(this.userLat, this.userLon, maxDistanceKm)
         .subscribe({
