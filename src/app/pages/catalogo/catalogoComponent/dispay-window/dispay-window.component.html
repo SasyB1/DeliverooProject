@@ -68,13 +68,31 @@
   </button>
 </div>
 
-<div *ngFor="let ristorante of ristoranti()">
-  <h2>{{ ristorante.nome }}</h2>
-  <p>{{ ristorante.indirizzo }}</p>
-  <p>{{ ristorante.telefono }}</p>
-  <img
-    *ngIf="ristorante.immaginePath"
-    [src]="getImageUrl(ristorante.immaginePath)"
-    alt="Immagine Ristorante"
-  />
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div
+      class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4"
+      *ngFor="let ristorante of ristoranti()"
+    >
+      <div class="restaurant-card">
+        <div class="restaurant-image">
+          <img
+            *ngIf="ristorante.immaginePath"
+            [src]="getImageUrl(ristorante.immaginePath)"
+            alt="{{ ristorante.nome }}"
+          />
+        </div>
+        <div
+          class="restaurant-info d-flex justify-content-center flex-column ms-1"
+        >
+          <h2>{{ ristorante.nome }}</h2>
+          <p class="m-0">
+            {{
+              calculateDistance(ristorante.latitudine, ristorante.longitudine)
+            }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

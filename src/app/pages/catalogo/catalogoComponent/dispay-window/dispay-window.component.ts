@@ -33,6 +33,16 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
   cityName: string = '';
 
   constructor(private ristoranteService: RestaurantService) {
+    const savedLat = localStorage.getItem('userLat');
+    const savedLon = localStorage.getItem('userLon');
+
+    if (savedLat && savedLon) {
+      this.userLat = parseFloat(savedLat);
+      this.userLon = parseFloat(savedLon);
+      console.log('Coordinate utente recuperate:', this.userLat, this.userLon);
+    } else {
+      console.log('Nessuna coordinata salvata trovata');
+    }
     this.ristoranteService.loadRistoranti();
     effect(() => {
       this.cityName = this.ristoranteService.getCityName();
@@ -95,6 +105,8 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
     this.searchQuery = suggestion.display_name;
     this.userLat = parseFloat(suggestion.lat);
     this.userLon = parseFloat(suggestion.lon);
+    localStorage.setItem('userLat', this.userLat.toString());
+    localStorage.setItem('userLon', this.userLon.toString());
     this.suggestions = [];
     this.ristoranteService.setCityName(suggestion.display_name);
     this.searchAddress();
@@ -119,5 +131,44 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
 
   getImageUrl(immaginePath: string | null): string {
     return this.ristoranteService.getImageUrl(immaginePath);
+  }
+  calculateDistance(
+    latitudineRistorante: number,
+    longitudineRistorante: number
+  ): string {
+    if (
+      this.userLat === null ||
+      this.userLon === null ||
+      !latitudineRistorante ||
+      !longitudineRistorante
+    ) {
+      console.error(
+        'Distanza non calcolata, latitudine o longitudine mancanti'
+      );
+      return 'N/A';
+    }
+
+    //formula di Haversine
+    const toRad = (value: number) => (value * Math.PI) / 180;
+    const latDistance = toRad(latitudineRistorante - this.userLat);
+    const lonDistance = toRad(longitudineRistorante - this.userLon);
+
+    const a =
+      Math.sin(latDistance / 2) * Math.sin(latDistance / 2) +
+      Math.cos(toRad(this.userLat)) *
+        Math.cos(toRad(latitudineRistorante)) *
+        Math.sin(lonDistance / 2) *
+        Math.sin(lonDistance / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const R = 6371;
+    const distanceKm = R * c;
+
+    if (distanceKm < 1) {
+      const distanceMeters = distanceKm * 1000;
+      return `${distanceMeters.toFixed(0)} m`;
+    } else {
+      return `${distanceKm.toFixed(1)} km`;
+    }
   }
 }
