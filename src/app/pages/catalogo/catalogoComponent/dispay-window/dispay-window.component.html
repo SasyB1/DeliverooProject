@@ -67,8 +67,11 @@
     <i class="bi bi-arrow-right"></i>
   </button>
 </div>
+<div *ngIf="ristoranti().length === 0" class="alert alert-warning">
+  Nessun ristorante trovato per le categorie selezionate.
+</div>
 
-<div class="container-fluid mt-4">
+<div *ngIf="ristoranti().length > 0" class="container-fluid mt-4">
   <div class="row">
     <div
       class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4"

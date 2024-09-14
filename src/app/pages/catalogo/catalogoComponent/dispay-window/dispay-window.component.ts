@@ -35,7 +35,6 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
   constructor(private ristoranteService: RestaurantService) {
     const savedLat = localStorage.getItem('userLat');
     const savedLon = localStorage.getItem('userLon');
-
     if (savedLat && savedLon) {
       this.userLat = parseFloat(savedLat);
       this.userLon = parseFloat(savedLon);
@@ -43,15 +42,31 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
     } else {
       console.log('Nessuna coordinata salvata trovata');
     }
-    this.ristoranteService.loadRistoranti();
+
     effect(() => {
       this.cityName = this.ristoranteService.getCityName();
+      console.log('City name aggiornato:', this.cityName);
     });
+    this.ristoranteService.loadRistoranti();
+
     effect(() => {
-      const ristoranti = this.ristoranti();
-      console.log('Ristoranti ricevuti:', ristoranti);
-      ristoranti.forEach((r) => console.log(r.immaginePath));
+      const ristorantiFiltrati = this.ristoranti();
+      console.log('Ristoranti filtrati ricevuti:', ristorantiFiltrati);
+      ristorantiFiltrati.forEach((r) => console.log(r.immaginePath));
     });
+
+    effect(
+      () => {
+        const selectedCategories = this.ristoranteService.selectedCategories();
+        console.log('Categorie selezionate:', selectedCategories);
+        if (selectedCategories.length > 0) {
+          this.ristoranteService.getRistorantiByCategorie(selectedCategories);
+        } else {
+          this.ristoranteService.loadRistoranti();
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   ngAfterViewInit(): void {

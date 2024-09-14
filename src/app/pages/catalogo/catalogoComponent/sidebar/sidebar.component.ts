@@ -10,6 +10,7 @@ import { RestaurantService } from '../../../../Services/Restaurant.service';
 })
 export class SidebarComponent implements OnInit {
   cityName: string = '';
+  selectedCategories: number[] = [];
 
   constructor(private ristoranteService: RestaurantService) {
     effect(() => {
@@ -17,5 +18,23 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.selectedCategories = this.ristoranteService.loadSelectedCategories();
+  }
+
+  onCategoryChange(event: any): void {
+    const categoryId = Number(event.target.value);
+    if (event.target.checked) {
+      this.selectedCategories.push(categoryId);
+    } else {
+      this.selectedCategories = this.selectedCategories.filter(
+        (id) => id !== categoryId
+      );
+    }
+    this.ristoranteService.updateSelectedCategories(this.selectedCategories);
+  }
+
+  isCategorySelected(categoryId: number): boolean {
+    return this.selectedCategories.includes(categoryId);
+  }
 }

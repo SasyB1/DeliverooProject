@@ -24,12 +24,21 @@ export class RestaurantService {
   private apiUrlAggiungiCategorie = 'https://localhost:7223/aggiorna-categorie';
   private apiUrlRistorantiUpdate = 'https://localhost:7223/update-ristorante';
   private apiUrlRistorantiDelete = 'https://localhost:7223/delete-ristorante';
+  private apiUrlRistorantiCategoria =
+    'https://localhost:7223/ristoranti-per-categoria';
 
   // Utilizzo dei segnali
   ristoranti = signal<iRestaurant[]>([]);
   cityName = signal<string>('');
+  selectedCategories = signal<number[]>([]);
 
   constructor(private http: HttpClient) {
+    const savedCategories = localStorage.getItem('selectedCategories');
+    if (savedCategories) {
+      const categorie = JSON.parse(savedCategories);
+      this.selectedCategories.set(categorie);
+      this.getRistorantiByCategorie(categorie);
+    }
     const savedCityName = localStorage.getItem('cityName');
     if (savedCityName) {
       this.cityName.set(savedCityName);
@@ -210,5 +219,46 @@ export class RestaurantService {
     return this.http.delete<void>(
       `${this.apiUrlRistorantiDelete}/${idRistorante}`
     );
+  }
+  updateSelectedCategories(categorie: number[]): void {
+    this.selectedCategories.set(categorie);
+    localStorage.setItem('selectedCategories', JSON.stringify(categorie));
+    this.getRistorantiByCategorie(categorie);
+  }
+
+  loadSelectedCategories(): number[] {
+    const savedCategories = localStorage.getItem('selectedCategories');
+    return savedCategories ? JSON.parse(savedCategories) : [];
+  }
+
+  getRistorantiByCategorie(categorie: number[]): void {
+    if (categorie.length === 0) {
+      this.loadRistoranti();
+      return;
+    }
+
+    let params = new HttpParams();
+    categorie.forEach((categoria) => {
+      params = params.append('idCategoria', categoria.toString());
+    });
+
+    this.http
+      .get<iRestaurant[]>(this.apiUrlRistorantiCategoria, { params })
+      .subscribe({
+        next: (ristoranti) => {
+          if (ristoranti.length > 0) {
+            this.ristoranti.set(ristoranti);
+          } else {
+            this.ristoranti.set([]);
+          }
+        },
+        error: (err) => {
+          if (err.status === 404) {
+            this.ristoranti.set([]);
+          } else {
+            console.error('Errore nel recupero dei ristoranti:', err);
+          }
+        },
+      });
   }
 }
