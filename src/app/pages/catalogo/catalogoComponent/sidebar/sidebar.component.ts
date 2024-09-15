@@ -1,4 +1,4 @@
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { RestaurantService } from '../../../../Services/Restaurant.service';
 })
 export class SidebarComponent implements OnInit {
   cityName: string = '';
-  selectedCategories: number[] = [];
+  selectedCategories = this.ristoranteService.selectedCategories;
 
   constructor(private ristoranteService: RestaurantService) {
     effect(() => {
@@ -19,22 +19,25 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedCategories = this.ristoranteService.loadSelectedCategories();
+    this.selectedCategories = this.ristoranteService.selectedCategories;
   }
 
   onCategoryChange(event: any): void {
     const categoryId = Number(event.target.value);
     if (event.target.checked) {
-      this.selectedCategories.push(categoryId);
+      this.selectedCategories.update((categories) => [
+        ...categories,
+        categoryId,
+      ]);
     } else {
-      this.selectedCategories = this.selectedCategories.filter(
-        (id) => id !== categoryId
+      this.selectedCategories.update((categories) =>
+        categories.filter((id) => id !== categoryId)
       );
     }
-    this.ristoranteService.updateSelectedCategories(this.selectedCategories);
+    this.ristoranteService.updateSelectedCategories(this.selectedCategories());
   }
 
   isCategorySelected(categoryId: number): boolean {
-    return this.selectedCategories.includes(categoryId);
+    return this.selectedCategories().includes(categoryId);
   }
 }

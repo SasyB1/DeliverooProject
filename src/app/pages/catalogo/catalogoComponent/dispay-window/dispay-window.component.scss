@@ -151,3 +151,19 @@
   font-size: 0.9rem;
   color: #555;
 }
+.selected-categories .badge {
+  background-color: #35b8b2;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  margin-left: 8px;
+  color: white;
+}

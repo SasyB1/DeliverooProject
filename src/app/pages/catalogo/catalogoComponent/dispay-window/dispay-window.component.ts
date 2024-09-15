@@ -31,6 +31,7 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
   userLat: number | null = null;
   userLon: number | null = null;
   cityName: string = '';
+  selectedCategories = this.ristoranteService.selectedCategories;
 
   constructor(private ristoranteService: RestaurantService) {
     const savedLat = localStorage.getItem('userLat');
@@ -42,22 +43,25 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
     } else {
       console.log('Nessuna coordinata salvata trovata');
     }
-
-    effect(() => {
-      this.cityName = this.ristoranteService.getCityName();
-      console.log('City name aggiornato:', this.cityName);
-    });
-    this.ristoranteService.loadRistoranti();
-
-    effect(() => {
-      const ristorantiFiltrati = this.ristoranti();
-      console.log('Ristoranti filtrati ricevuti:', ristorantiFiltrati);
-      ristorantiFiltrati.forEach((r) => console.log(r.immaginePath));
-    });
-
     effect(
       () => {
-        const selectedCategories = this.ristoranteService.selectedCategories();
+        this.cityName = this.ristoranteService.getCityName();
+        console.log('City name aggiornato:', this.cityName);
+      },
+      { allowSignalWrites: true }
+    );
+    this.ristoranteService.loadRistoranti();
+    effect(
+      () => {
+        const ristorantiFiltrati = this.ristoranti();
+        console.log('Ristoranti filtrati ricevuti:', ristorantiFiltrati);
+        ristorantiFiltrati.forEach((r) => console.log(r.immaginePath));
+      },
+      { allowSignalWrites: true }
+    );
+    effect(
+      () => {
+        const selectedCategories = this.selectedCategories();
         console.log('Categorie selezionate:', selectedCategories);
         if (selectedCategories.length > 0) {
           this.ristoranteService.getRistorantiByCategorie(selectedCategories);
@@ -185,5 +189,127 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
     } else {
       return `${distanceKm.toFixed(1)} km`;
     }
+  }
+  onCategoryChange(event: any): void {
+    const categoryId = Number(event.target.value);
+    if (event.target.checked) {
+      this.selectedCategories.update((categories) => [
+        ...categories,
+        categoryId,
+      ]);
+    } else {
+      this.selectedCategories.update((categories) =>
+        categories.filter((id) => id !== categoryId)
+      );
+    }
+    this.ristoranteService.updateSelectedCategories(this.selectedCategories());
+  }
+
+  isCategorySelected(categoryId: number): boolean {
+    return this.selectedCategories().includes(categoryId);
+  }
+
+  clearFilters(): void {
+    this.selectedCategories.set([]);
+    this.ristoranteService.updateSelectedCategories([]);
+  }
+
+  removeCategory(categoryId: number): void {
+    this.selectedCategories.update((categories) =>
+      categories.filter((id) => id !== categoryId)
+    );
+    this.ristoranteService.updateSelectedCategories(this.selectedCategories());
+  }
+
+  getCategoryName(categoryId: number): string {
+    const categoryMap: { [key: number]: string } = {
+      1: 'Halal',
+      2: 'Senza Glutine',
+      3: 'Vegan Friendly',
+      4: 'Vegetariano',
+      5: 'Americano',
+      6: 'Asiatico fusion',
+      7: 'Cinese',
+      8: 'Colazione',
+      9: 'Giapponese',
+      10: 'Greco',
+      11: 'Hawaiano',
+      12: 'Healthy',
+      13: 'Indiano',
+      14: 'Italiano',
+      15: 'Messicano',
+      16: 'Peruviano',
+      17: 'Spagnolo',
+      18: 'Spesa',
+      19: 'Thailandese',
+      20: 'Turco',
+      21: 'Bakery',
+      22: 'Bubble tea',
+      23: 'Burrito',
+      24: 'Carne',
+      25: 'Dessert',
+      26: 'Frutti di mare',
+      27: 'Hamburger',
+      28: 'Hot dogs',
+      29: 'Insalate',
+      30: 'Kebab',
+      31: 'Noodles',
+      32: 'Pasta',
+      33: 'Piadina',
+      34: 'Pizza',
+      35: 'Poke',
+      36: 'Pollo',
+      37: 'Ramen',
+      38: 'Sandwich',
+      39: 'Sushi',
+      40: 'Tacos',
+    };
+    return categoryMap[categoryId] || 'Categoria sconosciuta';
+  }
+
+  getCheckboxId(categoryId: number): string {
+    const checkboxMap: { [key: number]: string } = {
+      1: 'halal',
+      2: 'senzaGlutine',
+      3: 'veganFriendly',
+      4: 'vegetariano',
+      5: 'americano',
+      6: 'asiaticoFusion',
+      7: 'cinese',
+      8: 'colazione',
+      9: 'giapponese',
+      10: 'greco',
+      11: 'hawaiano',
+      12: 'healthy',
+      13: 'indiano',
+      14: 'italiano',
+      15: 'messicano',
+      16: 'peruviano',
+      17: 'spagnolo',
+      18: 'spesa',
+      19: 'thailandese',
+      20: 'turco',
+      21: 'bakery',
+      22: 'bubbleTea',
+      23: 'burrito',
+      24: 'carne',
+      25: 'dessert',
+      26: 'fruttiDiMare',
+      27: 'hamburger',
+      28: 'hotDogs',
+      29: 'insalate',
+      30: 'kebab',
+      31: 'noodles',
+      32: 'pasta',
+      33: 'piadina',
+      34: 'pizza',
+      35: 'poke',
+      36: 'pollo',
+      37: 'ramen',
+      38: 'sandwich',
+      39: 'sushi',
+      40: 'tacos',
+    };
+    return checkboxMap[categoryId];
   }
 }

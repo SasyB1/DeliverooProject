@@ -7,12 +7,14 @@
     [(ngModel)]="searchQuery"
     (input)="onInput($event)"
   />
+
   <button
-    class="btn DeliverooColor rounded-button fw-bold"
+    class="btn btn-outline-primary ms-2 d-block d-md-none"
     type="button"
-    (click)="searchAddress()"
+    data-bs-toggle="modal"
+    data-bs-target="#sidebarModal"
   >
-    Cerca
+    <i class="bi bi-sliders"></i>
   </button>
 </div>
 <ul *ngIf="suggestions.length > 0" class="autocomplete-list">
@@ -24,6 +26,22 @@
   </li>
 </ul>
 <p class="py-1 m-0 fs-4 fw-bold">Ristoranti che consegnano a {{ cityName }}</p>
+<div class="selected-categories" *ngIf="selectedCategories().length > 0">
+  <span
+    *ngFor="let category of selectedCategories()"
+    class="badge badge-pill bg-info text-white me-2"
+  >
+    {{ getCategoryName(category) }}
+    <button
+      type="button"
+      class="btn-close ms-1"
+      (click)="removeCategory(category)"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </span>
+</div>
+
 <div class="container-fluid pt-2 position-relative">
   <button
     class="scroll-button left"
@@ -95,6 +113,542 @@
             }}
           </p>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="sidebarModal"
+  tabindex="-1"
+  aria-labelledby="sidebarModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sidebarModalLabel">Filtri</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="pt-2 pb-1 border-bottom">
+          <h5>Opzioni di Consegna</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="deliveryOption"
+              id="consegna"
+              value="consegna"
+              (change)="onCategoryChange($event)"
+            />
+            <label class="form-check-label" for="consegna">Consegna</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="deliveryOption"
+              id="ritiro"
+              value="ritiro"
+              (change)="onCategoryChange($event)"
+            />
+            <label class="form-check-label" for="ritiro">Ritiro</label>
+          </div>
+        </div>
+        <div class="pt-2 pb-1 border-bottom">
+          <h5>Offerte</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="tutteOfferte"
+              value="100"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(100)"
+            />
+            <label class="form-check-label" for="tutteOfferte"
+              >Tutte le offerte disponibili</label
+            >
+          </div>
+        </div>
+        <div class="pt-2 pb-1 border-bottom">
+          <h5>Regimi Alimentari</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="halal"
+              value="1"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(1)"
+            />
+            <label class="form-check-label" for="halal">Halal</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="senzaGlutine"
+              value="2"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(2)"
+            />
+            <label class="form-check-label" for="senzaGlutine"
+              >Senza Glutine</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="veganFriendly"
+              value="3"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(3)"
+            />
+            <label class="form-check-label" for="veganFriendly"
+              >Vegan Friendly</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="vegetariano"
+              value="4"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(4)"
+            />
+            <label class="form-check-label" for="vegetariano"
+              >Vegetariano</label
+            >
+          </div>
+        </div>
+        <div class="pt-2 pb-1 border-bottom">
+          <h5>Cucine</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="americano"
+              value="5"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(5)"
+            />
+            <label class="form-check-label" for="americano">Americano</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="asiaticoFusion"
+              value="6"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(6)"
+            />
+            <label class="form-check-label" for="asiaticoFusion"
+              >Asiatico fusion</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="cinese"
+              value="7"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(7)"
+            />
+            <label class="form-check-label" for="cinese">Cinese</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="colazione"
+              value="8"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(8)"
+            />
+            <label class="form-check-label" for="colazione">Colazione</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="giapponese"
+              value="9"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(9)"
+            />
+            <label class="form-check-label" for="giapponese">Giapponese</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="greco"
+              value="10"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(10)"
+            />
+            <label class="form-check-label" for="greco">Greco</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="hawaiano"
+              value="11"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(11)"
+            />
+            <label class="form-check-label" for="hawaiano">Hawaiano</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="healthy"
+              value="12"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(12)"
+            />
+            <label class="form-check-label" for="healthy">Healthy</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="indiano"
+              value="13"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(13)"
+            />
+            <label class="form-check-label" for="indiano">Indiano</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="italiano"
+              value="14"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(14)"
+            />
+            <label class="form-check-label" for="italiano">Italiano</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="messicano"
+              value="15"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(15)"
+            />
+            <label class="form-check-label" for="messicano">Messicano</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="peruviano"
+              value="16"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(16)"
+            />
+            <label class="form-check-label" for="peruviano">Peruviano</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="spagnolo"
+              value="17"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(17)"
+            />
+            <label class="form-check-label" for="spagnolo">Spagnolo</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="spesa"
+              value="18"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(18)"
+            />
+            <label class="form-check-label" for="spesa">Spesa</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="thailandese"
+              value="19"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(19)"
+            />
+            <label class="form-check-label" for="thailandese"
+              >Thailandese</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="turco"
+              value="20"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(20)"
+            />
+            <label class="form-check-label" for="turco">Turco</label>
+          </div>
+        </div>
+        <div class="pt-2 pb-1 border-bottom">
+          <h5>Piatti</h5>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="bakery"
+              value="21"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(21)"
+            />
+            <label class="form-check-label" for="bakery">Bakery</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="bubbleTea"
+              value="22"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(22)"
+            />
+            <label class="form-check-label" for="bubbleTea">Bubble tea</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="burrito"
+              value="23"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(23)"
+            />
+            <label class="form-check-label" for="burrito">Burrito</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="carne"
+              value="24"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(24)"
+            />
+            <label class="form-check-label" for="carne">Carne</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="dessert"
+              value="25"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(25)"
+            />
+            <label class="form-check-label" for="dessert">Dessert</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="fruttiDiMare"
+              value="26"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(26)"
+            />
+            <label class="form-check-label" for="fruttiDiMare"
+              >Frutti di mare</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="hamburger"
+              value="27"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(27)"
+            />
+            <label class="form-check-label" for="hamburger">Hamburger</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="hotDogs"
+              value="28"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(28)"
+            />
+            <label class="form-check-label" for="hotDogs">Hot dogs</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="insalate"
+              value="29"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(29)"
+            />
+            <label class="form-check-label" for="insalate">Insalate</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="kebab"
+              value="30"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(30)"
+            />
+            <label class="form-check-label" for="kebab">Kebab</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="noodles"
+              value="31"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(31)"
+            />
+            <label class="form-check-label" for="noodles">Noodles</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="pasta"
+              value="32"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(32)"
+            />
+            <label class="form-check-label" for="pasta">Pasta</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="piadina"
+              value="33"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(33)"
+            />
+            <label class="form-check-label" for="piadina">Piadina</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="pizza"
+              value="34"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(34)"
+            />
+            <label class="form-check-label" for="pizza">Pizza</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="poke"
+              value="35"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(35)"
+            />
+            <label class="form-check-label" for="poke">Poke</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="pollo"
+              value="36"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(36)"
+            />
+            <label class="form-check-label" for="pollo">Pollo</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="ramen"
+              value="37"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(37)"
+            />
+            <label class="form-check-label" for="ramen">Ramen</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="sandwich"
+              value="38"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(38)"
+            />
+            <label class="form-check-label" for="sandwich">Sandwich</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="sushi"
+              value="39"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(39)"
+            />
+            <label class="form-check-label" for="sushi">Sushi</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="tacos"
+              value="40"
+              (change)="onCategoryChange($event)"
+              [checked]="isCategorySelected(40)"
+            />
+            <label class="form-check-label" for="tacos">Tacos</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="clearFilters()"
+          data-bs-dismiss="modal"
+        >
+          Rimuovi filtri
+        </button>
       </div>
     </div>
   </div>
