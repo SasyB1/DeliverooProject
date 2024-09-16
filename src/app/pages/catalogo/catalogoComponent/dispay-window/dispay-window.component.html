@@ -111,6 +111,7 @@
     <div
       class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4"
       *ngFor="let ristorante of ristoranti()"
+      (click)="viewRestaurant(ristorante.iD_Ristorante!)"
     >
       <div class="restaurant-card">
         <div class="restaurant-image">

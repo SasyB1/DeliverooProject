@@ -14,6 +14,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { iSuggestion } from '../../../../Models/OSMSuggestion';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dispay-window',
@@ -39,7 +40,8 @@ export class DispayWindowComponent
 
   constructor(
     private ristoranteService: RestaurantService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
     const savedLat = localStorage.getItem('userLat');
     const savedLon = localStorage.getItem('userLon');
@@ -323,5 +325,8 @@ export class DispayWindowComponent
       40: 'tacos',
     };
     return checkboxMap[categoryId];
+  }
+  viewRestaurant(restaurantId: number): void {
+    this.router.navigate(['/catalogo/details', restaurantId]);
   }
 }
