@@ -52,6 +52,33 @@
     </div>
   </div>
 
+  <div class="categories-container">
+    <div class="d-flex flex-wrap align-items-center">
+      <button
+        *ngFor="let categoria of firstCategories"
+        class="btn btn-outline-primary me-2 mb-2"
+      >
+        {{ categoria.nome }}
+      </button>
+
+      <div *ngIf="extraCategories.length > 0" class="dropdown">
+        <button
+          class="btn btn-outline-secondary dropdown-toggle"
+          type="button"
+          id="moreCategoriesDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Altro
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="moreCategoriesDropdown">
+          <li *ngFor="let categoria of extraCategories" class="dropdown-item">
+            {{ categoria.nome }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
   <div
     class="modal fade"
     id="infoModal"
@@ -116,30 +143,75 @@
     </div>
   </div>
 
-  <div class="categories-container">
-    <div class="d-flex flex-wrap align-items-center">
-      <button
-        *ngFor="let categoria of firstCategories"
-        class="btn btn-outline-primary me-2 mb-2"
-      >
-        {{ categoria.nome }}
-      </button>
+  <div class="row mt-5 mx-2">
+    <div class="col-md-9">
+      <div class="row align-items-center mb-4">
+        <div class="col-md-9 w-100">
+          <div
+            class="p-3 bg-light rounded d-flex justify-content-between align-items-center"
+          >
+            <div>
+              <h5 class="mb-0 fw-bold">Consegna gratuita</h5>
+              <p class="mb-0 text-muted">Spendi 10 € e la consegna è gratis</p>
+            </div>
+            <div class="ms-auto">
+              <img
+                src="../../../../../assets/image/offers1.png"
+                alt="Promozione"
+                class="img-fluid"
+                style="width: 60px; height: auto"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <div *ngIf="extraCategories.length > 0" class="dropdown">
-        <button
-          class="btn btn-outline-secondary dropdown-toggle"
-          type="button"
-          id="moreCategoriesDropdown"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
+      <div *ngFor="let menu of restaurantDetails.menus">
+        <h3 class="mb-3">{{ menu.nome }}</h3>
+
+        <div class="row">
+          <div
+            class="col-lg-6 col-md-6 mb-3"
+            *ngFor="let piatto of menu.piatti"
+          >
+            <div class="card h-100 d-flex flex-row align-items-center p-2">
+              <div class="flex-grow-1">
+                <h5 class="card-title">{{ piatto.nome }}</h5>
+                <p class="card-text">{{ piatto.prezzo | currency : "EUR" }}</p>
+              </div>
+              <img
+                class="img-thumbnail"
+                [src]="getImageUrl(piatto.immaginePath || '')"
+                alt="{{ piatto.nome }}"
+                style="width: 80px; height: 80px"
+              />
+              <button class="btn btn-outline-primary ms-2">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="sticky-cart" id="cart">
+        <div
+          class="card p-3 cartHeight d-flex flex-column justify-content-between"
         >
-          Altro
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="moreCategoriesDropdown">
-          <li *ngFor="let categoria of extraCategories" class="dropdown-item">
-            {{ categoria.nome }}
-          </li>
-        </ul>
+          <div>
+            <div class="d-flex justify-content-between align-items-center">
+              <h3 class="mb-4">Il tuo carrello</h3>
+            </div>
+
+            <div class="text-center">
+              <i class="bi bi-cart3" style="font-size: 48px"></i>
+              <p>Il carrello è vuoto</p>
+            </div>
+          </div>
+
+          <button class="btn btn-success w-100 mt-auto" disabled>
+            Vai al pagamento
+          </button>
+        </div>
       </div>
     </div>
   </div>

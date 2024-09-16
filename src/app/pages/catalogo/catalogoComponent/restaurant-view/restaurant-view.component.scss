@@ -60,39 +60,48 @@ button[disabled] {
   padding: 10px;
   border: 1px solid transparent;
   border-radius: 4px;
-  color: #35b8b2; /* Colore del testo e delle icone */
+  color: #35b8b2;
   cursor: pointer;
   transition: border-color 0.3s, background-color 0.3s;
-  text-decoration: none; /* Rimuove underline */
+  text-decoration: none;
 }
 
 .info-link i {
-  color: #35b8b2; /* Colore delle icone */
+  color: #35b8b2;
 }
 
 .info-link:hover,
 .info-link:focus {
-  border-color: #35b8b2; /* Mostra bordo del colore desiderato al hover */
-  background-color: rgba(53, 184, 178, 0.1); /* Aggiungi sfondo leggero */
+  border-color: #35b8b2;
+  background-color: rgba(53, 184, 178, 0.1);
 }
 
 .info-link i.bi-chevron-right {
-  margin-left: auto; /* Sposta la freccia a destra */
+  margin-left: auto;
 }
 .back-link {
   display: flex;
   align-items: center;
-  color: #35b8b2; /* Colore del testo e della freccia */
+  color: #35b8b2;
   cursor: pointer;
-  font-size: 18px; /* Modifica la dimensione del testo */
-  text-decoration: none; /* Rimuove l'underline */
+  font-size: 18px;
+  text-decoration: none;
   transition: color 0.3s;
 }
 
 .back-link i {
-  color: #35b8b2; /* Colore della freccia */
+  color: #35b8b2;
 }
 
 .back-link:hover {
-  color: #28a196; /* Colore della freccia al hover */
+  color: #28a196;
+}
+.sticky-cart {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 10px;
+  overflow-y: auto;
+}
+.cartHeight {
+  height: 55em;
 }
