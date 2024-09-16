@@ -1,5 +1,5 @@
 <p>Inserisci un indirizzo per scoprire le opzioni disponibili nella tua zona</p>
-<div class="input-group">
+<div class="input-group input-w">
   <input
     type="text"
     class="form-control rounded-input m-0"
@@ -8,28 +8,32 @@
     (input)="onInput($event)"
   />
 
-  <button
-    class="btn btn-outline-primary ms-2 d-block d-md-none"
-    type="button"
+  <span
+    class="icon-toggle ms-2 d-block d-md-none"
     data-bs-toggle="modal"
     data-bs-target="#sidebarModal"
   >
     <i class="bi bi-sliders"></i>
-  </button>
-</div>
-<ul *ngIf="suggestions.length > 0" class="autocomplete-list">
-  <li
-    *ngFor="let suggestion of suggestions"
-    (click)="selectSuggestion(suggestion)"
+  </span>
+
+  <ul
+    *ngIf="suggestions.length > 0"
+    class="autocomplete-list color-text color-bg"
   >
-    {{ suggestion.display_name }}
-  </li>
-</ul>
+    <li
+      *ngFor="let suggestion of suggestions"
+      (click)="selectSuggestion(suggestion)"
+    >
+      {{ suggestion.display_name }}
+    </li>
+  </ul>
+</div>
+
 <p class="py-1 m-0 fs-4 fw-bold">Ristoranti che consegnano a {{ cityName }}</p>
 <div class="selected-categories" *ngIf="selectedCategories().length > 0">
   <span
     *ngFor="let category of selectedCategories()"
-    class="badge badge-pill bg-info text-white me-2"
+    class="badge badge-pill coloreDel text-white me-2"
   >
     {{ getCategoryName(category) }}
     <button
@@ -125,8 +129,8 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content color-bg color-text">
+      <div class="modal-header colorHeaderModal">
         <h5 class="modal-title" id="sidebarModalLabel">Filtri</h5>
         <button
           type="button"
@@ -643,7 +647,7 @@
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-secondary"
+          class="btn coloreDel"
           (click)="clearFilters()"
           data-bs-dismiss="modal"
         >

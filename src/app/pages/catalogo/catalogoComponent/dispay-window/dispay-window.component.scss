@@ -6,6 +6,7 @@
 .input-group {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .form-control {
@@ -36,6 +37,11 @@
   max-height: 200px;
   overflow-y: auto;
   background-color: #fff;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
 }
 
 .autocomplete-list li {
@@ -44,16 +50,21 @@
 }
 
 .autocomplete-list li:hover {
-  background-color: #f0f0f0;
+  background-color: #00ccbc;
+}
+
+.input-w {
+  width: 90%;
 }
 
 .rounded-input {
-  border-radius: 8px 0 0 8px;
+  border-radius: 10px;
 }
 
 .rounded-button {
   border-radius: 0 8px 8px 0;
 }
+
 .container-fluid {
   position: relative;
 }
@@ -125,6 +136,7 @@
   margin-top: 10px;
   color: #35b8b2;
 }
+
 .restaurant-card {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -151,6 +163,7 @@
   font-size: 0.9rem;
   color: #555;
 }
+
 .selected-categories .badge {
   background-color: #35b8b2;
   padding: 0.5rem 1rem;
@@ -165,5 +178,20 @@
   border: none;
   font-size: 1.2rem;
   margin-left: 8px;
+  color: white;
+}
+.icon-toggle i {
+  color: #35b8b2;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding-left: 12px;
+}
+.colorHeaderModal {
+  background-color: #35b8b2;
+  color: white;
+}
+.coloreDel {
+  background-color: #35b8b2;
   color: white;
 }

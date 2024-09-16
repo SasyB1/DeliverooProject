@@ -31,7 +31,7 @@
             Cerca
           </button>
         </div>
-        <ul *ngIf="suggestions.length > 0" class="autocomplete-list">
+        <ul *ngIf="suggestions.length > 0" class="autocomplete-list color-text">
           <li
             *ngFor="let suggestion of suggestions"
             (click)="selectSuggestion(suggestion)"
