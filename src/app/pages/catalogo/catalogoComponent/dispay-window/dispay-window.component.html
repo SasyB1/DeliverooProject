@@ -46,7 +46,10 @@
   </span>
 </div>
 
-<div class="container-fluid pt-2 position-relative">
+<div
+  class="container-fluid pt-2 position-relative"
+  *ngIf="selectedCategories().length === 0"
+>
   <button
     class="scroll-button left"
     (click)="scrollLeft()"
@@ -89,8 +92,18 @@
     <i class="bi bi-arrow-right"></i>
   </button>
 </div>
-<div *ngIf="ristoranti().length === 0" class="alert alert-warning">
-  Nessun ristorante trovato per le categorie selezionate.
+
+<div *ngIf="ristoranti().length === 0" class="no-results-container text-center">
+  <img
+    src="../../../../../assets/image/plate-empty.png"
+    alt="Nessun risultato"
+    class="no-results-image"
+  />
+  <h3 class="mt-3">Nessun risultato trovato con i filtri selezionati</h3>
+  <p>Prova a modificare i filtri</p>
+  <button class="btn coloreDel mt-2 mb-2" (click)="clearFilters()">
+    Elimina tutti i filtri
+  </button>
 </div>
 
 <div *ngIf="ristoranti().length > 0" class="container-fluid mt-4">

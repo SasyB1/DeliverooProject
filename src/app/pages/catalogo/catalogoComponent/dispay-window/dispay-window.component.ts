@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewChecked,
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   computed,
   effect,
@@ -20,7 +22,9 @@ import { RestaurantService } from '../../../../Services/Restaurant.service';
   templateUrl: './dispay-window.component.html',
   styleUrls: ['./dispay-window.component.scss'],
 })
-export class DispayWindowComponent implements AfterViewInit, OnDestroy {
+export class DispayWindowComponent
+  implements AfterViewInit, OnDestroy, AfterViewChecked
+{
   @ViewChild('scrollableDiv') scrollableDiv!: ElementRef;
   canScrollLeft = signal(false);
   canScrollRight = signal(false);
@@ -33,7 +37,10 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
   cityName: string = '';
   selectedCategories = this.ristoranteService.selectedCategories;
 
-  constructor(private ristoranteService: RestaurantService) {
+  constructor(
+    private ristoranteService: RestaurantService,
+    private cdr: ChangeDetectorRef
+  ) {
     const savedLat = localStorage.getItem('userLat');
     const savedLon = localStorage.getItem('userLon');
     if (savedLat && savedLon) {
@@ -80,10 +87,15 @@ export class DispayWindowComponent implements AfterViewInit, OnDestroy {
     });
     window.addEventListener('resize', this.updateScrollButtons.bind(this));
   }
+
+  ngAfterViewChecked(): void {
+    this.updateScrollButtons();
+    this.cdr.detectChanges();
+  }
+
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.updateScrollButtons.bind(this));
   }
-
   scrollLeft(): void {
     const el = this.scrollableDiv.nativeElement;
     el.scrollLeft -= 300;
