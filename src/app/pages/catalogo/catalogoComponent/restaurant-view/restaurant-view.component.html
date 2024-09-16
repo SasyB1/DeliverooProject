@@ -1,1 +1,146 @@
-<p>restaurant-view works!</p>
+<div *ngIf="restaurantDetails">
+  <div class="back-button mb-4">
+    <div class="back-link d-flex align-items-center" (click)="goBack()">
+      <i class="bi bi-arrow-left me-2"></i> Indietro
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <img
+        class="img-fluid"
+        [src]="getImageUrl(restaurantDetails.ristorante.immaginePath)"
+        alt="{{ restaurantDetails.ristorante.nome }}"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <h1>{{ restaurantDetails.ristorante.nome }}</h1>
+      <p>{{ getCategorieAsString() }}</p>
+      <p>
+        Distanza:
+        {{
+          calculateDistance(
+            restaurantDetails.ristorante.latitudine,
+            restaurantDetails.ristorante.longitudine
+          )
+        }}
+        ·
+        {{ getOrarioChiusuraOggi() }}
+        · Minimo d'ordine: 10,00 € · Consegna gratuita
+      </p>
+
+      <div class="d-flex flex-column align-items-start">
+        <div
+          class="info-link d-flex align-items-center"
+          data-bs-toggle="modal"
+          data-bs-target="#infoModal"
+        >
+          <i class="bi bi-info-circle me-2"></i> Informazioni
+          <i class="bi bi-chevron-right ms-auto"></i>
+        </div>
+
+        <div
+          class="info-link d-flex align-items-center"
+          data-bs-toggle="modal"
+          data-bs-target="#reviewsModal"
+        >
+          <i class="bi bi-star-fill me-2"></i> Recensioni
+          <i class="bi bi-chevron-right ms-auto"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="infoModal"
+    tabindex="-1"
+    aria-labelledby="infoModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoModalLabel">Informazioni</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">Allergeni e tanto altro...</div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="reviewsModal"
+    tabindex="-1"
+    aria-labelledby="reviewsModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reviewsModalLabel">Recensioni</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">Recensioni del ristorante...</div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="categories-container">
+    <div class="d-flex flex-wrap align-items-center">
+      <button
+        *ngFor="let categoria of firstCategories"
+        class="btn btn-outline-primary me-2 mb-2"
+      >
+        {{ categoria.nome }}
+      </button>
+
+      <div *ngIf="extraCategories.length > 0" class="dropdown">
+        <button
+          class="btn btn-outline-secondary dropdown-toggle"
+          type="button"
+          id="moreCategoriesDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Altro
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="moreCategoriesDropdown">
+          <li *ngFor="let categoria of extraCategories" class="dropdown-item">
+            {{ categoria.nome }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

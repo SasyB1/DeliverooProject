@@ -77,17 +77,22 @@ export class DispayWindowComponent
         } else {
           this.ristoranteService.loadRistoranti();
         }
+        this.cdr.detectChanges();
       },
       { allowSignalWrites: true }
     );
   }
 
   ngAfterViewInit(): void {
-    this.updateScrollButtons();
-    this.scrollableDiv.nativeElement.addEventListener('scroll', () => {
+    if (this.scrollableDiv && this.scrollableDiv.nativeElement) {
       this.updateScrollButtons();
-    });
-    window.addEventListener('resize', this.updateScrollButtons.bind(this));
+      this.scrollableDiv.nativeElement.addEventListener('scroll', () => {
+        this.updateScrollButtons();
+      });
+      window.addEventListener('resize', this.updateScrollButtons.bind(this));
+    } else {
+      console.warn('scrollableDiv non è stato trovato nel DOM');
+    }
   }
 
   ngAfterViewChecked(): void {
@@ -96,8 +101,11 @@ export class DispayWindowComponent
   }
 
   ngOnDestroy(): void {
-    window.removeEventListener('resize', this.updateScrollButtons.bind(this));
+    if (this.scrollableDiv && this.scrollableDiv.nativeElement) {
+      window.removeEventListener('resize', this.updateScrollButtons.bind(this));
+    }
   }
+
   scrollLeft(): void {
     const el = this.scrollableDiv.nativeElement;
     el.scrollLeft -= 300;
@@ -110,9 +118,11 @@ export class DispayWindowComponent
     this.updateScrollButtons();
   }
   updateScrollButtons(): void {
-    const el = this.scrollableDiv.nativeElement;
-    this.canScrollLeft.set(el.scrollLeft > 0);
-    this.canScrollRight.set(el.scrollWidth > el.clientWidth + el.scrollLeft);
+    if (this.scrollableDiv && this.scrollableDiv.nativeElement) {
+      const el = this.scrollableDiv.nativeElement;
+      this.canScrollLeft.set(el.scrollLeft > 0);
+      this.canScrollRight.set(el.scrollWidth > el.clientWidth + el.scrollLeft);
+    }
   }
 
   onInput(event: Event): void {
@@ -217,6 +227,7 @@ export class DispayWindowComponent
       );
     }
     this.ristoranteService.updateSelectedCategories(this.selectedCategories());
+    this.cdr.detectChanges();
   }
 
   isCategorySelected(categoryId: number): boolean {

@@ -1,0 +1,98 @@
+.back-button {
+  margin-bottom: 20px;
+}
+
+.restaurant-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.restaurant-image img {
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.restaurant-info {
+  max-width: 600px;
+}
+
+.restaurant-info h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.restaurant-info p {
+  margin: 5px 0;
+}
+
+button {
+  background-color: #35b8b2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.categories-container {
+  margin-top: 30px;
+}
+
+.categories-list {
+  display: flex;
+  overflow-x: auto;
+}
+
+.categories-list button {
+  margin-right: 10px;
+}
+
+button[disabled] {
+  background-color: grey;
+  cursor: not-allowed;
+}
+.info-link {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #35b8b2; /* Colore del testo e delle icone */
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s;
+  text-decoration: none; /* Rimuove underline */
+}
+
+.info-link i {
+  color: #35b8b2; /* Colore delle icone */
+}
+
+.info-link:hover,
+.info-link:focus {
+  border-color: #35b8b2; /* Mostra bordo del colore desiderato al hover */
+  background-color: rgba(53, 184, 178, 0.1); /* Aggiungi sfondo leggero */
+}
+
+.info-link i.bi-chevron-right {
+  margin-left: auto; /* Sposta la freccia a destra */
+}
+.back-link {
+  display: flex;
+  align-items: center;
+  color: #35b8b2; /* Colore del testo e della freccia */
+  cursor: pointer;
+  font-size: 18px; /* Modifica la dimensione del testo */
+  text-decoration: none; /* Rimuove l'underline */
+  transition: color 0.3s;
+}
+
+.back-link i {
+  color: #35b8b2; /* Colore della freccia */
+}
+
+.back-link:hover {
+  color: #28a196; /* Colore della freccia al hover */
+}

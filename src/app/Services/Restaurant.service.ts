@@ -11,6 +11,7 @@ import { filter, map, Observable, tap } from 'rxjs';
 import { iSuggestion } from '../Models/OSMSuggestion';
 import { iRestaurant } from '../Models/Restaurant';
 import { iCategoria } from '../Models/Category';
+import { iRestaurantDetails } from '../Models/RestaurantDetails';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,8 @@ export class RestaurantService {
   private apiUrlRistorantiDelete = 'https://localhost:7223/delete-ristorante';
   private apiUrlRistorantiCategoria =
     'https://localhost:7223/ristoranti-per-categoria';
+  private apiUrlRestaurantDetails =
+    'https://localhost:7223/get-ristorante-dettagli';
 
   // Utilizzo dei segnali
   ristoranti = signal<iRestaurant[]>([]);
@@ -260,5 +263,10 @@ export class RestaurantService {
           }
         },
       });
+  }
+  getRestaurantDetails(restaurantId: number): Observable<iRestaurantDetails> {
+    return this.http.get<iRestaurantDetails>(
+      `${this.apiUrlRestaurantDetails}/${restaurantId}`
+    );
   }
 }

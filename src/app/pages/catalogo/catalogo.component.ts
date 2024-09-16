@@ -28,11 +28,17 @@ export class CatalogoComponent implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.checkIfDetailPage();
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.isDetailPage =
-          this.activatedRoute.firstChild?.snapshot.url[0]?.path === 'details';
+        this.checkIfDetailPage();
       });
+  }
+
+  checkIfDetailPage(): void {
+    this.isDetailPage =
+      this.activatedRoute.firstChild?.snapshot.url[0]?.path === 'details';
   }
 }
