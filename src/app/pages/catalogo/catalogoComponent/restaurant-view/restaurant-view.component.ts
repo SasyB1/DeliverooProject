@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { iRestaurantDetails } from '../../../../Models/RestaurantDetails';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
-import { iCategoria } from '../../../../Models/Category';
 import { FormsModule } from '@angular/forms';
+import { iMenu } from '../../../../Models/Menu';
 
 @Component({
   selector: 'app-restaurant-view',
@@ -15,9 +15,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class RestaurantViewComponent implements OnInit {
   restaurantDetails: iRestaurantDetails | null = null;
-  firstCategories: iCategoria[] = [];
-  extraCategories: iCategoria[] = [];
-  maxCategoriesInRow = 6;
+  firstMenus: iMenu[] = [];
+  extraMenus: iMenu[] = [];
+  maxMenusInRow = 2;
+  activeMenuId: number | null = null;
 
   userLat: number | null = null;
   userLon: number | null = null;
@@ -41,20 +42,19 @@ export class RestaurantViewComponent implements OnInit {
 
     this.restaurantService.getRestaurantDetails(restaurantId).subscribe({
       next: (details) => {
-        console.log('Dettagli del ristorante:', details);
         this.restaurantDetails = details;
 
-        if (this.restaurantDetails.categorie.length > this.maxCategoriesInRow) {
-          this.firstCategories = this.restaurantDetails.categorie.slice(
+        if (this.restaurantDetails.menus.length > this.maxMenusInRow) {
+          this.firstMenus = this.restaurantDetails.menus.slice(
             0,
-            this.maxCategoriesInRow
+            this.maxMenusInRow
           );
-          this.extraCategories = this.restaurantDetails.categorie.slice(
-            this.maxCategoriesInRow
+          this.extraMenus = this.restaurantDetails.menus.slice(
+            this.maxMenusInRow
           );
         } else {
-          this.firstCategories = this.restaurantDetails.categorie;
-          this.extraCategories = [];
+          this.firstMenus = this.restaurantDetails.menus;
+          this.extraMenus = [];
         }
       },
       error: (err) => {
@@ -145,5 +145,20 @@ export class RestaurantViewComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/catalogo']);
+  }
+  scrollToMenu(menuId: number): void {
+    const element = document.getElementById('menu-' + menuId);
+    const offset = -85;
+
+    if (element) {
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition + offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
   }
 }
