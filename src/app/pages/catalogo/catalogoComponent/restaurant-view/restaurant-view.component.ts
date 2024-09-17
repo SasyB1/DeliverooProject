@@ -149,7 +149,7 @@ export class RestaurantViewComponent implements OnInit {
   scrollToMenu(menuId: number): void {
     const element = document.getElementById('menu-' + menuId);
     const offset = -85;
-
+    this.activeMenuId = menuId;
     if (element) {
       const elementPosition =
         element.getBoundingClientRect().top + window.scrollY;

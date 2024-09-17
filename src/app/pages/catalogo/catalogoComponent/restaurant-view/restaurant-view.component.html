@@ -60,6 +60,7 @@
         *ngFor="let menu of firstMenus"
         class="btn btn-menu me-2 mb-2"
         (click)="scrollToMenu(menu.iD_Menu)"
+        [ngClass]="{ active: activeMenuId === menu.iD_Menu }"
       >
         {{ menu.nome }}
       </button>
@@ -74,7 +75,7 @@
         >
           Altro
         </button>
-        <ul class="dropdown-menu" aria-labelledby="moreMenusDropdown">
+        <ul class="dropdown-menu p-0" aria-labelledby="moreMenusDropdown">
           <li *ngFor="let menu of extraMenus">
             <button class="dropdown-item" (click)="scrollToMenu(menu.iD_Menu)">
               {{ menu.nome }}
