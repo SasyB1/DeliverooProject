@@ -116,16 +116,11 @@ export class RestaurantViewComponent implements OnInit {
     const orariApertura = this.restaurantDetails.ristorante.orariApertura;
 
     const oggi = new Date().getDay();
-
-    console.log('Oggi è:', oggi);
-    console.log('Orari di apertura:', orariApertura);
-
     const orarioOggi = orariApertura.find(
       (orario) => orario.giornoSettimana === oggi
     );
 
     if (orarioOggi) {
-      console.log('Orario di chiusura di oggi:', orarioOggi.oraChiusura);
       return `Chiude alle ${orarioOggi.oraChiusura.slice(0, 5)}`;
     } else {
       console.log('Nessun orario di chiusura trovato per oggi');
