@@ -128,7 +128,6 @@ button[disabled] {
 
 .card-description {
   font-size: 14px;
-  color: #666;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -139,7 +138,6 @@ button[disabled] {
 .card-text {
   font-size: 16px;
   font-weight: bold;
-  color: #000;
 }
 
 .img-Piatti {
@@ -180,4 +178,7 @@ button[disabled] {
 .flex-grow-1 {
   max-width: 70%;
   margin-right: 10px;
+}
+.modal-header {
+  border-bottom: none !important;
 }
