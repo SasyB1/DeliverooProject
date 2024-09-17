@@ -171,21 +171,29 @@
 
         <div class="row">
           <div
-            class="col-lg-6 col-md-6 mb-3"
+            class="col-lg-4 col-md-6 mb-3"
             *ngFor="let piatto of menu.piatti"
           >
-            <div class="card h-100 d-flex flex-row align-items-center p-2">
+            <div class="card d-flex flex-row align-items-center p-2">
               <div class="flex-grow-1">
                 <h5 class="card-title">{{ piatto.nome }}</h5>
+                <p class="card-description">
+                  {{ piatto.descrizione }} Lorem ipsum dolor sit amet
+                  consectetur adipisicing elit. Veritatis beatae explicabo
+                  possimus maxime neque, sunt facere, accusamus quibusdam
+                  eveniet quisquam adipisci consectetur dolorem quia, voluptatum
+                  hic. Esse vel qui porro.
+                </p>
                 <p class="card-text">{{ piatto.prezzo | currency : "EUR" }}</p>
               </div>
-              <img
-                class="img-thumbnail"
-                [src]="getImageUrl(piatto.immaginePath || '')"
-                alt="{{ piatto.nome }}"
-                style="width: 80px; height: 80px"
-              />
-              <button class="btn btn-outline-primary ms-2">+</button>
+              <div class="d-flex align-items-center">
+                <img
+                  class="img-Piatti"
+                  [src]="getImageUrl(piatto.immaginePath || '')"
+                  alt="{{ piatto.nome }}"
+                />
+                <button class="btn add-btn ms-2">+</button>
+              </div>
             </div>
           </div>
         </div>
