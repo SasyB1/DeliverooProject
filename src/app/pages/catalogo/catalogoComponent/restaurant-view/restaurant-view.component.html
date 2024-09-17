@@ -175,7 +175,11 @@
             *ngFor="let piatto of menu.piatti"
           >
             <div class="card d-flex flex-row align-items-center p-2">
-              <div class="flex-grow-1">
+              <div
+                class="flex-grow-1"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#piattoModal' + piatto.iD_Piatto"
+              >
                 <h5 class="card-title">{{ piatto.nome }}</h5>
                 <p class="card-description">
                   {{ piatto.descrizione }} Lorem ipsum dolor sit amet
@@ -193,6 +197,67 @@
                   alt="{{ piatto.nome }}"
                 />
                 <button class="btn add-btn ms-2">+</button>
+              </div>
+            </div>
+            <div
+              class="modal fade"
+              [attr.id]="'piattoModal' + piatto.iD_Piatto"
+              tabindex="-1"
+              [attr.aria-labelledby]="'piattoModalLabel' + piatto.iD_Piatto"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body text-center">
+                    <img
+                      [src]="getImageUrl(piatto.immaginePath || '')"
+                      alt="{{ piatto.nome }}"
+                      class="img-fluid"
+                      style="max-width: 300px; border-radius: 8px"
+                    />
+                    <h5 class="modal-title mt-3">{{ piatto.nome }}</h5>
+
+                    <p class="mt-3">
+                      Hai delle domande su allergeni, ingredienti o metodi di
+                      preparazione? <a href="#">Contatta il ristorante.</a>
+                    </p>
+                    <div
+                      class="d-flex justify-content-center align-items-center mt-4"
+                    >
+                      <button
+                        class="btn btn-outline-secondary"
+                        (click)="quantity = quantity - 1"
+                        [disabled]="quantity <= 1"
+                      >
+                        -
+                      </button>
+                      <input
+                        type="text"
+                        class="form-control text-center mx-2"
+                        [(ngModel)]="quantity"
+                        style="width: 50px"
+                        readonly
+                      />
+                      <button
+                        class="btn btn-outline-secondary"
+                        (click)="quantity = quantity + 1"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-4">
+                      Aggiungi per {{ piatto.prezzo | currency : "EUR" }}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

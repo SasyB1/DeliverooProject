@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { iRestaurantDetails } from '../../../../Models/RestaurantDetails';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
 import { iCategoria } from '../../../../Models/Category';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-restaurant-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './restaurant-view.component.html',
   styleUrl: './restaurant-view.component.scss',
 })
@@ -20,6 +21,7 @@ export class RestaurantViewComponent implements OnInit {
 
   userLat: number | null = null;
   userLon: number | null = null;
+  quantity: number = 1;
 
   constructor(
     private restaurantService: RestaurantService,
