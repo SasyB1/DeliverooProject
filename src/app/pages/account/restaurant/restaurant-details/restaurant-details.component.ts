@@ -25,6 +25,7 @@ export class RestaurantDetailsComponent implements OnInit {
       description: string;
       price: number | null;
       immagine: File | null;
+      consenteIngredienti: boolean;
     };
   } = {};
 
@@ -65,6 +66,7 @@ export class RestaurantDetailsComponent implements OnInit {
                 description: '',
                 price: null,
                 immagine: null,
+                consenteIngredienti: false,
               };
             }
             this.menuService.getPiattiByMenu(menu.iD_Menu).subscribe(
@@ -73,6 +75,12 @@ export class RestaurantDetailsComponent implements OnInit {
                   `Piatti caricati per il menu ${menu.iD_Menu}:`,
                   piatti
                 );
+                piatti.forEach((piatto) => {
+                  console.log(
+                    `Valore consenteIngredienti per il piatto:`,
+                    piatto.consenteIngredienti
+                  );
+                });
                 menu.piatti = piatti;
               },
               (error) => {
@@ -169,6 +177,10 @@ export class RestaurantDetailsComponent implements OnInit {
       formData.append('descrizione', piatto.description);
       formData.append('prezzo', piatto.price.toString());
       formData.append('idMenu', menuId.toString());
+      formData.append(
+        'consenteIngredienti',
+        piatto.consenteIngredienti ? 'true' : 'false'
+      ); // Nuova proprietà
 
       if (piatto.immagine) {
         formData.append('immagine', piatto.immagine);
@@ -181,6 +193,7 @@ export class RestaurantDetailsComponent implements OnInit {
             description: '',
             price: null,
             immagine: null,
+            consenteIngredienti: false, // Resetta la proprietà
           };
           this.loadMenus();
         },
@@ -284,18 +297,25 @@ export class RestaurantDetailsComponent implements OnInit {
       ?.piatti.find((piatto) => piatto.iD_Piatto === piattoId);
 
     if (piatto && piatto.nome && piatto.descrizione && piatto.prezzo !== null) {
+      console.log(
+        'Valore consenteIngredienti prima di aggiornare il piatto:',
+        piatto.consenteIngredienti
+      );
+
       const formData = new FormData();
       formData.append('idPiatto', piattoId.toString());
       formData.append('nome', piatto.nome);
       formData.append('descrizione', piatto.descrizione);
       formData.append('prezzo', piatto.prezzo.toString());
+      formData.append(
+        'consenteIngredienti',
+        piatto.consenteIngredienti ? 'true' : 'false'
+      );
+
       if (piatto.immagine) {
-        console.log('Nuova immagine selezionata:', piatto.immagine);
         formData.append('immagine', piatto.immagine);
       }
-      formData.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-      });
+
       this.menuService.updatePiatto(formData).subscribe(
         () => {
           this.loadMenus();

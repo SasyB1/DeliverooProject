@@ -6,4 +6,5 @@ export interface iPiatto {
   immaginePath: string;
   cancellato: boolean;
   immagine?: File | null;
+  consenteIngredienti: boolean;
 }

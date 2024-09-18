@@ -154,6 +154,19 @@
                     />
                   </div>
                   <div class="form-group mb-3">
+                    <label for="consenteIngredienti{{ piatto.iD_Piatto }}">
+                      Consente selezione ingredienti
+                    </label>
+                    <input
+                      type="checkbox"
+                      class="form-check-input ms-2"
+                      [(ngModel)]="piatto.consenteIngredienti"
+                      name="consenteIngredienti{{ piatto.iD_Piatto }}"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </div>
+
+                  <div class="form-group mb-3">
                     <label for="updatePiattoPrice{{ piatto.iD_Piatto }}"
                       >Prezzo</label
                     >
@@ -410,6 +423,19 @@
                 [ngModelOptions]="{ standalone: true }"
               />
             </div>
+            <div class="form-group mb-3">
+              <label for="piattoConsenteIngredienti"
+                >Consente selezione ingredienti</label
+              >
+              <input
+                type="checkbox"
+                [(ngModel)]="newPiattoData[menu.iD_Menu].consenteIngredienti"
+                class="form-check-input ms-2"
+                name="piattoConsenteIngredienti{{ menu.iD_Menu }}"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+
             <div class="form-group mb-3">
               <label for="piattoPrice">Prezzo</label>
               <input
