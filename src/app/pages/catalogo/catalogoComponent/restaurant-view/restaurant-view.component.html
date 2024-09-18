@@ -187,11 +187,7 @@
             <div
               class="card d-flex flex-row align-items-center p-2 border color-bg color-text"
             >
-              <div
-                class="flex-grow-1 ps-1"
-                data-bs-toggle="modal"
-                [attr.data-bs-target]="'#piattoModal' + piatto.iD_Piatto"
-              >
+              <div class="flex-grow-1 ps-1">
                 <h5 class="card-title">{{ piatto.nome }}</h5>
                 <p class="card-description">
                   {{ piatto.descrizione }}
@@ -204,7 +200,13 @@
                   [src]="getImageUrl(piatto.immaginePath || '')"
                   alt="{{ piatto.nome }}"
                 />
-                <button class="btn add-btn ms-2">+</button>
+                <button
+                  class="btn add-btn ms-2"
+                  data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#piattoModal' + piatto.iD_Piatto"
+                >
+                  +
+                </button>
               </div>
             </div>
             <div
@@ -233,9 +235,22 @@
                     />
                     <h5 class="modal-title mt-3">{{ piatto.nome }}</h5>
 
-                    <p class="mt-3">
-                      {{ piatto.descrizione }}
-                    </p>
+                    <p class="mt-3">{{ piatto.descrizione }}</p>
+
+                    <!-- Sezione per la selezione degli ingredienti -->
+                    <div *ngIf="piatto.consenteIngredienti" class="mt-3">
+                      <h6>Seleziona ingredienti:</h6>
+                      <div *ngFor="let ingrediente of ingredienti">
+                        <input
+                          type="checkbox"
+                          [checked]="isIngredientSelected(ingrediente)"
+                          (change)="onIngredientChange($event, ingrediente)"
+                        />
+                        {{ ingrediente.nome }} -
+                        {{ ingrediente.prezzo | currency : "EUR" }}
+                      </div>
+                    </div>
+
                     <div
                       class="d-flex justify-content-center align-items-center mt-4"
                     >
@@ -260,7 +275,11 @@
                         +
                       </button>
                     </div>
-                    <button class="btn btn-primary w-100 mt-4">
+
+                    <button
+                      class="btn btn-primary w-100 mt-4"
+                      (click)="aggiungiAlCarrello(piatto)"
+                    >
                       Aggiungi per {{ piatto.prezzo | currency : "EUR" }}
                     </button>
                   </div>
@@ -274,23 +293,37 @@
 
     <div class="col-md-3">
       <div class="sticky-cart" id="cart">
-        <div
-          class="card p-3 cartHeight d-flex flex-column justify-content-between color-bg color-text"
-        >
+        <div class="card p-3 d-flex flex-column justify-content-between">
           <div>
-            <div class="d-flex justify-content-between align-items-center">
-              <h3 class="mb-4">Il tuo carrello</h3>
-            </div>
+            <h3>Il tuo carrello</h3>
+            <div *ngFor="let item of cartService.getCartItems()()">
+              <p>{{ item.piatto.nome }} (x{{ item.quantita }})</p>
 
-            <div class="text-center">
-              <i class="bi bi-cart3" style="font-size: 48px"></i>
-              <p>Il carrello è vuoto</p>
+              <ul *ngIf="item.ingredienti!.length > 0">
+                <li *ngFor="let ingrediente of item.ingredienti">
+                  {{ ingrediente.nome }} -
+                  {{ ingrediente.prezzo | currency : "EUR" }}
+                </li>
+              </ul>
+
+              <p>Totale: {{ item.prezzoTotale | currency : "EUR" }}</p>
             </div>
           </div>
 
-          <button class="btn btn-success w-100 mt-auto" disabled>
-            Vai al pagamento
-          </button>
+          <div class="mt-auto">
+            <p>
+              <strong
+                >Totale Carrello:
+                {{ cartService.totalCartPrice() | currency : "EUR" }}</strong
+              >
+            </p>
+            <button
+              class="btn btn-success w-100"
+              [disabled]="cartService.getCartItems()().length === 0"
+            >
+              Vai al pagamento
+            </button>
+          </div>
         </div>
       </div>
     </div>

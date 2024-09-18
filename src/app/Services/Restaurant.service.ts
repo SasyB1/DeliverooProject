@@ -12,6 +12,7 @@ import { iSuggestion } from '../Models/OSMSuggestion';
 import { iRestaurant } from '../Models/Restaurant';
 import { iCategoria } from '../Models/Category';
 import { iRestaurantDetails } from '../Models/RestaurantDetails';
+import { iIngrediente } from '../Models/Ingrediente';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,7 @@ export class RestaurantService {
     'https://localhost:7223/ristoranti-per-categoria';
   private apiUrlRestaurantDetails =
     'https://localhost:7223/get-ristorante-dettagli';
+  private apiUrlIngredienti = 'https://localhost:7223/get-ingredienti';
 
   // Utilizzo dei segnali
   ristoranti = signal<iRestaurant[]>([]);
@@ -268,5 +270,8 @@ export class RestaurantService {
     return this.http.get<iRestaurantDetails>(
       `${this.apiUrlRestaurantDetails}/${restaurantId}`
     );
+  }
+  getAllIngredienti(): Observable<iIngrediente[]> {
+    return this.http.get<iIngrediente[]>(`${this.apiUrlIngredienti}`);
   }
 }

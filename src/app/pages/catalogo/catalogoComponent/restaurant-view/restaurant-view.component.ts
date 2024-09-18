@@ -5,6 +5,9 @@ import { iRestaurantDetails } from '../../../../Models/RestaurantDetails';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
 import { FormsModule } from '@angular/forms';
 import { iMenu } from '../../../../Models/Menu';
+import { iPiatto } from '../../../../Models/Piatto';
+import { iIngrediente } from '../../../../Models/Ingrediente';
+import { CartService } from '../../../../Services/cart.service';
 
 @Component({
   selector: 'app-restaurant-view',
@@ -23,10 +26,13 @@ export class RestaurantViewComponent implements OnInit {
   userLat: number | null = null;
   userLon: number | null = null;
   quantity: number = 1;
+  ingredienti: iIngrediente[] = [];
+  selectedIngredients: iIngrediente[] = [];
 
   constructor(
     private restaurantService: RestaurantService,
     private route: ActivatedRoute,
+    public cartService: CartService,
     private router: Router
   ) {
     const savedLat = localStorage.getItem('userLat');
@@ -56,6 +62,7 @@ export class RestaurantViewComponent implements OnInit {
           this.firstMenus = this.restaurantDetails.menus;
           this.extraMenus = [];
         }
+        this.getIngredienti();
       },
       error: (err) => {
         console.error(
@@ -154,6 +161,47 @@ export class RestaurantViewComponent implements OnInit {
         top: offsetPosition,
         behavior: 'smooth',
       });
+    }
+  }
+
+  getIngredienti() {
+    this.restaurantService.getAllIngredienti().subscribe({
+      next: (data: iIngrediente[]) => {
+        this.ingredienti = data;
+      },
+      error: (error) => {
+        console.error('Errore nel recuperare gli ingredienti:', error);
+      },
+    });
+  }
+  isIngredientSelected(ingrediente: iIngrediente): boolean {
+    return this.selectedIngredients.some(
+      (i) => i.iD_Ingrediente === ingrediente.iD_Ingrediente
+    );
+  }
+
+  aggiungiAlCarrello(piatto: iPiatto) {
+    if (piatto.consenteIngredienti) {
+      this.cartService.addPiattoToCart(
+        piatto,
+        this.quantity,
+        this.selectedIngredients
+      );
+    } else {
+      this.cartService.addPiattoToCart(piatto, this.quantity, []);
+    }
+
+    this.selectedIngredients = [];
+    this.quantity = 1;
+  }
+
+  onIngredientChange(event: any, ingrediente: iIngrediente) {
+    if (event.target.checked) {
+      this.selectedIngredients.push(ingrediente);
+    } else {
+      this.selectedIngredients = this.selectedIngredients.filter(
+        (i) => i.iD_Ingrediente !== ingrediente.iD_Ingrediente
+      );
     }
   }
 }
