@@ -1,9 +1,9 @@
 import { iIngrediente } from './Ingrediente';
 import { iPiatto } from './Piatto';
 
-interface CartItem {
+export interface iCartItem {
   piatto: iPiatto;
   quantita: number;
-  ingredienti: iIngrediente[];
+  ingredienti?: iIngrediente[];
   prezzoTotale: number;
 }

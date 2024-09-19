@@ -6,6 +6,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { RestaurantComponent } from './pages/account/restaurant/restaurant.component';
 import { RestaurantDetailsComponent } from './pages/account/restaurant/restaurant-details/restaurant-details.component';
 import { RestaurantViewComponent } from './pages/catalogo/catalogoComponent/restaurant-view/restaurant-view.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
@@ -35,5 +36,6 @@ export const routes: Routes = [
       },
     ],
   },
+  { path: 'checkout', component: CheckoutComponent },
   { path: '**', redirectTo: 'homepage' },
 ];

@@ -1,0 +1,21 @@
+<p>checkout works!</p>
+<div class="checkout-container">
+  <h2>Riepilogo del tuo ordine</h2>
+
+  <div *ngFor="let item of cartItems">
+    <h4>{{ item.piatto.nome }} (x{{ item.quantita }})</h4>
+    <ul *ngIf="item.ingredienti && item.ingredienti.length > 0">
+      <li *ngFor="let ingrediente of item.ingredienti">
+        {{ ingrediente.nome }} - {{ ingrediente.prezzo | currency : "EUR" }}
+      </li>
+    </ul>
+
+    <p>Totale piatto: {{ item.prezzoTotale | currency : "EUR" }}</p>
+  </div>
+
+  <h3>Totale ordine: {{ totalCartPrice | currency : "EUR" }}</h3>
+
+  <button class="btn btn-success" (click)="submitOrder()">
+    Conferma ordine
+  </button>
+</div>

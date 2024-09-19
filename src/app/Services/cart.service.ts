@@ -1,6 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 import { iIngrediente } from '../Models/Ingrediente';
 import { iPiatto } from '../Models/Piatto';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 interface CartItem {
   piatto: iPiatto;
@@ -13,10 +15,12 @@ interface CartItem {
   providedIn: 'root',
 })
 export class CartService {
+  private apiUrl = 'https://localhost:7223';
+
   private cartItems = signal<CartItem[]>([]);
   totalCartPrice = signal<number>(0);
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.loadCartFromLocalStorage();
   }
 
@@ -27,8 +31,12 @@ export class CartService {
   addPiattoToCart(
     piatto: iPiatto,
     quantita: number,
-    ingredienti: iIngrediente[]
+    ingredienti: iIngrediente[],
+    idRistorante: number
   ) {
+    // Salva l'ID del ristorante nel localStorage
+    localStorage.setItem('idRistorante', idRistorante.toString());
+
     const existingItemIndex = this.cartItems().findIndex(
       (item) =>
         item.piatto.iD_Piatto === piatto.iD_Piatto &&
@@ -36,6 +44,7 @@ export class CartService {
     );
 
     if (existingItemIndex > -1) {
+      // Se l'articolo esiste già, aggiorna la quantità
       this.cartItems.update((cart) => {
         const existingItem = cart[existingItemIndex];
         existingItem.quantita += quantita;
@@ -109,5 +118,44 @@ export class CartService {
       this.cartItems.set(parsedCartItems);
       this.calculateTotalPrice();
     }
+  }
+
+  creaOrdine(idUtente: number, idRistorante: number): Observable<number> {
+    const ordineData = new FormData();
+    ordineData.append('idUtente', idUtente.toString());
+    ordineData.append('idRistorante', idRistorante.toString());
+
+    return this.http.post<number>(`${this.apiUrl}/crea-ordine`, ordineData);
+  }
+
+  aggiungiPiattoAOrdine(
+    idOrdine: number,
+    idPiatto: number,
+    quantita: number
+  ): Observable<void> {
+    const formData = new FormData();
+    formData.append('idOrdine', idOrdine.toString());
+    formData.append('idPiatto', idPiatto.toString());
+    formData.append('quantita', quantita.toString());
+
+    return this.http.post<void>(
+      `${this.apiUrl}/aggiungi-piatto-ordine`,
+      formData
+    );
+  }
+
+  aggiungiIngredienteADettaglioOrdine(
+    idDettaglioOrdine: number,
+    idIngrediente: number,
+    quantitaIngrediente: number
+  ): Observable<void> {
+    const formData = new FormData();
+    formData.append('idDettaglioOrdine', idDettaglioOrdine.toString());
+    formData.append('idIngrediente', idIngrediente.toString());
+    formData.append('quantitaIngrediente', quantitaIngrediente.toString());
+    return this.http.post<void>(
+      `${this.apiUrl}/aggiungi-ingrediente-dettaglio-ordine`,
+      formData
+    );
   }
 }

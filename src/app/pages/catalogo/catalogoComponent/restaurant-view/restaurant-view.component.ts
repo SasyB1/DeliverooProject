@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { iRestaurantDetails } from '../../../../Models/RestaurantDetails';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { CartService } from '../../../../Services/cart.service';
 @Component({
   selector: 'app-restaurant-view',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './restaurant-view.component.html',
   styleUrl: './restaurant-view.component.scss',
 })
@@ -181,14 +181,22 @@ export class RestaurantViewComponent implements OnInit {
   }
 
   aggiungiAlCarrello(piatto: iPiatto) {
+    const idRistorante = +this.route.snapshot.params['id']; // Recupera l'ID del ristorante dalla rotta
+
     if (piatto.consenteIngredienti) {
       this.cartService.addPiattoToCart(
         piatto,
         this.quantity,
-        this.selectedIngredients
+        this.selectedIngredients,
+        idRistorante // Aggiungi l'ID del ristorante
       );
     } else {
-      this.cartService.addPiattoToCart(piatto, this.quantity, []);
+      this.cartService.addPiattoToCart(
+        piatto,
+        this.quantity,
+        [],
+        idRistorante // Aggiungi l'ID del ristorante
+      );
     }
 
     this.selectedIngredients = [];

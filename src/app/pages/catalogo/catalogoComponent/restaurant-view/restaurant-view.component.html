@@ -320,6 +320,7 @@
             <button
               class="btn btn-success w-100"
               [disabled]="cartService.getCartItems()().length === 0"
+              [routerLink]="['/checkout']"
             >
               Vai al pagamento
             </button>
