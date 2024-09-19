@@ -78,6 +78,18 @@ export class CartService {
     this.saveCartToLocalStorage();
   }
 
+  removePiattoFromCart(idPiatto: number, ingredienti: iIngrediente[] = []) {
+    this.cartItems.update((cart) => {
+      return cart.filter(
+        (item) =>
+          item.piatto.iD_Piatto !== idPiatto ||
+          !this.areIngredientsEqual(item.ingredienti || [], ingredienti)
+      );
+    });
+    this.calculateTotalPrice();
+    this.saveCartToLocalStorage();
+  }
+
   private areIngredientsEqual(
     ingredienti1: iIngrediente[],
     ingredienti2: iIngrediente[]

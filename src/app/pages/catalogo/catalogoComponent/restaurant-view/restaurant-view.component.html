@@ -201,9 +201,10 @@
                   alt="{{ piatto.nome }}"
                 />
                 <button
-                  class="btn add-btn ms-2"
+                  class="btn add-btn color-bg ms-2"
                   data-bs-toggle="modal"
                   [attr.data-bs-target]="'#piattoModal' + piatto.iD_Piatto"
+                  (click)="apriModale(piatto)"
                 >
                   +
                 </button>
@@ -237,17 +238,26 @@
 
                     <p class="mt-3">{{ piatto.descrizione }}</p>
 
-                    <!-- Sezione per la selezione degli ingredienti -->
                     <div *ngIf="piatto.consenteIngredienti" class="mt-3">
                       <h6>Seleziona ingredienti:</h6>
-                      <div *ngFor="let ingrediente of ingredienti">
-                        <input
-                          type="checkbox"
-                          [checked]="isIngredientSelected(ingrediente)"
-                          (change)="onIngredientChange($event, ingrediente)"
-                        />
-                        {{ ingrediente.nome }} -
-                        {{ ingrediente.prezzo | currency : "EUR" }}
+                      <div
+                        *ngFor="let ingrediente of ingredienti"
+                        class="d-flex justify-content-between align-items-center mb-2"
+                      >
+                        <div class="form-check">
+                          <input
+                            type="checkbox"
+                            class="form-check-input"
+                            [checked]="isIngredientSelected(ingrediente)"
+                            (change)="
+                              onIngredientChange($event, ingrediente, piatto)
+                            "
+                          />
+                          <label class="form-check-label">
+                            {{ ingrediente.nome }}
+                          </label>
+                        </div>
+                        <span>{{ ingrediente.prezzo | currency : "EUR" }}</span>
                       </div>
                     </div>
 
@@ -256,7 +266,9 @@
                     >
                       <button
                         class="btn btn-outline-secondary"
-                        (click)="quantity = quantity - 1"
+                        (click)="
+                          quantity = quantity - 1; onQuantityChange(piatto)
+                        "
                         [disabled]="quantity <= 1"
                       >
                         -
@@ -270,7 +282,9 @@
                       />
                       <button
                         class="btn btn-outline-secondary"
-                        (click)="quantity = quantity + 1"
+                        (click)="
+                          quantity = quantity + 1; onQuantityChange(piatto)
+                        "
                       >
                         +
                       </button>
@@ -280,7 +294,7 @@
                       class="btn btn-primary w-100 mt-4"
                       (click)="aggiungiAlCarrello(piatto)"
                     >
-                      Aggiungi per {{ piatto.prezzo | currency : "EUR" }}
+                      Aggiungi per {{ totalPrice | currency : "EUR" }}
                     </button>
                   </div>
                 </div>
@@ -293,25 +307,46 @@
 
     <div class="col-md-3">
       <div class="sticky-cart" id="cart">
-        <div class="card p-3 d-flex flex-column justify-content-between">
+        <div
+          class="card p-3 d-flex flex-column justify-content-between color-bg color-text"
+        >
           <div>
             <h3>Il tuo carrello</h3>
-            <div *ngFor="let item of cartService.getCartItems()()">
-              <p>{{ item.piatto.nome }} (x{{ item.quantita }})</p>
 
-              <ul *ngIf="item.ingredienti!.length > 0">
-                <li *ngFor="let ingrediente of item.ingredienti">
-                  {{ ingrediente.nome }} -
+            <div *ngFor="let item of cartService.getCartItems()()" class="mb-3">
+              <div
+                class="d-flex justify-content-between align-items-center mb-1"
+              >
+                <span>x{{ item.quantita }}</span>
+                <span class="ms-2">{{ item.piatto.nome }}</span>
+                <span>{{ item.piatto.prezzo | currency : "EUR" }}</span>
+                <button
+                  class="btn btn-outline-danger btn-sm px-2 py-1"
+                  (click)="removeItemFromCart(item)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+
+              <ul *ngIf="item.ingredienti!.length > 0" class="ps-3">
+                <li
+                  *ngFor="let ingrediente of item.ingredienti"
+                  class="small color-text"
+                >
+                  + {{ ingrediente.nome }} -
                   {{ ingrediente.prezzo | currency : "EUR" }}
                 </li>
               </ul>
-
-              <p>Totale: {{ item.prezzoTotale | currency : "EUR" }}</p>
+              <p class="text-end mb-1 border-bottom">
+                <strong
+                  >Totale: {{ item.prezzoTotale | currency : "EUR" }}</strong
+                >
+              </p>
             </div>
           </div>
 
           <div class="mt-auto">
-            <p>
+            <p class="text-end mb-2">
               <strong
                 >Totale Carrello:
                 {{ cartService.totalCartPrice() | currency : "EUR" }}</strong

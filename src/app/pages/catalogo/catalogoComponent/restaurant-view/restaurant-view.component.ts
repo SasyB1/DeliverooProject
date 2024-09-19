@@ -8,6 +8,7 @@ import { iMenu } from '../../../../Models/Menu';
 import { iPiatto } from '../../../../Models/Piatto';
 import { iIngrediente } from '../../../../Models/Ingrediente';
 import { CartService } from '../../../../Services/cart.service';
+import { iCartItem } from '../../../../Models/CartItem';
 
 @Component({
   selector: 'app-restaurant-view',
@@ -28,6 +29,7 @@ export class RestaurantViewComponent implements OnInit {
   quantity: number = 1;
   ingredienti: iIngrediente[] = [];
   selectedIngredients: iIngrediente[] = [];
+  totalPrice: number = 0;
 
   constructor(
     private restaurantService: RestaurantService,
@@ -209,9 +211,9 @@ export class RestaurantViewComponent implements OnInit {
 
     this.selectedIngredients = [];
     this.quantity = 1;
+    this.totalPrice = 0;
   }
-
-  onIngredientChange(event: any, ingrediente: iIngrediente) {
+  onIngredientChange(event: any, ingrediente: iIngrediente, piatto: iPiatto) {
     if (event.target.checked) {
       this.selectedIngredients.push(ingrediente);
     } else {
@@ -219,5 +221,32 @@ export class RestaurantViewComponent implements OnInit {
         (i) => i.iD_Ingrediente !== ingrediente.iD_Ingrediente
       );
     }
+
+    this.calculateTotalPrice(piatto);
+  }
+
+  calculateTotalPrice(piatto: iPiatto) {
+    const ingredientPrice = this.selectedIngredients.reduce(
+      (sum, ingrediente) => sum + ingrediente.prezzo,
+      0
+    );
+    const basePrice = piatto.prezzo;
+    this.totalPrice = (basePrice + ingredientPrice) * this.quantity;
+  }
+
+  onQuantityChange(piatto: iPiatto) {
+    this.calculateTotalPrice(piatto);
+  }
+
+  apriModale(piatto: iPiatto) {
+    this.totalPrice = piatto.prezzo * this.quantity;
+    this.selectedIngredients = [];
+  }
+
+  removeItemFromCart(item: iCartItem) {
+    this.cartService.removePiattoFromCart(
+      item.piatto.iD_Piatto,
+      item.ingredienti
+    );
   }
 }
