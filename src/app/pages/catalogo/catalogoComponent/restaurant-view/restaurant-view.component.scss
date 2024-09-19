@@ -87,7 +87,7 @@ button[disabled] {
 
 .sticky-cart {
   position: sticky;
-  top: 10px;
+  top: 100px;
   overflow-y: auto;
 }
 
@@ -190,4 +190,82 @@ button[disabled] {
 .dropdown-menu .dropdown-item:hover {
   background-color: #35b8b2;
   color: white;
+}
+
+@media (max-width: 991px) {
+  .sticky-cart {
+    display: none;
+  }
+
+  .mobile-cart-btn {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #35b8b2;
+    color: white;
+    padding: 15px;
+    z-index: 1000;
+    font-size: 18px;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .mobile-cart-btn.show {
+    display: flex;
+  }
+
+  .mobile-cart-btn:hover {
+    background-color: #28a196;
+  }
+
+  .mobile-cart-btn .cart-total-price {
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+
+.cart-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  overflow-y: auto;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.cart-modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-modal.open {
+  display: block;
+  opacity: 1;
+}
+
+.close-cart-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #35b8b2;
+  cursor: pointer;
+}
+
+.close-cart-btn:hover {
+  color: #28a196;
 }

@@ -31,6 +31,8 @@ export class RestaurantViewComponent implements OnInit {
   selectedIngredients: iIngrediente[] = [];
   totalPrice: number = 0;
 
+  cartVisible: boolean = false;
+
   constructor(
     private restaurantService: RestaurantService,
     private route: ActivatedRoute,
@@ -74,6 +76,7 @@ export class RestaurantViewComponent implements OnInit {
       },
     });
   }
+
   calculateDistance(
     latitudineRistorante: number,
     longitudineRistorante: number
@@ -87,7 +90,6 @@ export class RestaurantViewComponent implements OnInit {
       return 'N/A';
     }
 
-    // Formula di Haversine
     const toRad = (value: number) => (value * Math.PI) / 180;
     const latDistance = toRad(latitudineRistorante - this.userLat);
     const lonDistance = toRad(longitudineRistorante - this.userLon);
@@ -140,6 +142,7 @@ export class RestaurantViewComponent implements OnInit {
   getImageUrl(immaginePath: string | null): string {
     return this.restaurantService.getImageUrl(immaginePath);
   }
+
   getCategorieAsString(): string {
     if (!this.restaurantDetails || !this.restaurantDetails.categorie) {
       return '';
@@ -150,6 +153,7 @@ export class RestaurantViewComponent implements OnInit {
   goBack() {
     this.router.navigate(['/catalogo']);
   }
+
   scrollToMenu(menuId: number): void {
     const element = document.getElementById('menu-' + menuId);
     const offset = -85;
@@ -176,6 +180,7 @@ export class RestaurantViewComponent implements OnInit {
       },
     });
   }
+
   isIngredientSelected(ingrediente: iIngrediente): boolean {
     return this.selectedIngredients.some(
       (i) => i.iD_Ingrediente === ingrediente.iD_Ingrediente
@@ -213,6 +218,7 @@ export class RestaurantViewComponent implements OnInit {
     this.quantity = 1;
     this.totalPrice = 0;
   }
+
   onIngredientChange(event: any, ingrediente: iIngrediente, piatto: iPiatto) {
     if (event.target.checked) {
       this.selectedIngredients.push(ingrediente);
@@ -248,5 +254,9 @@ export class RestaurantViewComponent implements OnInit {
       item.piatto.iD_Piatto,
       item.ingredienti
     );
+  }
+
+  toggleCart() {
+    this.cartVisible = !this.cartVisible;
   }
 }
