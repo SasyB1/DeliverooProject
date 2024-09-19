@@ -181,21 +181,29 @@ export class RestaurantViewComponent implements OnInit {
   }
 
   aggiungiAlCarrello(piatto: iPiatto) {
-    const idRistorante = +this.route.snapshot.params['id']; // Recupera l'ID del ristorante dalla rotta
+    const ristoranteNome = this.restaurantDetails?.ristorante.nome;
+    const ristoranteId = this.restaurantDetails?.ristorante.iD_Ristorante;
+
+    if (!ristoranteId || !ristoranteNome) {
+      console.error('ID o nome del ristorante non trovati.');
+      return;
+    }
 
     if (piatto.consenteIngredienti) {
       this.cartService.addPiattoToCart(
         piatto,
         this.quantity,
         this.selectedIngredients,
-        idRistorante // Aggiungi l'ID del ristorante
+        ristoranteId,
+        ristoranteNome
       );
     } else {
       this.cartService.addPiattoToCart(
         piatto,
         this.quantity,
         [],
-        idRistorante // Aggiungi l'ID del ristorante
+        ristoranteId,
+        ristoranteNome
       );
     }
 

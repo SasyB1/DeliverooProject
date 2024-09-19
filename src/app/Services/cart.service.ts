@@ -3,6 +3,7 @@ import { iIngrediente } from '../Models/Ingrediente';
 import { iPiatto } from '../Models/Piatto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 interface CartItem {
   piatto: iPiatto;
@@ -32,40 +33,47 @@ export class CartService {
     piatto: iPiatto,
     quantita: number,
     ingredienti: iIngrediente[],
-    idRistorante: number
+    idRistorante: number,
+    ristoranteNome: string
   ) {
-    localStorage.setItem('idRistorante', idRistorante.toString());
+    const ristoranteIdInCart = localStorage.getItem('idRistorante');
 
-    const existingItemIndex = this.cartItems().findIndex(
-      (item) =>
-        item.piatto.iD_Piatto === piatto.iD_Piatto &&
-        this.areIngredientsEqual(item.ingredienti || [], ingredienti)
-    );
-
-    if (existingItemIndex > -1) {
-      this.cartItems.update((cart) => {
-        const existingItem = cart[existingItemIndex];
-        existingItem.quantita += quantita;
-        existingItem.prezzoTotale =
-          (existingItem.piatto.prezzo +
-            this.calculateIngredientiPrice(ingredienti)) *
-          existingItem.quantita;
-        return cart;
+    if (ristoranteIdInCart && +ristoranteIdInCart !== idRistorante) {
+      Swal.fire({
+        title: 'Vuoi creare un nuovo carrello?',
+        text: `In questo modo cancelli il carrello esistente e crei un nuovo carrello da ${ristoranteNome}.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Nuovo carrello',
+        cancelButtonText: 'Annulla',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.clearCart();
+          this.addNewPiatto(piatto, quantita, ingredienti, idRistorante);
+        }
       });
     } else {
-      const prezzoTotale =
-        (piatto.prezzo + this.calculateIngredientiPrice(ingredienti)) *
-        quantita;
-      const newCartItem: CartItem = {
-        piatto,
-        quantita,
-        ingredienti,
-        prezzoTotale,
-      };
-
-      this.cartItems.update((cart) => [...cart, newCartItem]);
+      this.addNewPiatto(piatto, quantita, ingredienti, idRistorante);
     }
+  }
 
+  private addNewPiatto(
+    piatto: iPiatto,
+    quantita: number,
+    ingredienti: iIngrediente[],
+    idRistorante: number
+  ) {
+    const prezzoTotale =
+      (piatto.prezzo + this.calculateIngredientiPrice(ingredienti)) * quantita;
+    const newCartItem: CartItem = {
+      piatto,
+      quantita,
+      ingredienti,
+      prezzoTotale,
+    };
+
+    this.cartItems.update((cart) => [...cart, newCartItem]);
+    localStorage.setItem('idRistorante', idRistorante.toString());
     this.calculateTotalPrice();
     this.saveCartToLocalStorage();
   }
@@ -103,6 +111,8 @@ export class CartService {
   clearCart() {
     this.cartItems.set([]);
     this.totalCartPrice.set(0);
+    localStorage.removeItem('cart');
+    localStorage.removeItem('idRistorante');
   }
   private saveCartToLocalStorage() {
     const cartItems = this.cartItems();
