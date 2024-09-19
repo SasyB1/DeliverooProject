@@ -1,21 +1,117 @@
-<p>checkout works!</p>
-<div class="checkout-container">
-  <h2>Riepilogo del tuo ordine</h2>
+<div class="checkout-container container-fluid py-5 color-bg color-text">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <h2 class="text-center mb-4" style="color: #35b8b2">
+        Riepilogo del tuo ordine
+      </h2>
 
-  <div *ngFor="let item of cartItems">
-    <h4>{{ item.piatto.nome }} (x{{ item.quantita }})</h4>
-    <ul *ngIf="item.ingredienti && item.ingredienti.length > 0">
-      <li *ngFor="let ingrediente of item.ingredienti">
-        {{ ingrediente.nome }} - {{ ingrediente.prezzo | currency : "EUR" }}
-      </li>
-    </ul>
+      <div class="order-summary mb-4 p-4 rounded shadow color-bg color-text">
+        <div
+          *ngFor="let item of cartItems"
+          class="card mb-3 shadow-sm border-0"
+        >
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <h4 class="card-title mb-0">{{ item.piatto.nome }}</h4>
+                <small class="text-muted ms-2">(x{{ item.quantita }})</small>
+              </div>
+              <span class="fw-bold">{{
+                item.piatto.prezzo | currency : "EUR"
+              }}</span>
+            </div>
 
-    <p>Totale piatto: {{ item.prezzoTotale | currency : "EUR" }}</p>
+            <ul
+              *ngIf="item.ingredienti && item.ingredienti.length > 0"
+              class="list-group list-group-flush"
+            >
+              <li
+                *ngFor="let ingrediente of item.ingredienti"
+                class="list-group-item d-flex justify-content-between"
+              >
+                {{ ingrediente.nome }}
+                <span>{{ ingrediente.prezzo | currency : "EUR" }}</span>
+              </li>
+            </ul>
+
+            <p class="mt-3 mb-0 text-end">
+              Totale piatto:
+              <strong>{{ item.prezzoTotale | currency : "EUR" }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="total-price text-end mb-5">
+        <h3>
+          Totale ordine:
+          <strong>{{ totalCartPrice | currency : "EUR" }}</strong>
+        </h3>
+      </div>
+
+      <div class="payment-form p-4 rounded shadow mb-5 color-bg color-text">
+        <h4 class="mb-4" style="color: #35b8b2">
+          Inserisci i dati della carta
+        </h4>
+        <form>
+          <div class="mb-4">
+            <label for="cardNumber" class="form-label"
+              >Numero della carta</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="cardNumber"
+              maxlength="16"
+              pattern="[0-9]{16}"
+              placeholder="1234 5678 9012 3456"
+              required
+            />
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-4">
+                <label for="expiryDate" class="form-label"
+                  >Data di scadenza</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="expiryDate"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                  (input)="onExpiryDateInput($event)"
+                  required
+                />
+              </div>
+            </div>
+            <!-- CVV -->
+            <div class="col-6">
+              <div class="mb-4">
+                <label for="cvv" class="form-label">CVV</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cvv"
+                  maxlength="3"
+                  pattern="[0-9]{3}"
+                  placeholder="123"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn w-100 py-2"
+            style="background-color: #35b8b2; color: white"
+            (click)="submitOrder($event)"
+          >
+            Conferma ordine
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
-
-  <h3>Totale ordine: {{ totalCartPrice | currency : "EUR" }}</h3>
-
-  <button class="btn btn-success" (click)="submitOrder()">
-    Conferma ordine
-  </button>
 </div>

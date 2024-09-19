@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../../Services/cart.service';
 import { iCartItem } from '../../Models/CartItem';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
 })
@@ -30,7 +30,8 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  submitOrder() {
+  submitOrder(event: Event) {
+    event.preventDefault();
     if (!this.idUtente) {
       console.error('Errore: ID utente non trovato');
       return;
@@ -85,5 +86,27 @@ export class CheckoutComponent implements OnInit {
         console.error("Errore durante la creazione dell'ordine:", err);
       },
     });
+  }
+  onExpiryDateInput(event: any): void {
+    let input = event.target.value.replace(/\D/g, '');
+
+    if (input.length >= 2) {
+      let month = input.substring(0, 2);
+      if (+month < 1) {
+        month = '01';
+      } else if (+month > 12) {
+        month = '12';
+      }
+      input = month + (input.length > 2 ? '/' + input.substring(2, 4) : '');
+    }
+
+    if (input.length === 5) {
+      const year = input.substring(3, 5);
+      if (+year < 25) {
+        input = input.substring(0, 3);
+      }
+    }
+
+    event.target.value = input;
   }
 }
