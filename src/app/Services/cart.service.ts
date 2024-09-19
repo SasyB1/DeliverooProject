@@ -34,7 +34,6 @@ export class CartService {
     ingredienti: iIngrediente[],
     idRistorante: number
   ) {
-    // Salva l'ID del ristorante nel localStorage
     localStorage.setItem('idRistorante', idRistorante.toString());
 
     const existingItemIndex = this.cartItems().findIndex(
@@ -44,7 +43,6 @@ export class CartService {
     );
 
     if (existingItemIndex > -1) {
-      // Se l'articolo esiste già, aggiorna la quantità
       this.cartItems.update((cart) => {
         const existingItem = cart[existingItemIndex];
         existingItem.quantita += quantita;
