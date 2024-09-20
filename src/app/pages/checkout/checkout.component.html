@@ -1,7 +1,9 @@
 <div class="checkout-container container-fluid py-5 color-bg color-text">
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10 col-sm-12">
-      <h2 class="text-center mb-4 custom-title">Riepilogo del tuo ordine</h2>
+      <h2 class="text-center mb-4 custom-title">
+        {{ "CHECKOUT.ORDER_SUMMARY" | translate }}
+      </h2>
       <div class="order-summary mb-4 p-4 rounded shadow color-bg color-text">
         <div
           *ngFor="let item of cartItems"
@@ -32,7 +34,7 @@
             </ul>
 
             <p class="mt-3 mb-0 text-end">
-              Totale piatto:
+              {{ "CHECKOUT.DISH_TOTAL" | translate }}:
               <strong>{{ item.prezzoTotale | currency : "EUR" }}</strong>
             </p>
           </div>
@@ -41,54 +43,66 @@
 
       <div class="total-price text-end mb-5">
         <h3>
-          Totale ordine:
+          {{ "CHECKOUT.ORDER_TOTAL" | translate }}:
           <strong>{{ totalCartPrice | currency : "EUR" }}</strong>
         </h3>
       </div>
 
       <div class="payment-form p-4 rounded shadow mb-5 color-bg color-text">
-        <h4 class="mb-4 custom-title">Inserisci i dati della carta</h4>
+        <h4 class="mb-4 custom-title">
+          {{ "CHECKOUT.ENTER_CARD_DETAILS" | translate }}
+        </h4>
         <form>
           <div class="row">
             <div class="col-12 mb-4">
-              <label for="via" class="form-label">Via</label>
+              <label for="via" class="form-label">{{
+                "CHECKOUT.STREET" | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
                 name="via"
                 id="via"
                 [(ngModel)]="via"
-                placeholder="Inserisci la via"
+                placeholder="{{ 'CHECKOUT.ENTER_STREET' | translate }}"
                 required
               />
             </div>
             <div class="col-6 mb-4">
-              <label for="numeroCivico" class="form-label">Numero Civico</label>
+              <label for="numeroCivico" class="form-label">{{
+                "CHECKOUT.HOUSE_NUMBER" | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
                 name="numeroCivico"
                 id="numeroCivico"
                 [(ngModel)]="numeroCivico"
-                placeholder="Numero Civico"
+                placeholder="{{ 'CHECKOUT.HOUSE_NUMBER' | translate }}"
                 required
                 (input)="onNumeroCivicoInput($event)"
               />
             </div>
 
             <div class="col-6 mb-4">
-              <label for="piano" class="form-label">Piano (facoltativo)</label>
+              <label for="piano" class="form-label"
+                >{{ "CHECKOUT.FLOOR" | translate }} ({{
+                  "CHECKOUT.OPTIONAL" | translate
+                }})</label
+              >
               <input
                 type="text"
                 class="form-control"
                 name="piano"
                 id="piano"
                 [(ngModel)]="piano"
-                placeholder="Piano"
+                placeholder="{{ 'CHECKOUT.FLOOR' | translate }}"
               />
             </div>
             <div class="col-6 mb-4">
-              <label for="citta" class="form-label">Città</label>
+              <label for="citta" class="form-label">{{
+                "CHECKOUT.CITY" | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -100,14 +114,16 @@
               />
             </div>
             <div class="col-6 mb-4">
-              <label for="cap" class="form-label">CAP</label>
+              <label for="cap" class="form-label">{{
+                "CHECKOUT.POSTAL_CODE" | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
                 name="cap"
                 id="cap"
                 [(ngModel)]="cap"
-                placeholder="CAP"
+                placeholder="{{ 'CHECKOUT.POSTAL_CODE' | translate }}"
                 required
                 maxlength="5"
                 (input)="onCapInput($event)"
@@ -116,7 +132,9 @@
 
             <div class="col-12 mb-4">
               <label for="citofono" class="form-label"
-                >Citofono (facoltativo)</label
+                >{{ "CHECKOUT.INTERCOM" | translate }} ({{
+                  "CHECKOUT.OPTIONAL" | translate
+                }})</label
               >
               <input
                 type="text"
@@ -124,11 +142,13 @@
                 name="citofono"
                 id="citofono"
                 [(ngModel)]="citofono"
-                placeholder="Nome sul citofono"
+                placeholder="{{ 'CHECKOUT.INTERCOM' | translate }}"
               />
             </div>
             <div class="col-12 mb-4">
-              <label for="nomeCognome" class="form-label">Nome e Cognome</label>
+              <label for="nomeCognome" class="form-label">{{
+                "CHECKOUT.NAME_SURNAME" | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
@@ -138,43 +158,49 @@
               />
             </div>
             <div class="col-12 mb-4">
-              <label for="cardNumber" class="form-label"
-                >Numero della carta</label
-              >
+              <label for="cardNumber" class="form-label">{{
+                "CHECKOUT.CARD_NUMBER" | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
                 id="cardNumber"
                 maxlength="19"
-                placeholder="1234 5678 9012 3456"
+                placeholder="{{
+                  'CHECKOUT.CARD_NUMBER_PLACEHOLDER' | translate
+                }}"
                 required
                 (input)="onCardNumberInput($event)"
               />
             </div>
 
             <div class="col-6 mb-4">
-              <label for="expiryDate" class="form-label"
-                >Data di scadenza</label
-              >
+              <label for="expiryDate" class="form-label">{{
+                "CHECKOUT.EXPIRY_DATE" | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
                 id="expiryDate"
                 maxlength="5"
-                placeholder="MM/YY"
+                placeholder="{{
+                  'CHECKOUT.EXPIRY_DATE_PLACEHOLDER' | translate
+                }}"
                 required
                 (input)="onExpiryDateInput($event)"
               />
             </div>
             <div class="col-6 mb-4">
-              <label for="cvv" class="form-label">CVV</label>
+              <label for="cvv" class="form-label">{{
+                "CHECKOUT.CVV" | translate
+              }}</label>
               <input
                 type="text"
                 class="form-control"
                 id="cvv"
                 maxlength="3"
                 pattern="[0-9]{3}"
-                placeholder="123"
+                placeholder="{{ 'CHECKOUT.CVV_PLACEHOLDER' | translate }}"
                 required
               />
             </div>
@@ -185,7 +211,7 @@
             class="btn btn-confirm w-100 py-2"
             (click)="submitOrder($event)"
           >
-            Conferma ordine
+            {{ "CHECKOUT.CONFIRM_ORDER" | translate }}
           </button>
         </form>
       </div>

@@ -1,10 +1,12 @@
 <div class="text-center pb-3 color-bg color-text">
-  <button class="btn btnClr mx-2" (click)="filtraOrdini('Tutti')">Tutti</button>
+  <button class="btn btnClr mx-2" (click)="filtraOrdini('Tutti')">
+    {{ "ORDERS.ALL" | translate }}
+  </button>
   <button class="btn btnClr mx-2" (click)="filtraOrdini('In Corso')">
-    In Corso
+    {{ "ORDERS.IN_PROGRESS" | translate }}
   </button>
   <button class="btn btnClr mx-2" (click)="filtraOrdini('Consegnato')">
-    Consegnato
+    {{ "ORDERS.DELIVERED" | translate }}
   </button>
 </div>
 
@@ -12,7 +14,9 @@
   *ngIf="filtratiOrdini.length > 0; else noOrdini"
   class="color-bg color-text"
 >
-  <h2 class="text-center">Ordini per Ristorante {{ idRistorante }}</h2>
+  <h2 class="text-center">
+    {{ "ORDERS.ORDERS_FOR_RESTAURANT" | translate }} {{ idRistorante }}
+  </h2>
   <ul class="list-group">
     <li
       *ngFor="let ordine of filtratiOrdini"
@@ -20,26 +24,29 @@
     >
       <div class="d-flex justify-content-between align-items-center">
         <div>
-          <p>ID Ordine: {{ ordine.iD_Ordine }}</p>
-          <p>Data Ordine: {{ ordine.dataOrdine | date : "short" }}</p>
-          <p>Stato: {{ ordine.stato }}</p>
+          <p>{{ "ORDERS.ORDER_ID" | translate }}: {{ ordine.iD_Ordine }}</p>
+          <p>
+            {{ "ORDERS.ORDER_DATE" | translate }}:
+            {{ ordine.dataOrdine | date : "short" }}
+          </p>
+          <p>{{ "ORDERS.STATUS" | translate }}: {{ ordine.stato }}</p>
         </div>
         <button
           *ngIf="ordine.stato !== 'Consegnato'"
           class="btn btnClr"
           (click)="cambiaStato(ordine.iD_Ordine)"
         >
-          Azione
+          {{ "ORDERS.ACTION" | translate }}
         </button>
       </div>
       <ul class="list-unstyled mt-2">
         <li *ngFor="let dettaglio of ordine.dettagliOrdine" class="mb-2">
-          <p>Quantità: {{ dettaglio.quantita }}</p>
-          <p>Piatto: {{ dettaglio.piatto.nome }}</p>
+          <p>{{ "ORDERS.QUANTITY" | translate }}: {{ dettaglio.quantita }}</p>
+          <p>{{ "ORDERS.DISH" | translate }}: {{ dettaglio.piatto.nome }}</p>
         </li>
       </ul>
       <p class="mt-2 font-weight-bold">
-        Prezzo Totale Ordine:
+        {{ "ORDERS.TOTAL_ORDER_PRICE" | translate }}:
         {{
           calcolaPrezzoTotale(ordine.dettagliOrdine)
             | currency : "EUR" : "symbol"
@@ -50,5 +57,5 @@
 </div>
 
 <ng-template #noOrdini>
-  <p class="text-center">Nessun ordine trovato per questo ristorante.</p>
+  <p class="text-center">{{ "ORDERS.NO_ORDERS" | translate }}</p>
 </ng-template>

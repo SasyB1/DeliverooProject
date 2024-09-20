@@ -7,11 +7,12 @@ import { iMenu } from '../../../../Models/Menu';
 import { iCategoria } from '../../../../Models/Category';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
 import { iPiatto } from '../../../../Models/Piatto';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-restaurant-details',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule, TranslateModule],
   templateUrl: './restaurant-details.component.html',
   styleUrls: ['./restaurant-details.component.scss'],
 })

@@ -6,11 +6,11 @@ import { RestaurantService } from '../../../Services/Restaurant.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-restaurant',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, TranslateModule],
   templateUrl: './restaurant.component.html',
   styleUrl: './restaurant.component.scss',
 })

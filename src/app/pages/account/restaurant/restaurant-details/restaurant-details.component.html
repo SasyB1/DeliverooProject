@@ -6,14 +6,14 @@
         data-bs-toggle="modal"
         data-bs-target="#addCategorieModal"
       >
-        Aggiungi Categorie
+        {{ "RISTO-DET.ADD_CATEGORIES" | translate }}
       </button>
       <button
         class="btn btn-primary mb-3"
         data-bs-toggle="modal"
         data-bs-target="#addMenuModal"
       >
-        Aggiungi Menu
+        {{ "RISTO-DET.ADD_MENU" | translate }}
       </button>
     </div>
   </div>
@@ -23,9 +23,9 @@
         class="nav-link btn colorDelbg text-light py-1 me-2"
         [routerLink]="['/gestione', restaurantId]"
         routerLinkActive="active"
-        >Gestione Ordini</a
+        >{{ "RISTO-DET.ORDER_MANAGEMENT" | translate }}</a
       >
-      <h2 class="color-text">Menù del Ristorante</h2>
+      <h2 class="color-text">{{ "RISTO-DET.RESTAURANT_MENU" | translate }}</h2>
       <div *ngFor="let menu of menus" class="mb-3">
         <div class="card color-bg">
           <div class="card-body position-relative">
@@ -60,7 +60,9 @@
                     />
                     <h5>{{ piatto.nome }}</h5>
                     <p>{{ piatto.descrizione }}</p>
-                    <p class="piatto-prezzo">Prezzo: €{{ piatto.prezzo }}</p>
+                    <p class="piatto-prezzo">
+                      {{ "RISTO-DET.PRICE" | translate }}: €{{ piatto.prezzo }}
+                    </p>
                     <div
                       *ngIf="piattoInHover === piatto.iD_Piatto"
                       class="position-absolute top-0 end-0 m-2 d-flex gap-2"
@@ -72,7 +74,9 @@
                           $event.stopPropagation()
                         "
                       >
-                        <i class="bi bi-trash">Elimina</i>
+                        <i class="bi bi-trash">{{
+                          "RISTO-DET.DELETE" | translate
+                        }}</i>
                       </button>
                       <button
                         class="btn btn-outline-primary btn-sm"
@@ -82,7 +86,9 @@
                         "
                         (click)="$event.stopPropagation()"
                       >
-                        <i class="bi bi-pencil">Modifica</i>
+                        <i class="bi bi-pencil">{{
+                          "RISTO-DET.EDIT" | translate
+                        }}</i>
                       </button>
                     </div>
                   </div>
@@ -93,14 +99,15 @@
               class="color-text pt-4 pb-2"
               *ngIf="!menu.piatti || menu.piatti.length === 0"
             >
-              Nessun piatto disponibile per questo menu.
+              {{ "RISTO-DET.NO_DISHES" | translate }}
             </p>
             <button
               type="button"
               class="btn btn-outline-danger mt-2"
               (click)="deleteMenu(menu.iD_Menu)"
             >
-              <i class="bi bi-trash"></i> Elimina Menu
+              <i class="bi bi-trash"></i>
+              {{ "RISTO-DET.DELETE_MENU" | translate }}
             </button>
             <button
               type="button"
@@ -108,7 +115,8 @@
               data-bs-toggle="modal"
               [attr.data-bs-target]="'#addPiattoModal' + menu.iD_Menu"
             >
-              <i class="bi bi-plus"></i> Aggiungi Piatti
+              <i class="bi bi-plus"></i>
+              {{ "RISTO-DET.ADD_DISHES" | translate }}
             </button>
           </div>
         </div>
@@ -124,7 +132,7 @@
             <div class="modal-content color-bg color-text">
               <div class="modal-header colorDelbg">
                 <h5 class="modal-title" id="updatePiattoModalLabel">
-                  Modifica Piatto - {{ piatto.nome }}
+                  {{ "RISTO-DET.EDIT_DISH" | translate }} - {{ piatto.nome }}
                 </h5>
                 <button
                   type="button"
@@ -136,32 +144,37 @@
               <div class="modal-body">
                 <form>
                   <div class="form-group mb-3">
-                    <label for="updatePiattoName{{ piatto.iD_Piatto }}"
-                      >Nome del piatto</label
-                    >
+                    <label for="updatePiattoName{{ piatto.iD_Piatto }}">{{
+                      "RISTO-DET.DISH_NAME" | translate
+                    }}</label>
                     <input
                       [(ngModel)]="piatto.nome"
                       class="form-control"
-                      placeholder="Inserisci nuovo nome del piatto"
+                      placeholder="{{
+                        'RISTO-DET.ENTER_NEW_DISH_NAME' | translate
+                      }}"
                       name="updatePiattoName{{ piatto.iD_Piatto }}"
                       [ngModelOptions]="{ standalone: true }"
                     />
                   </div>
                   <div class="form-group mb-3">
-                    <label for="updatePiattoDescription{{ piatto.iD_Piatto }}"
-                      >Descrizione del piatto</label
+                    <label
+                      for="updatePiattoDescription{{ piatto.iD_Piatto }}"
+                      >{{ "RISTO-DET.DISH_DESCRIPTION" | translate }}</label
                     >
                     <input
                       [(ngModel)]="piatto.descrizione"
                       class="form-control"
-                      placeholder="Inserisci nuova descrizione"
+                      placeholder="{{
+                        'RISTO-DET.ENTER_NEW_DESCRIPTION' | translate
+                      }}"
                       name="updatePiattoDescription{{ piatto.iD_Piatto }}"
                       [ngModelOptions]="{ standalone: true }"
                     />
                   </div>
                   <div class="form-group mb-3">
                     <label for="consenteIngredienti{{ piatto.iD_Piatto }}">
-                      Consente selezione ingredienti
+                      {{ "RISTO-DET.ALLOW_INGREDIENT_SELECTION" | translate }}
                     </label>
                     <input
                       type="checkbox"
@@ -173,22 +186,24 @@
                   </div>
 
                   <div class="form-group mb-3">
-                    <label for="updatePiattoPrice{{ piatto.iD_Piatto }}"
-                      >Prezzo</label
-                    >
+                    <label for="updatePiattoPrice{{ piatto.iD_Piatto }}">{{
+                      "RISTO-DET.PRICE" | translate
+                    }}</label>
                     <input
                       [(ngModel)]="piatto.prezzo"
                       type="number"
                       class="form-control"
-                      placeholder="Inserisci nuovo prezzo"
+                      placeholder="{{
+                        'RISTO-DET.ENTER_NEW_PRICE' | translate
+                      }}"
                       name="updatePiattoPrice{{ piatto.iD_Piatto }}"
                       [ngModelOptions]="{ standalone: true }"
                     />
                   </div>
                   <div class="form-group mb-3">
-                    <label for="updatePiattoImage{{ piatto.iD_Piatto }}"
-                      >Immagine del piatto</label
-                    >
+                    <label for="updatePiattoImage{{ piatto.iD_Piatto }}">{{
+                      "RISTO-DET.DISH_IMAGE" | translate
+                    }}</label>
                     <input
                       type="file"
                       class="form-control"
@@ -208,7 +223,7 @@
                       (click)="updatePiatto(piatto.iD_Piatto, menu.iD_Menu)"
                       data-bs-dismiss="modal"
                     >
-                      Salva Modifiche
+                      {{ "RISTO-DET.SAVE_CHANGES" | translate }}
                     </button>
                   </div>
                 </form>
@@ -221,26 +236,28 @@
     <div class="col-md-4 d-none d-md-block">
       <div class="card mb-4 color-bg color-text">
         <div class="card-body">
-          <h3>Aggiungi un nuovo menu</h3>
+          <h3>{{ "RISTO-DET.ADD_NEW_MENU" | translate }}</h3>
           <div class="form-group mb-3">
-            <label for="menuName">Nome del menu</label>
+            <label for="menuName">{{
+              "RISTO-DET.MENU_NAME" | translate
+            }}</label>
             <input
               id="menuName"
               [(ngModel)]="newMenuName"
               class="form-control"
-              placeholder="Inserisci nome del menu"
+              placeholder="{{ 'RISTO-DET.ENTER_MENU_NAME' | translate }}"
             />
           </div>
           <button class="btn btn-primary w-100 fw-bold" (click)="createMenu()">
-            Aggiungi Menu
+            {{ "RISTO-DET.ADD_MENU" | translate }}
           </button>
         </div>
       </div>
       <div class="card color-bg color-text">
         <div class="card-body">
-          <h3>Aggiungi categorie al ristorante</h3>
+          <h3>{{ "RISTO-DET.ADD_CATEGORIES_TO_RESTAURANT" | translate }}</h3>
           <div class="form-group mb-3">
-            <label>Seleziona una o più categorie</label>
+            <label>{{ "RISTO-DET.SELECT_CATEGORIES" | translate }}</label>
             <div class="row">
               <div class="col-12 col-md-6">
                 <div
@@ -307,7 +324,7 @@
             class="btn btn-primary w-100 fw-bold"
             (click)="addCategoriesToRestaurant()"
           >
-            Aggiungi Categorie
+            {{ "RISTO-DET.ADD_CATEGORIES" | translate }}
           </button>
         </div>
       </div>
@@ -317,7 +334,9 @@
     <div class="modal-dialog">
       <div class="modal-content color-bg color-text">
         <div class="modal-header colorHeaderModal">
-          <h5 class="modal-title">Aggiungi Categorie al Ristorante</h5>
+          <h5 class="modal-title">
+            {{ "RISTO-DET.ADD_CATEGORIES_TO_RESTAURANT" | translate }}
+          </h5>
           <button
             type="button"
             class="btn-close"
@@ -326,7 +345,7 @@
         </div>
         <div class="modal-body">
           <div class="form-group mb-3">
-            <label>Seleziona una o più categorie</label>
+            <label>{{ "RISTO-DET.SELECT_CATEGORIES" | translate }}</label>
             <div *ngFor="let categoria of categorie">
               <div class="form-check">
                 <input
@@ -352,7 +371,7 @@
             class="btn btn-primary w-100"
             (click)="addCategoriesToRestaurant()"
           >
-            Aggiungi Categorie
+            {{ "RISTO-DET.ADD_CATEGORIES" | translate }}
           </button>
         </div>
       </div>
@@ -362,7 +381,9 @@
     <div class="modal-dialog">
       <div class="modal-content color-bg color-text">
         <div class="modal-header colorHeaderModal">
-          <h5 class="modal-title">Aggiungi un nuovo menu</h5>
+          <h5 class="modal-title">
+            {{ "RISTO-DET.ADD_NEW_MENU" | translate }}
+          </h5>
           <button
             type="button"
             class="btn-close"
@@ -371,7 +392,9 @@
         </div>
         <div class="modal-body">
           <div class="form-group mb-3">
-            <label for="modalMenuName">Nome del menu</label>
+            <label for="modalMenuName">{{
+              "RISTO-DET.MENU_NAME" | translate
+            }}</label>
             <input
               id="modalMenuName"
               [(ngModel)]="newMenuName"
@@ -380,7 +403,7 @@
             />
           </div>
           <button class="btn btn-primary w-100" (click)="createMenu()">
-            Aggiungi Menu
+            {{ "RISTO-DET.ADD_MENU" | translate }}
           </button>
         </div>
       </div>
@@ -398,7 +421,7 @@
       <div class="modal-content color-bg color-text">
         <div class="modal-header colorDelbg">
           <h5 class="modal-title" id="addPiattoModalLabel">
-            Aggiungi Piatti a {{ menu.nome }}
+            {{ "RISTO-DET.ADD_DISHES_TO" | translate }} {{ menu.nome }}
           </h5>
           <button
             type="button"
@@ -410,29 +433,33 @@
         <div class="modal-body">
           <form>
             <div class="form-group mb-3">
-              <label for="piattoName">Nome del piatto</label>
+              <label for="piattoName">{{
+                "RISTO-DET.DISH_NAME" | translate
+              }}</label>
               <input
                 [(ngModel)]="newPiattoData[menu.iD_Menu].name"
                 class="form-control"
-                placeholder="Inserisci nome del piatto"
+                placeholder="{{ 'RISTO-DET.ENTER_DISH_NAME' | translate }}"
                 name="piattoName{{ menu.iD_Menu }}"
                 [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="form-group mb-3">
-              <label for="piattoDescription">Descrizione del piatto</label>
+              <label for="piattoDescription">{{
+                "RISTO-DET.DISH_DESCRIPTION" | translate
+              }}</label>
               <input
                 [(ngModel)]="newPiattoData[menu.iD_Menu].description"
                 class="form-control"
-                placeholder="Inserisci descrizione"
+                placeholder="{{ 'RISTO-DET.ENTER_DESCRIPTION' | translate }}"
                 name="piattoDescription{{ menu.iD_Menu }}"
                 [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="form-group mb-3">
-              <label for="piattoConsenteIngredienti"
-                >Consente selezione ingredienti</label
-              >
+              <label for="piattoConsenteIngredienti">{{
+                "RISTO-DET.ALLOW_INGREDIENT_SELECTION" | translate
+              }}</label>
               <input
                 type="checkbox"
                 [(ngModel)]="newPiattoData[menu.iD_Menu].consenteIngredienti"
@@ -443,18 +470,22 @@
             </div>
 
             <div class="form-group mb-3">
-              <label for="piattoPrice">Prezzo</label>
+              <label for="piattoPrice">{{
+                "RISTO-DET.PRICE" | translate
+              }}</label>
               <input
                 [(ngModel)]="newPiattoData[menu.iD_Menu].price"
                 type="number"
                 class="form-control"
-                placeholder="Inserisci prezzo"
+                placeholder="{{ 'RISTO-DET.PRICE' | translate }}"
                 name="piattoPrice{{ menu.iD_Menu }}"
                 [ngModelOptions]="{ standalone: true }"
               />
             </div>
             <div class="form-group mb-3">
-              <label for="piattoImage">Immagine del piatto</label>
+              <label for="piattoImage">{{
+                "RISTO-DET.DISH_IMAGE" | translate
+              }}</label>
               <input
                 type="file"
                 class="form-control"
@@ -470,7 +501,7 @@
                 [attr.data-bs-target]="'#addPiattoModal' + menu.iD_Menu"
                 (click)="createPiatto(menu.iD_Menu)"
               >
-                Aggiungi Piatto
+                {{ "RISTO-DET.ADD_DISH" | translate }}
               </button>
             </div>
           </form>
@@ -490,7 +521,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="editMenuModalLabel">
-            Modifica Menu - {{ menu.nome }}
+            {{ "RISTO-DET.EDIT_MENU" | translate }} - {{ menu.nome }}
           </h5>
           <button
             type="button"
@@ -502,12 +533,14 @@
         <div class="modal-body">
           <form>
             <div class="form-group mb-3">
-              <label for="editMenuName{{ menu.iD_Menu }}">Nome del menu</label>
+              <label for="editMenuName{{ menu.iD_Menu }}">{{
+                "RISTO-DET.MENU_NAME" | translate
+              }}</label>
               <input
                 [(ngModel)]="menu.nome"
                 class="form-control"
                 name="editMenuName{{ menu.iD_Menu }}"
-                placeholder="Inserisci nuovo nome del menu"
+                placeholder="{{ 'RISTO-DET.ENTER_NEW_MENU_NAME' | translate }}"
                 [ngModelOptions]="{ standalone: true }"
               />
             </div>
@@ -517,7 +550,7 @@
               (click)="updateMenu(menu.iD_Menu)"
               data-bs-dismiss="modal"
             >
-              Salva Modifiche
+              {{ "RISTO-DET.SAVE_CHANGES" | translate }}
             </button>
           </form>
         </div>

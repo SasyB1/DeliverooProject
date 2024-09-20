@@ -1,7 +1,7 @@
 <div *ngIf="restaurantDetails">
   <div class="back-button mb-4 border-top pt-3 ps-4">
     <div class="back-link d-flex align-items-center" (click)="goBack()">
-      <i class="bi bi-arrow-left me-2"></i> Indietro
+      <i class="bi bi-arrow-left me-2"></i> {{ "VIEW.BACK" | translate }}
     </div>
   </div>
 
@@ -18,7 +18,7 @@
       <h1>{{ restaurantDetails.ristorante.nome }}</h1>
       <p>{{ getCategorieAsString() }}</p>
       <p>
-        Distanza:
+        {{ "VIEW.DISTANCE" | translate }}:
         {{
           calculateDistance(
             restaurantDetails.ristorante.latitudine,
@@ -27,7 +27,8 @@
         }}
         ·
         {{ getOrarioChiusuraOggi() }}
-        · Minimo d'ordine: 10,00 € · Consegna gratuita
+        · {{ "VIEW.MINIMUM_ORDER" | translate }}: 10,00 € ·
+        {{ "VIEW.FREE_DELIVERY" | translate }}
       </p>
 
       <div class="d-flex flex-column align-items-start">
@@ -40,7 +41,7 @@
             averageRating | number : "1.1-1"
           }}</span>
           <i class="bi bi-star-fill me-2"></i>
-          Recensioni
+          {{ "VIEW.REVIEWS" | translate }}
 
           <span *ngIf="numberOfReviews > 0" class="ms-1"
             >({{ numberOfReviews }})</span
@@ -72,7 +73,7 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Altro
+          {{ "VIEW.MORE" | translate }}
         </button>
         <ul class="dropdown-menu p-0" aria-labelledby="moreMenusDropdown">
           <li *ngFor="let menu of extraMenus">
@@ -95,7 +96,9 @@
     <div class="modal-dialog">
       <div class="modal-content color-bg color-text">
         <div class="modal-header">
-          <h5 class="modal-title" id="reviewsModalLabel">Recensioni</h5>
+          <h5 class="modal-title" id="reviewsModalLabel">
+            {{ "VIEW.REVIEWS" | translate }}
+          </h5>
           <button
             type="button"
             class="btn-close"
@@ -115,13 +118,14 @@
               </p>
               <p>{{ recensione.commento }}</p>
               <small class="text-muted"
-                >Data: {{ recensione.dataRecensione | date : "short" }}</small
+                >{{ "VIEW.DATE" | translate }}:
+                {{ recensione.dataRecensione | date : "short" }}</small
               >
             </div>
           </div>
           <ng-template #noReviews>
             <p class="text-center">
-              Nessuna recensione disponibile per questo ristorante.
+              {{ "VIEW.NO_REVIEWS" | translate }}
             </p>
           </ng-template>
         </div>
@@ -132,7 +136,7 @@
             class="btn btn-secondary w-100"
             data-bs-dismiss="modal"
           >
-            Chiudi
+            {{ "VIEW.CLOSE" | translate }}
           </button>
         </div>
       </div>
@@ -147,8 +151,13 @@
             class="p-3 rounded d-flex justify-content-between align-items-center color-bg color-text border"
           >
             <div>
-              <h5 class="mb-0 fw-bold">Consegna gratuita</h5>
-              <p class="mb-0">Spendi 10 € e la consegna è gratis</p>
+              <h5 class="mb-0 fw-bold">
+                {{ "VIEW.FREE_DELIVERY" | translate }}
+              </h5>
+              <p class="mb-0">
+                {{ "VIEW.SPEND" | translate }} 10 €
+                {{ "VIEW.FREE_DELIVERY_INFO" | translate }}
+              </p>
             </div>
             <div class="ms-auto">
               <img
@@ -228,7 +237,7 @@
                     <p class="mt-3">{{ piatto.descrizione }}</p>
 
                     <div *ngIf="piatto.consenteIngredienti" class="mt-3">
-                      <h6>Aggiungi ingredienti:</h6>
+                      <h6>{{ "VIEW.ADD_INGREDIENTS" | translate }}:</h6>
                       <div
                         *ngFor="let ingrediente of ingredienti"
                         class="d-flex justify-content-between align-items-center mb-2"
@@ -283,7 +292,8 @@
                       class="btn btn-primary w-100 mt-4"
                       (click)="aggiungiAlCarrello(piatto)"
                     >
-                      Aggiungi per {{ totalPrice | currency : "EUR" }}
+                      {{ "VIEW.ADD_FOR" | translate }}
+                      {{ totalPrice | currency : "EUR" }}
                     </button>
                   </div>
                 </div>
@@ -300,23 +310,26 @@
           class="card p-3 d-flex flex-column justify-content-between color-bg color-text"
         >
           <div>
-            <h3>Il tuo carrello</h3>
+            <h3>{{ "VIEW.YOUR_CART" | translate }}</h3>
             <div *ngFor="let item of cartService.getCartItems()()" class="mb-3">
               <div
                 class="d-flex justify-content-between align-items-center mb-1"
               >
                 <span>x{{ item.quantita }}</span>
-                <span class="ms-2">{{ item.piatto.nome }}</span>
+                <span class="ms-2 me-1">{{ item.piatto.nome }}</span>
                 <span>{{ item.piatto.prezzo | currency : "EUR" }}</span>
                 <button
-                  class="btn btn-outline-danger btn-sm px-2 py-1"
+                  class="btn btn-outline-danger btn-sm px-2 py-1 ms-1"
                   (click)="removeItemFromCart(item)"
                 >
                   <i class="bi bi-trash"></i>
                 </button>
               </div>
 
-              <ul *ngIf="item.ingredienti!.length > 0" class="ps-3">
+              <ul
+                *ngIf="item.ingredienti!.length > 0"
+                class="ps-3 list-unstyled"
+              >
                 <li
                   *ngFor="let ingrediente of item.ingredienti"
                   class="small color-text"
@@ -327,7 +340,8 @@
               </ul>
               <p class="text-end mb-1 border-bottom">
                 <strong
-                  >Totale: {{ item.prezzoTotale | currency : "EUR" }}</strong
+                  >{{ "VIEW.TOTAL" | translate }}:
+                  {{ item.prezzoTotale | currency : "EUR" }}</strong
                 >
               </p>
             </div>
@@ -336,7 +350,7 @@
           <div class="mt-auto">
             <p class="text-end mb-2">
               <strong
-                >Totale Carrello:
+                >{{ "VIEW.CART_TOTAL" | translate }}:
                 {{ cartService.totalCartPrice() | currency : "EUR" }}</strong
               >
             </p>
@@ -345,7 +359,7 @@
               [disabled]="cartService.getCartItems()().length === 0"
               [routerLink]="['/checkout']"
             >
-              Vai al pagamento
+              {{ "VIEW.GO_TO_CHECKOUT" | translate }}
             </button>
           </div>
         </div>
@@ -359,7 +373,7 @@
       (click)="toggleCart()"
     >
       <span>{{ cartService.getCartItems()().length }}</span>
-      <span>Visualizza carrello</span>
+      <span>{{ "VIEW.VIEW_CART" | translate }}</span>
       <span>{{ cartService.totalCartPrice() | currency : "EUR" }}</span>
     </button>
   </div>
@@ -370,7 +384,7 @@
     [ngClass]="{ 'show-cart': cartVisible }"
   >
     <div class="mobile-cart-content p-3 color-bg color-text">
-      <h3>Il tuo carrello</h3>
+      <h3>{{ "VIEW.YOUR_CART" | translate }}</h3>
       <div *ngFor="let item of cartService.getCartItems()()" class="mb-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
           <span>x{{ item.quantita }}</span>
@@ -394,14 +408,17 @@
           </li>
         </ul>
         <p class="text-end mb-1 border-bottom">
-          <strong>Totale: {{ item.prezzoTotale | currency : "EUR" }}</strong>
+          <strong
+            >{{ "VIEW.TOTAL" | translate }}:
+            {{ item.prezzoTotale | currency : "EUR" }}</strong
+          >
         </p>
       </div>
 
       <div class="mt-auto">
         <p class="text-end mb-2">
           <strong
-            >Totale Carrello:
+            >{{ "VIEW.CART_TOTAL" | translate }}:
             {{ cartService.totalCartPrice() | currency : "EUR" }}</strong
           >
         </p>
@@ -410,7 +427,7 @@
           [disabled]="cartService.getCartItems()().length === 0"
           [routerLink]="['/checkout']"
         >
-          Vai al pagamento
+          {{ "VIEW.GO_TO_CHECKOUT" | translate }}
         </button>
       </div>
     </div>

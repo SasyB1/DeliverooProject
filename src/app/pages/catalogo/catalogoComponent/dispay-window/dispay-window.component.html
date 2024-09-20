@@ -1,9 +1,9 @@
-<p>Inserisci un indirizzo per scoprire le opzioni disponibili nella tua zona</p>
+<p>{{ "SEARCH.ENTER_ADDRESS" | translate }}</p>
 <div class="input-group input-w">
   <input
     type="text"
     class="form-control rounded-input m-0"
-    placeholder="Inserisci il tuo indirizzo"
+    placeholder="{{ 'SEARCH.ENTER_YOUR_ADDRESS' | translate }}"
     [(ngModel)]="searchQuery"
     (input)="onInput($event)"
   />
@@ -29,7 +29,9 @@
   </ul>
 </div>
 
-<p class="py-1 m-0 fs-4 fw-bold">Ristoranti che consegnano a {{ cityName }}</p>
+<p class="py-1 m-0 fs-4 fw-bold">
+  {{ "SEARCH.RESTAURANTS_DELIVERING" | translate }} {{ cityName }}
+</p>
 <div class="selected-categories" *ngIf="selectedCategories().length > 0">
   <span
     *ngFor="let category of selectedCategories()"
@@ -61,26 +63,26 @@
   <div class="scroll-container" id="scrollableDiv" #scrollableDiv>
     <div class="category-button">
       <img src="../../../../../assets/image/restaurant.png" alt="Ristoranti" />
-      <div class="category-label">Ristoranti</div>
+      <div class="category-label">{{ "SEARCH.RESTAURANTS" | translate }}</div>
     </div>
     <div class="category-button">
       <img src="../../../../../assets/image/grocery.png" alt="Spesa" />
-      <div class="category-label">Spesa</div>
+      <div class="category-label">{{ "SEARCH.GROCERY" | translate }}</div>
     </div>
     <div class="category-button">
       <img src="../../../../../assets/image/offers.png" alt="Offerte" />
-      <div class="category-label">Offerte</div>
+      <div class="category-label">{{ "SEARCH.OFFERS" | translate }}</div>
     </div>
     <div class="category-button">
       <img
         src="../../../../../assets/image/dessert.png"
         alt="Dolci e dessert"
       />
-      <div class="category-label">Dolci e dessert</div>
+      <div class="category-label">{{ "SEARCH.DESSERTS" | translate }}</div>
     </div>
     <div class="category-button">
       <img src="../../../../../assets/image/pickup.png" alt="Ritiro" />
-      <div class="category-label">Ritiro</div>
+      <div class="category-label">{{ "SEARCH.PICKUP" | translate }}</div>
     </div>
   </div>
 
@@ -99,10 +101,10 @@
     alt="Nessun risultato"
     class="no-results-image"
   />
-  <h3 class="mt-3">Nessun risultato trovato con i filtri selezionati</h3>
-  <p>Prova a modificare i filtri</p>
+  <h3 class="mt-3">{{ "SEARCH.NO_RESULTS_FOUND" | translate }}</h3>
+  <p>{{ "SEARCH.MODIFY_FILTERS" | translate }}</p>
   <button class="btn coloreDel mt-2 mb-2" (click)="clearFilters()">
-    Elimina tutti i filtri
+    {{ "SEARCH.CLEAR_ALL_FILTERS" | translate }}
   </button>
 </div>
 
@@ -145,7 +147,9 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content color-bg color-text">
       <div class="modal-header colorHeaderModal">
-        <h5 class="modal-title" id="sidebarModalLabel">Filtri</h5>
+        <h5 class="modal-title" id="sidebarModalLabel">
+          {{ "SEARCH.FILTERS" | translate }}
+        </h5>
         <button
           type="button"
           class="btn-close"
@@ -156,7 +160,7 @@
       <div class="modal-body">
         <div class="pt-2 pb-1 border-bottom"></div>
         <div class="pt-2 pb-1 border-bottom">
-          <h5>Offerte</h5>
+          <h5>{{ "SEARCH.OFFERS" | translate }}</h5>
           <div class="form-check">
             <input
               class="form-check-input"
@@ -166,13 +170,13 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(100)"
             />
-            <label class="form-check-label" for="tutteOfferte"
-              >Tutte le offerte disponibili</label
-            >
+            <label class="form-check-label" for="tutteOfferte">{{
+              "SEARCH.ALL_AVAILABLE_OFFERS" | translate
+            }}</label>
           </div>
         </div>
         <div class="pt-2 pb-1 border-bottom">
-          <h5>Regimi Alimentari</h5>
+          <h5>{{ "SEARCH.DIETARY_REQUIREMENTS" | translate }}</h5>
           <div class="form-check">
             <input
               class="form-check-input"
@@ -182,7 +186,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(1)"
             />
-            <label class="form-check-label" for="halal">Halal</label>
+            <label class="form-check-label" for="halal">{{
+              "SEARCH.HALAL" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -193,9 +199,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(2)"
             />
-            <label class="form-check-label" for="senzaGlutine"
-              >Senza Glutine</label
-            >
+            <label class="form-check-label" for="senzaGlutine">{{
+              "SEARCH.GLUTEN_FREE" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -206,9 +212,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(3)"
             />
-            <label class="form-check-label" for="veganFriendly"
-              >Vegan Friendly</label
-            >
+            <label class="form-check-label" for="veganFriendly">{{
+              "SEARCH.VEGAN_FRIENDLY" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -219,13 +225,13 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(4)"
             />
-            <label class="form-check-label" for="vegetariano"
-              >Vegetariano</label
-            >
+            <label class="form-check-label" for="vegetariano">{{
+              "SEARCH.VEGETARIAN" | translate
+            }}</label>
           </div>
         </div>
         <div class="pt-2 pb-1 border-bottom">
-          <h5>Cucine</h5>
+          <h5>{{ "SEARCH.CUISINES" | translate }}</h5>
           <div class="form-check">
             <input
               class="form-check-input"
@@ -235,7 +241,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(5)"
             />
-            <label class="form-check-label" for="americano">Americano</label>
+            <label class="form-check-label" for="americano">{{
+              "SEARCH.AMERICAN" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -246,9 +254,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(6)"
             />
-            <label class="form-check-label" for="asiaticoFusion"
-              >Asiatico fusion</label
-            >
+            <label class="form-check-label" for="asiaticoFusion">{{
+              "SEARCH.ASIAN_FUSION" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -259,7 +267,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(7)"
             />
-            <label class="form-check-label" for="cinese">Cinese</label>
+            <label class="form-check-label" for="cinese">{{
+              "SEARCH.CHINESE" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -270,7 +280,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(8)"
             />
-            <label class="form-check-label" for="colazione">Colazione</label>
+            <label class="form-check-label" for="colazione">{{
+              "SEARCH.BREAKFAST" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -281,7 +293,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(9)"
             />
-            <label class="form-check-label" for="giapponese">Giapponese</label>
+            <label class="form-check-label" for="giapponese">{{
+              "SEARCH.JAPANESE" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -292,7 +306,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(10)"
             />
-            <label class="form-check-label" for="greco">Greco</label>
+            <label class="form-check-label" for="greco">{{
+              "SEARCH.GREEK" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -303,7 +319,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(11)"
             />
-            <label class="form-check-label" for="hawaiano">Hawaiano</label>
+            <label class="form-check-label" for="hawaiano">{{
+              "SEARCH.HAWAIIAN" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -314,7 +332,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(12)"
             />
-            <label class="form-check-label" for="healthy">Healthy</label>
+            <label class="form-check-label" for="healthy">{{
+              "SEARCH.HEALTHY" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -325,7 +345,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(13)"
             />
-            <label class="form-check-label" for="indiano">Indiano</label>
+            <label class="form-check-label" for="indiano">{{
+              "SEARCH.INDIAN" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -336,7 +358,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(14)"
             />
-            <label class="form-check-label" for="italiano">Italiano</label>
+            <label class="form-check-label" for="italiano">{{
+              "SEARCH.ITALIAN" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -347,7 +371,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(15)"
             />
-            <label class="form-check-label" for="messicano">Messicano</label>
+            <label class="form-check-label" for="messicano">{{
+              "SEARCH.MEXICAN" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -358,7 +384,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(16)"
             />
-            <label class="form-check-label" for="peruviano">Peruviano</label>
+            <label class="form-check-label" for="peruviano">{{
+              "SEARCH.PERUVIAN" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -369,7 +397,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(17)"
             />
-            <label class="form-check-label" for="spagnolo">Spagnolo</label>
+            <label class="form-check-label" for="spagnolo">{{
+              "SEARCH.SPANISH" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -380,7 +410,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(18)"
             />
-            <label class="form-check-label" for="spesa">Spesa</label>
+            <label class="form-check-label" for="spesa">{{
+              "SEARCH.GROCERY" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -391,9 +423,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(19)"
             />
-            <label class="form-check-label" for="thailandese"
-              >Thailandese</label
-            >
+            <label class="form-check-label" for="thailandese">{{
+              "SEARCH.THAI" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -404,11 +436,13 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(20)"
             />
-            <label class="form-check-label" for="turco">Turco</label>
+            <label class="form-check-label" for="turco">{{
+              "SEARCH.TURKISH" | translate
+            }}</label>
           </div>
         </div>
         <div class="pt-2 pb-1 border-bottom">
-          <h5>Piatti</h5>
+          <h5>{{ "SEARCH.DISHES" | translate }}</h5>
           <div class="form-check">
             <input
               class="form-check-input"
@@ -418,7 +452,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(21)"
             />
-            <label class="form-check-label" for="bakery">Bakery</label>
+            <label class="form-check-label" for="bakery">{{
+              "SEARCH.BAKERY" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -429,7 +465,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(22)"
             />
-            <label class="form-check-label" for="bubbleTea">Bubble tea</label>
+            <label class="form-check-label" for="bubbleTea">{{
+              "SEARCH.BUBBLE_TEA" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -440,7 +478,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(23)"
             />
-            <label class="form-check-label" for="burrito">Burrito</label>
+            <label class="form-check-label" for="burrito">{{
+              "SEARCH.BURRITO" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -451,7 +491,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(24)"
             />
-            <label class="form-check-label" for="carne">Carne</label>
+            <label class="form-check-label" for="carne">{{
+              "SEARCH.MEAT" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -462,7 +504,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(25)"
             />
-            <label class="form-check-label" for="dessert">Dessert</label>
+            <label class="form-check-label" for="dessert">{{
+              "SEARCH.DESSERT" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -473,9 +517,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(26)"
             />
-            <label class="form-check-label" for="fruttiDiMare"
-              >Frutti di mare</label
-            >
+            <label class="form-check-label" for="fruttiDiMare">{{
+              "SEARCH.SEAFOOD" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -486,7 +530,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(27)"
             />
-            <label class="form-check-label" for="hamburger">Hamburger</label>
+            <label class="form-check-label" for="hamburger">{{
+              "SEARCH.HAMBURGER" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -497,7 +543,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(28)"
             />
-            <label class="form-check-label" for="hotDogs">Hot dogs</label>
+            <label class="form-check-label" for="hotDogs">{{
+              "SEARCH.HOT_DOGS" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -508,7 +556,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(29)"
             />
-            <label class="form-check-label" for="insalate">Insalate</label>
+            <label class="form-check-label" for="insalate">{{
+              "SEARCH.SALADS" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -519,7 +569,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(30)"
             />
-            <label class="form-check-label" for="kebab">Kebab</label>
+            <label class="form-check-label" for="kebab">{{
+              "SEARCH.KEBAB" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -530,7 +582,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(31)"
             />
-            <label class="form-check-label" for="noodles">Noodles</label>
+            <label class="form-check-label" for="noodles">{{
+              "SEARCH.NOODLES" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -541,7 +595,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(32)"
             />
-            <label class="form-check-label" for="pasta">Pasta</label>
+            <label class="form-check-label" for="pasta">{{
+              "SEARCH.PASTA" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -552,7 +608,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(33)"
             />
-            <label class="form-check-label" for="piadina">Piadina</label>
+            <label class="form-check-label" for="piadina">{{
+              "SEARCH.PIADINA" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -563,7 +621,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(34)"
             />
-            <label class="form-check-label" for="pizza">Pizza</label>
+            <label class="form-check-label" for="pizza">{{
+              "SEARCH.PIZZA" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -574,7 +634,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(35)"
             />
-            <label class="form-check-label" for="poke">Poke</label>
+            <label class="form-check-label" for="poke">{{
+              "SEARCH.POKE" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -585,7 +647,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(36)"
             />
-            <label class="form-check-label" for="pollo">Pollo</label>
+            <label class="form-check-label" for="pollo">{{
+              "SEARCH.CHICKEN" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -596,7 +660,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(37)"
             />
-            <label class="form-check-label" for="ramen">Ramen</label>
+            <label class="form-check-label" for="ramen">{{
+              "SEARCH.RAMEN" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -607,7 +673,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(38)"
             />
-            <label class="form-check-label" for="sandwich">Sandwich</label>
+            <label class="form-check-label" for="sandwich">{{
+              "SEARCH.SANDWICH" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -618,7 +686,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(39)"
             />
-            <label class="form-check-label" for="sushi">Sushi</label>
+            <label class="form-check-label" for="sushi">{{
+              "SEARCH.SUSHI" | translate
+            }}</label>
           </div>
           <div class="form-check">
             <input
@@ -629,7 +699,9 @@
               (change)="onCategoryChange($event)"
               [checked]="isCategorySelected(40)"
             />
-            <label class="form-check-label" for="tacos">Tacos</label>
+            <label class="form-check-label" for="tacos">{{
+              "SEARCH.TACOS" | translate
+            }}</label>
           </div>
         </div>
       </div>
@@ -641,7 +713,7 @@
           (click)="clearFilters()"
           data-bs-dismiss="modal"
         >
-          Rimuovi filtri
+          {{ "SEARCH.REMOVE_FILTERS" | translate }}
         </button>
       </div>
     </div>

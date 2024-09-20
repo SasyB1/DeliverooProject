@@ -1,7 +1,7 @@
 <div class="container-fluid py-5 color-bg color-text">
-  <h2 class="text-center mb-4">Lascia una Recensione</h2>
+  <h2 class="text-center mb-4">{{ "REVIEW.LEAVE_REVIEW" | translate }}</h2>
   <div class="rating-container text-center d-flex align-items-center">
-    <h4 class="m-0 p-0 me-2">Valuta il ristorante</h4>
+    <h4 class="m-0 p-0 me-2">{{ "REVIEW.RATE_RESTAURANT" | translate }}</h4>
     <span
       class="star"
       *ngFor="let star of [1, 2, 3, 4, 5]"
@@ -18,30 +18,29 @@
   </div>
 
   <div class="form-group mt-4">
-    <label for="commento">Il tuo commento</label>
+    <label for="commento">{{ "REVIEW.YOUR_COMMENT" | translate }}</label>
     <textarea
       id="commento"
       [(ngModel)]="commento"
       name="commento"
       class="form-control"
       rows="4"
-      placeholder="Scrivi qui il tuo commento..."
+      placeholder="{{ 'REVIEW.PLACEHOLDER' | translate }}"
     ></textarea>
   </div>
   <div class="button-group text-center mt-4">
     <button class="btn btn-primary px-5" (click)="submitRecensione()">
-      Invia Recensione
+      {{ "REVIEW.SUBMIT_REVIEW" | translate }}
     </button>
   </div>
   <div class="recent-reviews mt-5">
-    <h4 class="text-center">Recensioni recenti</h4>
+    <h4 class="text-center">{{ "REVIEW.RECENT_REVIEWS" | translate }}</h4>
     <div
       *ngIf="recensioni.length === 0"
       class="alert alert-warning text-center"
     >
       <p>
-        Questo ristorante non ha ancora ricevuto recensioni. Sii il primo a
-        lasciare una recensione!
+        {{ "REVIEW.NO_REVIEWS" | translate }}
       </p>
     </div>
     <div
@@ -62,7 +61,7 @@
       </div>
       <p class="mb-1">{{ recensione.commento }}</p>
       <small class="text-muted">
-        Recensione lasciata il
+        {{ "REVIEW.REVIEW_LEFT_ON" | translate }}
         {{ recensione.dataRecensione | date : "dd/MM/yyyy" }}
       </small>
     </div>

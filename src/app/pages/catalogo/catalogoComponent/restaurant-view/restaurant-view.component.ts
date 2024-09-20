@@ -10,11 +10,12 @@ import { iIngrediente } from '../../../../Models/Ingrediente';
 import { CartService } from '../../../../Services/cart.service';
 import { iCartItem } from '../../../../Models/CartItem';
 import { iRecensione } from '../../../../Models/Recensione';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-restaurant-view',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule],
   templateUrl: './restaurant-view.component.html',
   styleUrl: './restaurant-view.component.scss',
 })

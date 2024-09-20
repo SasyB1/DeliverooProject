@@ -1,10 +1,10 @@
 import { Component, effect, OnInit, signal } from '@angular/core';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })

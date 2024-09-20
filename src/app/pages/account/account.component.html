@@ -15,14 +15,14 @@
               class="nav-link btn color-bg color-text me-2"
               routerLink="/account"
               routerLinkActive="active"
-              >Dettaglio account</a
+              >{{ "ACCOUNT.DETAILS" | translate }}</a
             >
             <a
               *ngIf="userForm.get('ruolo')?.value === 'Ristoratore'"
               class="nav-link btn color-bg color-text me-2"
               routerLink="/account/restaurant"
               routerLinkActive="active"
-              >Ristoranti</a
+              >{{ "ACCOUNT.RESTAURANTS" | translate }}</a
             >
           </nav>
         </div>
@@ -34,107 +34,119 @@
     *ngIf="!isRestaurantRoute()"
     class="account-details container mt-4 p-4 custom-width color-text"
   >
-    <h2 class="mb-4">Dettaglio account</h2>
+    <h2 class="mb-4">{{ "ACCOUNT.DETAILS" | translate }}</h2>
     <form [formGroup]="userForm" (ngSubmit)="onUpdate()">
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="nome" class="form-label">Nome</label>
+          <label for="nome" class="form-label">{{
+            "ACCOUNT.NAME" | translate
+          }}</label>
           <input
             type="text"
             id="nome"
             class="form-control"
             formControlName="nome"
-            placeholder="Mario"
+            placeholder="{{ 'ACCOUNT.NAME_PLACEHOLDER' | translate }}"
           />
         </div>
         <div class="col-md-6">
-          <label for="cognome" class="form-label">Cognome</label>
+          <label for="cognome" class="form-label">{{
+            "ACCOUNT.SURNAME" | translate
+          }}</label>
           <input
             type="text"
             id="cognome"
             class="form-control"
             formControlName="cognome"
-            placeholder="Rossi"
+            placeholder="{{ 'ACCOUNT.SURNAME_PLACEHOLDER' | translate }}"
           />
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col-md-6">
-          <label for="email" class="form-label">Email</label>
+          <label for="email" class="form-label">{{
+            "ACCOUNT.EMAIL" | translate
+          }}</label>
           <input
             type="email"
             id="email"
             class="form-control"
             formControlName="email"
-            placeholder="prova@gmail.com"
+            placeholder="{{ 'ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
           />
         </div>
         <div class="col-md-6">
-          <label for="telefono" class="form-label">Telefono</label>
+          <label for="telefono" class="form-label">{{
+            "ACCOUNT.PHONE" | translate
+          }}</label>
           <input
             type="text"
             id="telefono"
             class="form-control"
             formControlName="telefono"
-            placeholder="+39 123 456 7890"
+            placeholder="{{ 'ACCOUNT.PHONE_PLACEHOLDER' | translate }}"
           />
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-12">
-          <label for="password" class="form-label">Password </label>
+          <label for="password" class="form-label"
+            >{{ "ACCOUNT.PASSWORD" | translate }}
+          </label>
           <input
             type="password"
             id="password"
             class="form-control"
             formControlName="password"
-            placeholder="Inserisci nuova password "
+            placeholder="{{ 'ACCOUNT.NEW_PASSWORD_PLACEHOLDER' | translate }}"
           />
         </div>
       </div>
 
       <div class="row mb-3">
         <div class="col-md-12">
-          <label class="form-label">Ruolo</label>
+          <label class="form-label">{{ "ACCOUNT.ROLE" | translate }}</label>
           <div class="custom-radio">
             <label>
               <input type="radio" formControlName="ruolo" value="Ospite" />
               <span class="custom-radio-btn"></span>
-              Ospite
+              {{ "ACCOUNT.GUEST" | translate }}
             </label>
             <label class="ms-3">
               <input type="radio" formControlName="ruolo" value="Ristoratore" />
               <span class="custom-radio-btn"></span>
-              Ristoratore
+              {{ "ACCOUNT.RESTAURANT_OWNER" | translate }}
             </label>
           </div>
         </div>
       </div>
 
-      <button type="submit" class="btn btnColor mt-4">Aggiorna dati</button>
+      <button type="submit" class="btn btnColor mt-4">
+        {{ "ACCOUNT.UPDATE_DATA" | translate }}
+      </button>
     </form>
     <div class="delete-account mt-5 p-4 border rounded">
-      <h3>Elimina account</h3>
+      <h3>{{ "ACCOUNT.DELETE_ACCOUNT" | translate }}</h3>
       <p>
-        Digita "CANCELLA" nella casella qui sotto per inviarci la tua richiesta
-        di eliminazione dell'account.
+        {{ "ACCOUNT.DELETE_INSTRUCTIONS" | translate }}
       </p>
       <p>
-        Dopo aver inviato la richiesta, non potrai più fare il login, accedere
-        al credito o ripristinare il tuo account.
+        {{ "ACCOUNT.DELETE_WARNING" | translate }}
       </p>
-      <p>L'eliminazione dell'account è definitiva.</p>
+      <p>{{ "ACCOUNT.DELETE_FINAL_WARNING" | translate }}</p>
 
       <form [formGroup]="deleteAccountForm" (ngSubmit)="onDeleteAccount()">
         <div class="form-group">
-          <label for="confirmDelete">Digita "CANCELLA"</label>
+          <label for="confirmDelete">{{
+            "ACCOUNT.TYPE_CANCEL" | translate
+          }}</label>
           <input
             type="text"
             id="confirmDelete"
             class="form-control"
             formControlName="confirmDelete"
-            placeholder="Digita 'CANCELLA'"
+            placeholder="{{ 'ACCOUNT.TYPE_CANCEL_PLACEHOLDER' | translate }}"
           />
         </div>
 
@@ -145,7 +157,7 @@
             deleteAccountForm.get('confirmDelete')?.value !== 'CANCELLA'
           "
         >
-          Elimina l'account per sempre
+          {{ "ACCOUNT.DELETE_PERMANENTLY" | translate }}
         </button>
       </form>
     </div>

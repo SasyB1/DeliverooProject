@@ -1,14 +1,16 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-lg-8">
-      <h2 class="mb-4 colorDel fw-bold d-inline-block">I tuoi ristoranti</h2>
+      <h2 class="mb-4 colorDel fw-bold d-inline-block">
+        {{ "RISTO.YOUR_RESTAURANTS" | translate }}
+      </h2>
       <button
         class="btn colorDelbg text-light fw-bold d-lg-none float-end"
         data-bs-toggle="modal"
         data-bs-target="#createRestaurantModal"
         style="margin-top: -15px"
       >
-        Aggiungi Ristorante
+        {{ "RISTO.ADD_RESTAURANT" | translate }}
       </button>
       <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
         <div *ngFor="let ristorante of ristoranti()" class="col mb-4">
@@ -36,7 +38,7 @@
                   $event.stopPropagation()
                 "
               >
-                <i class="bi bi-trash">Elimina</i>
+                <i class="bi bi-trash">{{ "RISTO.DELETE" | translate }}</i>
               </button>
               <button
                 class="btn btn-secondary btn-sm"
@@ -46,7 +48,7 @@
                 "
                 (click)="$event.stopPropagation()"
               >
-                <i class="bi bi-pencil">Modifica</i>
+                <i class="bi bi-pencil">{{ "RISTO.EDIT" | translate }}</i>
               </button>
             </div>
           </div>
@@ -61,7 +63,8 @@
               <div class="modal-content color-bg color-text">
                 <div class="modal-header colorDelbg">
                   <h5 class="modal-title" id="editRistoranteModalLabel">
-                    Modifica Ristorante - {{ ristorante.nome }}
+                    {{ "RISTO.EDIT_RESTAURANT" | translate }} -
+                    {{ ristorante.nome }}
                   </h5>
                   <button
                     type="button"
@@ -75,12 +78,12 @@
                     <div class="form-group mb-3">
                       <label
                         for="editRistoranteName{{ ristorante.iD_Ristorante }}"
-                        >Nome del ristorante</label
+                        >{{ "RISTO.RESTAURANT_NAME" | translate }}</label
                       >
                       <input
                         [(ngModel)]="ristorante.nome"
                         class="form-control"
-                        placeholder="Inserisci il nome"
+                        placeholder="{{ 'RISTO.ENTER_NAME' | translate }}"
                         name="editRistoranteName{{ ristorante.iD_Ristorante }}"
                         [ngModelOptions]="{ standalone: true }"
                       />
@@ -90,12 +93,12 @@
                         for="editRistoranteIndirizzo{{
                           ristorante.iD_Ristorante
                         }}"
-                        >Indirizzo</label
+                        >{{ "RISTO.ADDRESS" | translate }}</label
                       >
                       <input
                         [(ngModel)]="ristorante.indirizzo"
                         class="form-control"
-                        placeholder="Inserisci l'indirizzo"
+                        placeholder="{{ 'RISTO.ENTER_ADDRESS' | translate }}"
                         name="editRistoranteIndirizzo{{
                           ristorante.iD_Ristorante
                         }}"
@@ -120,12 +123,12 @@
                         for="editRistoranteTelefono{{
                           ristorante.iD_Ristorante
                         }}"
-                        >Telefono</label
+                        >{{ "RISTO.PHONE" | translate }}</label
                       >
                       <input
                         [(ngModel)]="ristorante.telefono"
                         class="form-control"
-                        placeholder="Inserisci il telefono"
+                        placeholder="{{ 'RISTO.ENTER_PHONE' | translate }}"
                         name="editRistoranteTelefono{{
                           ristorante.iD_Ristorante
                         }}"
@@ -135,12 +138,12 @@
                     <div class="form-group mb-3">
                       <label
                         for="editRistoranteEmail{{ ristorante.iD_Ristorante }}"
-                        >Email</label
+                        >{{ "RISTO.EMAIL" | translate }}</label
                       >
                       <input
                         [(ngModel)]="ristorante.email"
                         class="form-control"
-                        placeholder="Inserisci l'email"
+                        placeholder="{{ 'RISTO.ENTER_EMAIL' | translate }}"
                         name="editRistoranteEmail{{ ristorante.iD_Ristorante }}"
                         [ngModelOptions]="{ standalone: true }"
                       />
@@ -150,7 +153,7 @@
                         for="editRistoranteImmagine{{
                           ristorante.iD_Ristorante
                         }}"
-                        >Immagine</label
+                        >{{ "RISTO.IMAGE" | translate }}</label
                       >
                       <input
                         type="file"
@@ -159,7 +162,7 @@
                       />
                     </div>
                     <div class="form-group mb-3">
-                      <label>Orari di Apertura:</label>
+                      <label>{{ "RISTO.OPENING_HOURS" | translate }}:</label>
                       <div
                         *ngFor="
                           let orario of ristorante.orariApertura;
@@ -198,7 +201,7 @@
                         (click)="updateRistorante(ristorante)"
                         data-bs-dismiss="modal"
                       >
-                        Salva Modifiche
+                        {{ "RISTO.SAVE_CHANGES" | translate }}
                       </button>
                     </div>
                   </form>
@@ -221,7 +224,7 @@
         <div class="modal-content color-bg color-text">
           <div class="modal-header colorDelbg">
             <h5 class="modal-title text-light" id="createRestaurantModalLabel">
-              Crea un nuovo ristorante
+              {{ "RISTO.CREATE_NEW_RESTAURANT" | translate }}
             </h5>
             <button
               type="button"
@@ -233,7 +236,9 @@
           <div class="modal-body">
             <form (ngSubmit)="createRestaurant()">
               <div class="mb-3">
-                <label for="nome" class="form-label">Nome:</label>
+                <label for="nome" class="form-label"
+                  >{{ "RISTO.NAME" | translate }}:</label
+                >
                 <input
                   id="nome"
                   [(ngModel)]="newRestaurant.nome"
@@ -243,7 +248,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="indirizzo" class="form-label">Indirizzo:</label>
+                <label for="indirizzo" class="form-label"
+                  >{{ "RISTO.ADDRESS" | translate }}:</label
+                >
                 <input
                   id="indirizzo"
                   [(ngModel)]="searchQuery"
@@ -263,7 +270,9 @@
                 </ul>
               </div>
               <div class="mb-3">
-                <label for="telefono" class="form-label">Telefono:</label>
+                <label for="telefono" class="form-label"
+                  >{{ "RISTO.PHONE" | translate }}:</label
+                >
                 <input
                   id="telefono"
                   [(ngModel)]="newRestaurant.telefono"
@@ -273,7 +282,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
+                <label for="email" class="form-label"
+                  >{{ "RISTO.EMAIL" | translate }}:</label
+                >
                 <input
                   id="email"
                   [(ngModel)]="newRestaurant.email"
@@ -283,7 +294,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="image" class="form-label">Immagine:</label>
+                <label for="image" class="form-label"
+                  >{{ "RISTO.IMAGE" | translate }}:</label
+                >
                 <input
                   id="image"
                   type="file"
@@ -320,7 +333,7 @@
                 type="submit"
                 class="btn colorDelbg text-light fw-bold w-100"
               >
-                Aggiungi Ristorante
+                {{ "RISTO.ADD_RESTAURANT" | translate }}
               </button>
             </form>
           </div>
@@ -330,10 +343,14 @@
 
     <div class="col-lg-4 d-none d-lg-block color-text">
       <div class="card shadow-sm p-4 color-bg color-text">
-        <h2 class="mb-4 colorDel">Crea un nuovo ristorante</h2>
+        <h2 class="mb-4 colorDel">
+          {{ "RISTO.CREATE_NEW_RESTAURANT" | translate }}
+        </h2>
         <form (ngSubmit)="createRestaurant()">
           <div class="mb-3">
-            <label for="nome" class="form-label">Nome:</label>
+            <label for="nome" class="form-label"
+              >{{ "RISTO.NAME" | translate }}:</label
+            >
             <input
               id="nome"
               [(ngModel)]="newRestaurant.nome"
@@ -343,7 +360,9 @@
             />
           </div>
           <div class="mb-3">
-            <label for="indirizzo" class="form-label">Indirizzo:</label>
+            <label for="indirizzo" class="form-label"
+              >{{ "RISTO.ADDRESS" | translate }}:</label
+            >
             <input
               id="indirizzo"
               [(ngModel)]="searchQuery"
@@ -363,7 +382,9 @@
             </ul>
           </div>
           <div class="mb-3">
-            <label for="telefono" class="form-label">Telefono:</label>
+            <label for="telefono" class="form-label"
+              >{{ "RISTO.PHONE" | translate }}:</label
+            >
             <input
               id="telefono"
               [(ngModel)]="newRestaurant.telefono"
@@ -373,7 +394,9 @@
             />
           </div>
           <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
+            <label for="email" class="form-label"
+              >{{ "RISTO.EMAIL" | translate }}:</label
+            >
             <input
               id="email"
               [(ngModel)]="newRestaurant.email"
@@ -383,7 +406,9 @@
             />
           </div>
           <div class="mb-3">
-            <label for="image" class="form-label">Immagine:</label>
+            <label for="image" class="form-label"
+              >{{ "RISTO.IMAGE" | translate }}:</label
+            >
             <input
               id="image"
               type="file"
@@ -414,7 +439,7 @@
             </div>
           </div>
           <button type="submit" class="btn colorDelbg text-light fw-bold w-100">
-            Aggiungi Ristorante
+            {{ "RISTO.ADD_RESTAURANT" | translate }}
           </button>
         </form>
       </div>

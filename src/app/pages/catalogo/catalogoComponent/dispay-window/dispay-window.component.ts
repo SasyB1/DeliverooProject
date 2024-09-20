@@ -15,11 +15,12 @@ import { FormsModule } from '@angular/forms';
 import { iSuggestion } from '../../../../Models/OSMSuggestion';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dispay-window',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './dispay-window.component.html',
   styleUrls: ['./dispay-window.component.scss'],
 })

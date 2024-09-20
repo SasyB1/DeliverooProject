@@ -5,11 +5,12 @@ import { CartService } from '../../Services/cart.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { iRecensione } from '../../Models/Recensione';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-recensione',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, TranslateModule],
   templateUrl: './recensione.component.html',
   styleUrl: './recensione.component.scss',
 })

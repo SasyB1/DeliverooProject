@@ -4,11 +4,12 @@ import { iOrdine } from '../../Models/Ordine';
 import { CartService } from '../../Services/cart.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-gestione',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './gestione.component.html',
   styleUrl: './gestione.component.scss',
 })

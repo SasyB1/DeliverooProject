@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../Services/cart.service';
 import { iOrdine } from '../../Models/Ordine';
 import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-storico',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './storico.component.html',
   styleUrl: './storico.component.scss',
 })
