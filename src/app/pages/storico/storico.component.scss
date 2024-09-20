@@ -1,0 +1,26 @@
+.colorBg {
+  background-color: #35b8b2;
+}
+.back-button {
+  margin-bottom: 20px;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  color: #35b8b2;
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #28a196; // Cambia colore al passaggio del mouse
+  }
+
+  i {
+    font-size: 20px;
+    margin-right: 8px;
+    color: #35b8b2; // Colore dell'icona della freccia
+  }
+}

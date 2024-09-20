@@ -8,6 +8,7 @@ import { RestaurantDetailsComponent } from './pages/account/restaurant/restauran
 import { RestaurantViewComponent } from './pages/catalogo/catalogoComponent/restaurant-view/restaurant-view.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { RecensioneComponent } from './pages/recensione/recensione.component';
+import { StoricoComponent } from './pages/storico/storico.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
@@ -39,5 +40,6 @@ export const routes: Routes = [
   },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'recensione', component: RecensioneComponent },
+  { path: 'storico', component: StoricoComponent },
   { path: '**', redirectTo: 'homepage' },
 ];

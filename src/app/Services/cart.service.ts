@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { iRecensione } from '../Models/Recensione';
+import { iOrdine } from '../Models/Ordine';
 
 interface CartItem {
   piatto: iPiatto;
@@ -217,6 +218,12 @@ export class CartService {
   getRecensioniByRistorante(idRistorante: number): Observable<iRecensione[]> {
     return this.http.get<iRecensione[]>(
       `${this.apiUrl}/recensioni/${idRistorante}`
+    );
+  }
+
+  getOrdiniByUtente(idUtente: number): Observable<iOrdine[]> {
+    return this.http.get<iOrdine[]>(
+      `${this.apiUrl}/get-ordini-utente/${idUtente}`
     );
   }
 }
