@@ -1,12 +1,11 @@
 {
   "NAVBAR": {
-    "COLLABORATE": "Collaborate with us",
-    "PARTNER": "Partner",
-    "JOB": "Work with us",
-    "DELIVEROO_FOR_WORK": "Deliveroo for Work",
     "REGISTER_OR_LOGIN": "Register or Login",
     "ACCOUNT": "Account",
-    "FAQ": "FAQ"
+    "ACCOUNT_DETAILS": "Account Details",
+    "ORDER_HISTORY": "Order History",
+    "FAQ": "FAQ",
+    "LOGOUT": "Log out"
   },
   "FOOTER": {
     "DISCOVER_DELIVEROO": "Discover Deliveroo",
@@ -18,5 +17,20 @@
     "CONTACT": "Contact",
     "FAQ": "FAQ",
     "BRING_DELIVEROO_WITH_YOU": "Bring Deliveroo with you"
+  },
+  "BANNER": {
+    "OFFER_TITLE": "Menu on offer: discounts up to 25%",
+    "OFFER_DESCRIPTION": "Perfect for adding more flavor to your week, ordering the most loved dishes for the whole family, and taking a break from cooking.",
+    "TERMS_CONDITIONS": "Delivery and service fees apply. Offer subject to availability, only for participating restaurants. Terms and conditions apply, available here."
+  },
+  "HERO": {
+    "TITLE": "The dishes from your favorite restaurants and groceries, delivered",
+    "INPUT_PROMPT": "Enter an address to discover available options in your area",
+    "PLACEHOLDER": "Enter your address",
+    "SEARCH_BUTTON": "Search"
+  },
+  "TRACKING": {
+    "HEADER": "Track your orders step by step",
+    "DESCRIPTION": "The dishes and products you love, delivered in no time. You will see when the rider picks up the order, which you can track step by step, and you will receive a notification when it is almost at your door."
   }
 }

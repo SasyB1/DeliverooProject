@@ -8,12 +8,11 @@
     </div>
     <div class="col-12 col-sm-6 col-lg-4 z-1">
       <h1 class="color-text">
-        I piatti dei ristoranti che ami e la spesa, a domicilio
+        {{ "HERO.TITLE" | translate }}
       </h1>
       <div class="input-container mt-3 bg-light p-4 color-bg">
         <p class="input-text color-text">
-          Inserisci un indirizzo per scoprire le opzioni disponibili nella tua
-          zona
+          {{ "HERO.INPUT_PROMPT" | translate }}
         </p>
         <div class="input-group">
           <input
@@ -28,7 +27,7 @@
             type="button"
             (click)="searchAddress()"
           >
-            Cerca
+            {{ "HERO.SEARCH_BUTTON" | translate }}
           </button>
         </div>
         <ul *ngIf="suggestions.length > 0" class="autocomplete-list color-text">

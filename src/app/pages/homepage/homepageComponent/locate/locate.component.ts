@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-locate',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './locate.component.html',
-  styleUrl: './locate.component.scss'
+  styleUrl: './locate.component.scss',
 })
-export class LocateComponent {
-
-}
+export class LocateComponent {}

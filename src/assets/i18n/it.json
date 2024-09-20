@@ -1,12 +1,11 @@
 {
   "NAVBAR": {
-    "COLLABORATE": "Collabora con noi",
-    "PARTNER": "Partner",
-    "JOB": "Lavora con noi",
-    "DELIVEROO_FOR_WORK": "Deliveroo for Work",
     "REGISTER_OR_LOGIN": "Registrati o accedi",
     "ACCOUNT": "Account",
-    "FAQ": "FAQ"
+    "ACCOUNT_DETAILS": "Dettagli account",
+    "ORDER_HISTORY": "Storico ordini",
+    "FAQ": "FAQ",
+    "LOGOUT": "Disconnettiti"
   },
   "FOOTER": {
     "DISCOVER_DELIVEROO": "Scopri Deliveroo",
@@ -18,5 +17,20 @@
     "CONTACT": "Contatti",
     "FAQ": "FAQ",
     "BRING_DELIVEROO_WITH_YOU": "Porta Deliveroo con te"
+  },
+  "BANNER": {
+    "OFFER_TITLE": "Menù in offerta: sconti fino al 25%",
+    "OFFER_DESCRIPTION": "Perfetti per dare più gusto alla tua settimana, ordinare i piatti più amati da tutta la famiglia e fare una pausa dai fornelli.",
+    "TERMS_CONDITIONS": "Si applicano spese di consegna e di servizio. Offerta soggetta a disponibilità, solo per ristoranti aderenti all'iniziativa. Si applicano termini e condizioni, consultabili qui."
+  },
+  "HERO": {
+    "TITLE": "I piatti dei ristoranti che ami e la spesa, a domicilio",
+    "INPUT_PROMPT": "Inserisci un indirizzo per scoprire le opzioni disponibili nella tua zona",
+    "PLACEHOLDER": "Inserisci il tuo indirizzo",
+    "SEARCH_BUTTON": "Cerca"
+  },
+  "TRACKING": {
+    "HEADER": "Segui gli ordini passo passo",
+    "DESCRIPTION": "I piatti e i prodotti che ami, consegnati in pochissimo tempo. Vedrai quando il rider ha ritirato l'ordine, che potrai seguire passo passo, e riceverai una notifica quando sarà quasi da te."
   }
 }

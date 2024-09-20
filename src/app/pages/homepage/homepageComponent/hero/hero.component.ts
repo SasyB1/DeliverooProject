@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { iSuggestion } from '../../../../Models/OSMSuggestion';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { iRestaurant } from '../../../../Models/Restaurant';
 import { RestaurantService } from '../../../../Services/Restaurant.service';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss'],
 })
