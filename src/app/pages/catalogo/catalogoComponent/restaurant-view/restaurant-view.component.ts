@@ -9,6 +9,7 @@ import { iPiatto } from '../../../../Models/Piatto';
 import { iIngrediente } from '../../../../Models/Ingrediente';
 import { CartService } from '../../../../Services/cart.service';
 import { iCartItem } from '../../../../Models/CartItem';
+import { iRecensione } from '../../../../Models/Recensione';
 
 @Component({
   selector: 'app-restaurant-view',
@@ -19,10 +20,13 @@ import { iCartItem } from '../../../../Models/CartItem';
 })
 export class RestaurantViewComponent implements OnInit {
   restaurantDetails: iRestaurantDetails | null = null;
+  recensioni: iRecensione[] = [];
   firstMenus: iMenu[] = [];
   extraMenus: iMenu[] = [];
   maxMenusInRow = 2;
   activeMenuId: number | null = null;
+  averageRating: number | null = null;
+  numberOfReviews: number = 0;
 
   userLat: number | null = null;
   userLon: number | null = null;
@@ -67,6 +71,7 @@ export class RestaurantViewComponent implements OnInit {
           this.extraMenus = [];
         }
         this.getIngredienti();
+        this.loadReviews(restaurantId);
       },
       error: (err) => {
         console.error(
@@ -258,5 +263,26 @@ export class RestaurantViewComponent implements OnInit {
 
   toggleCart() {
     this.cartVisible = !this.cartVisible;
+  }
+
+  loadReviews(restaurantId: number): void {
+    this.cartService.getRecensioniByRistorante(restaurantId).subscribe({
+      next: (recensioni) => {
+        this.recensioni = recensioni;
+        this.numberOfReviews = recensioni.length;
+        if (this.numberOfReviews > 0) {
+          const totalValutazione = recensioni.reduce(
+            (sum, recensione) => sum + recensione.valutazione,
+            0
+          );
+          this.averageRating = totalValutazione / this.numberOfReviews;
+        } else {
+          this.averageRating = null;
+        }
+      },
+      error: (err) => {
+        console.error('Errore nel caricamento delle recensioni:', err);
+      },
+    });
   }
 }
