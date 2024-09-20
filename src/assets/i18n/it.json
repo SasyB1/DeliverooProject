@@ -7,5 +7,16 @@
     "REGISTER_OR_LOGIN": "Registrati o accedi",
     "ACCOUNT": "Account",
     "FAQ": "FAQ"
+  },
+  "FOOTER": {
+    "DISCOVER_DELIVEROO": "Scopri Deliveroo",
+    "ABOUT_US": "Chi siamo",
+    "LEGAL_NOTES": "Note Legali",
+    "TERMS_CONDITIONS": "Termini & Condizioni",
+    "PRIVACY_POLICY": "Informativa sulla privacy",
+    "HELP": "Aiuto",
+    "CONTACT": "Contatti",
+    "FAQ": "FAQ",
+    "BRING_DELIVEROO_WITH_YOU": "Porta Deliveroo con te"
   }
 }
