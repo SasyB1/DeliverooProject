@@ -269,3 +269,73 @@ button[disabled] {
 .close-cart-btn:hover {
   color: #28a196;
 }
+/* Aumenta la dimensione dell'immagine per assomigliare alla seconda immagine */
+.img-Piatti-large {
+  width: 120px; /* Aumenta la larghezza dell'immagine */
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Allinea il pulsante "+" in modo da sembrare più grande e separato */
+.add-btn-large {
+  background-color: white;
+  color: #35b8b2;
+  border: 1px solid #35b8b2;
+  height: 100px; /* Diminuisce l'altezza del pulsante rispetto all'immagine */
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.add-btn-large:hover {
+  background-color: #35b8b2;
+  color: white;
+  border-color: #35b8b2;
+}
+
+.card {
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.card-description {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.card-text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.d-flex.align-items-center.justify-content-between {
+  width: 100%;
+}

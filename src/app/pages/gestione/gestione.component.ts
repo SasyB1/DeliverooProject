@@ -16,7 +16,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class GestioneComponent implements OnInit {
   idRistorante!: number;
   ordini: iOrdine[] = [];
-  idUtente: number | null = null;
   filtratiOrdini: iOrdine[] = [];
   statoFiltro: string = 'Tutti';
 
@@ -52,6 +51,7 @@ export class GestioneComponent implements OnInit {
       return somma + dettaglio.piatto.prezzo * dettaglio.quantita;
     }, 0);
   }
+
   filtraOrdini(stato: string): void {
     this.statoFiltro = stato;
 
@@ -63,6 +63,7 @@ export class GestioneComponent implements OnInit {
       );
     }
   }
+
   cambiaStato(idOrdine: number): void {
     this.cartService.cambiaStatoOrdine(idOrdine, 'Consegnato').subscribe(
       () => {
@@ -91,5 +92,16 @@ export class GestioneComponent implements OnInit {
         });
       }
     );
+  }
+
+  getProgressWidth(stato: string): string {
+    switch (stato) {
+      case 'In Corso':
+        return '50%';
+      case 'Consegnato':
+        return '100%';
+      default:
+        return '25%';
+    }
   }
 }

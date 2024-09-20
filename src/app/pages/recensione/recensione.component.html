@@ -1,69 +1,71 @@
-<div class="container-fluid py-5 color-bg color-text">
-  <h2 class="text-center mb-4">{{ "REVIEW.LEAVE_REVIEW" | translate }}</h2>
-  <div class="rating-container text-center d-flex align-items-center">
-    <h4 class="m-0 p-0 me-2">{{ "REVIEW.RATE_RESTAURANT" | translate }}</h4>
-    <span
-      class="star"
-      *ngFor="let star of [1, 2, 3, 4, 5]"
-      (click)="selectRating(star)"
-      (mouseover)="hoverRating(star)"
-      (mouseleave)="hoverRating(0)"
-      [ngClass]="{
-        selected: valutazione >= star,
-        hovered: hoverRatingValue >= star
-      }"
-    >
-      &#9733;
-    </span>
-  </div>
-
-  <div class="form-group mt-4">
-    <label for="commento">{{ "REVIEW.YOUR_COMMENT" | translate }}</label>
-    <textarea
-      id="commento"
-      [(ngModel)]="commento"
-      name="commento"
-      class="form-control"
-      rows="4"
-      placeholder="{{ 'REVIEW.PLACEHOLDER' | translate }}"
-    ></textarea>
-  </div>
-  <div class="button-group text-center mt-4">
-    <button class="btn btn-primary px-5" (click)="submitRecensione()">
-      {{ "REVIEW.SUBMIT_REVIEW" | translate }}
-    </button>
-  </div>
-  <div class="recent-reviews mt-5">
-    <h4 class="text-center">{{ "REVIEW.RECENT_REVIEWS" | translate }}</h4>
-    <div
-      *ngIf="recensioni.length === 0"
-      class="alert alert-warning text-center"
-    >
-      <p>
-        {{ "REVIEW.NO_REVIEWS" | translate }}
-      </p>
+<div class="container-fluid color-bg color-text">
+  <div class="row w-50 mx-auto py-5">
+    <h2 class="text-center mb-4">{{ "REVIEW.LEAVE_REVIEW" | translate }}</h2>
+    <div class="rating-container text-center d-flex align-items-center">
+      <h4 class="m-0 p-0 me-2">{{ "REVIEW.RATE_RESTAURANT" | translate }}</h4>
+      <span
+        class="star"
+        *ngFor="let star of [1, 2, 3, 4, 5]"
+        (click)="selectRating(star)"
+        (mouseover)="hoverRating(star)"
+        (mouseleave)="hoverRating(0)"
+        [ngClass]="{
+          selected: valutazione >= star,
+          hovered: hoverRatingValue >= star
+        }"
+      >
+        &#9733;
+      </span>
     </div>
-    <div
-      *ngFor="let recensione of recensioni"
-      class="review mt-3 p-3 border rounded color-bg color-text"
-    >
-      <div class="d-flex justify-content-between">
-        <strong>{{ recensione.nomeUtente }}</strong>
-        <div class="rating">
-          <span
-            class="star"
-            *ngFor="let star of [1, 2, 3, 4, 5]"
-            [ngClass]="{ selected: recensione.valutazione >= star }"
-          >
-            &#9733;
-          </span>
-        </div>
+
+    <div class="form-group mt-4">
+      <label for="commento">{{ "REVIEW.YOUR_COMMENT" | translate }}</label>
+      <textarea
+        id="commento"
+        [(ngModel)]="commento"
+        name="commento"
+        class="form-control"
+        rows="4"
+        placeholder="{{ 'REVIEW.PLACEHOLDER' | translate }}"
+      ></textarea>
+    </div>
+    <div class="button-group text-center mt-4">
+      <button class="btn btn-primary px-5" (click)="submitRecensione()">
+        {{ "REVIEW.SUBMIT_REVIEW" | translate }}
+      </button>
+    </div>
+    <div class="recent-reviews mt-5">
+      <h4 class="text-center">{{ "REVIEW.RECENT_REVIEWS" | translate }}</h4>
+      <div
+        *ngIf="recensioni.length === 0"
+        class="alert alert-warning text-center"
+      >
+        <p>
+          {{ "REVIEW.NO_REVIEWS" | translate }}
+        </p>
       </div>
-      <p class="mb-1">{{ recensione.commento }}</p>
-      <small class="text-muted">
-        {{ "REVIEW.REVIEW_LEFT_ON" | translate }}
-        {{ recensione.dataRecensione | date : "dd/MM/yyyy" }}
-      </small>
+      <div
+        *ngFor="let recensione of recensioni"
+        class="review mt-3 p-3 border rounded color-bg color-text"
+      >
+        <div class="d-flex justify-content-between">
+          <strong>{{ recensione.nomeUtente }}</strong>
+          <div class="rating">
+            <span
+              class="star"
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              [ngClass]="{ selected: recensione.valutazione >= star }"
+            >
+              &#9733;
+            </span>
+          </div>
+        </div>
+        <p class="mb-1">{{ recensione.commento }}</p>
+        <small class="text-muted">
+          {{ "REVIEW.REVIEW_LEFT_ON" | translate }}
+          {{ recensione.dataRecensione | date : "dd/MM/yyyy" }}
+        </small>
+      </div>
     </div>
   </div>
 </div>

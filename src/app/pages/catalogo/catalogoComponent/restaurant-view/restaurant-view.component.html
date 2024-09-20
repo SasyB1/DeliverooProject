@@ -179,27 +179,27 @@
 
         <div class="row">
           <div
-            class="col-12 col-sm-6 col-xl-4 col-xxl-3 mb-3"
+            class="col-12 col-sm-6 col-xl-4 mb-3"
             *ngFor="let piatto of menu.piatti"
           >
             <div
-              class="card d-flex flex-row align-items-center p-2 border color-bg color-text"
+              class="card d-flex flex-column align-items-start p-2 border color-bg color-text"
             >
               <div class="flex-grow-1 ps-1">
                 <h5 class="card-title">{{ piatto.nome }}</h5>
-                <p class="card-description">
-                  {{ piatto.descrizione }}
-                </p>
+                <p class="card-description">{{ piatto.descrizione }}</p>
                 <p class="card-text">{{ piatto.prezzo | currency : "EUR" }}</p>
               </div>
-              <div class="d-flex align-items-center">
+              <div
+                class="d-flex align-items-center justify-content-between w-100"
+              >
                 <img
-                  class="img-Piatti"
+                  class="img-Piatti-large"
                   [src]="getImageUrl(piatto.immaginePath || '')"
                   alt="{{ piatto.nome }}"
                 />
                 <button
-                  class="btn add-btn color-bg ms-2"
+                  class="btn add-btn-large ms-2"
                   data-bs-toggle="modal"
                   [attr.data-bs-target]="'#piattoModal' + piatto.iD_Piatto"
                   (click)="apriModale(piatto)"
@@ -307,7 +307,7 @@
     <div class="col-md-3 d-none d-md-block">
       <div class="sticky-cart" id="cart">
         <div
-          class="card p-3 d-flex flex-column justify-content-between color-bg color-text"
+          class="card p-3 d-flex flex-column justify-content-between color-bg color-text align-items-center"
         >
           <div>
             <h3>{{ "VIEW.YOUR_CART" | translate }}</h3>

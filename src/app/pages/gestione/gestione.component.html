@@ -15,7 +15,7 @@
   class="color-bg color-text"
 >
   <h2 class="text-center">
-    {{ "ORDERS.ORDERS_FOR_RESTAURANT" | translate }} {{ idRistorante }}
+    {{ "ORDERS.ORDERS_FOR_RESTAURANT" | translate }}
   </h2>
   <ul class="list-group">
     <li
@@ -30,6 +30,20 @@
             {{ ordine.dataOrdine | date : "short" }}
           </p>
           <p>{{ "ORDERS.STATUS" | translate }}: {{ ordine.stato }}</p>
+
+          <div class="progress my-2">
+            <div
+              class="progress-bar"
+              [class.bg-success]="ordine.stato === 'Consegnato'"
+              [style.width]="getProgressWidth(ordine.stato)"
+              role="progressbar"
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ ordine.stato }}
+            </div>
+          </div>
         </div>
         <button
           *ngIf="ordine.stato !== 'Consegnato'"
