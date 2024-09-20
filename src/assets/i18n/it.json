@@ -293,5 +293,22 @@
     "ENTER_DISH_NAME": "Inserisci nome del piatto",
     "ENTER_DESCRIPTION": "Inserisci descrizione del piatto",
     "ADD_DISHES_TO": "Aggiungi piatti a"
+  },
+  "AUTH": {
+    "NAME": "Nome",
+    "LAST_NAME": "Cognome",
+    "EMAIL": "Email",
+    "PHONE": "Telefono",
+    "PASSWORD": "Password",
+    "GUEST": "Ospite",
+    "RESTAURANT_OWNER": "Ristoratore",
+    "SIGN_UP": "Registrati",
+    "ALREADY_HAVE_ACCOUNT": "Hai già un account?",
+    "SIGN_IN_HERE": "Accedi qui",
+    "DONT_HAVE_ACCOUNT": "Non hai un account?",
+    "SIGN_UP_HERE": "Registrati qui",
+    "WELCOME": "Benvenuto",
+    "JOIN_US": "Unisciti a noi",
+    "SIGN_IN": "Accedi"
   }
 }

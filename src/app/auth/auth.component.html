@@ -5,26 +5,34 @@
         <div class="form sign-up" [formGroup]="signUpForm">
           <div class="input-group">
             <i class="bx bxs-user"></i>
-            <input formControlName="nome" type="text" placeholder="Nome" />
+            <input
+              formControlName="nome"
+              type="text"
+              placeholder="{{ 'AUTH.NAME' | translate }}"
+            />
           </div>
           <div class="input-group">
             <i class="bx bxs-user"></i>
             <input
               formControlName="cognome"
               type="text"
-              placeholder="Cognome"
+              placeholder="{{ 'AUTH.LAST_NAME' | translate }}"
             />
           </div>
           <div class="input-group">
             <i class="bx bx-mail-send"></i>
-            <input formControlName="email" type="email" placeholder="Email" />
+            <input
+              formControlName="email"
+              type="email"
+              placeholder="{{ 'AUTH.EMAIL' | translate }}"
+            />
           </div>
           <div class="input-group">
             <i class="bx bxs-phone"></i>
             <input
               formControlName="telefono"
               type="text"
-              placeholder="Telefono"
+              placeholder="{{ 'AUTH.PHONE' | translate }}"
             />
           </div>
           <div class="input-group">
@@ -32,12 +40,12 @@
             <input
               formControlName="password"
               type="password"
-              placeholder="Password"
+              placeholder="{{ 'AUTH.PASSWORD' | translate }}"
             />
           </div>
           <div class="input-group radio-group d-flex justify-content-center">
             <label class="radio-label">
-              Ospite
+              {{ "AUTH.GUEST" | translate }}
               <input
                 formControlName="ruolo"
                 type="radio"
@@ -47,7 +55,7 @@
               <span class="custom-radio-btn"></span>
             </label>
             <label class="radio-label ms-3">
-              Ristoratore
+              {{ "AUTH.RESTAURANT_OWNER" | translate }}
               <input
                 formControlName="ruolo"
                 type="radio"
@@ -58,10 +66,12 @@
             </label>
           </div>
 
-          <button (click)="onSignUp()">Sign up</button>
+          <button (click)="onSignUp()">{{ "AUTH.SIGN_UP" | translate }}</button>
           <p class="color-text">
-            <span>Already have an account?</span>
-            <b (click)="toggle()" class="pointer">Sign in here</b>
+            <span>{{ "AUTH.ALREADY_HAVE_ACCOUNT" | translate }}</span>
+            <b (click)="toggle()" class="pointer">{{
+              "AUTH.SIGN_IN_HERE" | translate
+            }}</b>
           </p>
         </div>
       </div>
@@ -72,20 +82,26 @@
         <div class="form sign-in" [formGroup]="signInForm">
           <div class="input-group">
             <i class="bx bxs-mail-send"></i>
-            <input formControlName="email" type="email" placeholder="Email" />
+            <input
+              formControlName="email"
+              type="email"
+              placeholder="{{ 'AUTH.EMAIL' | translate }}"
+            />
           </div>
           <div class="input-group">
             <i class="bx bxs-lock-alt"></i>
             <input
               formControlName="password"
               type="password"
-              placeholder="Password"
+              placeholder="{{ 'AUTH.PASSWORD' | translate }}"
             />
           </div>
-          <button (click)="onSignIn()">Sign in</button>
+          <button (click)="onSignIn()">{{ "AUTH.SIGN_IN" | translate }}</button>
           <p class="color-text">
-            <span>Don't have an account?</span>
-            <b (click)="toggle()" class="pointer">Sign up here</b>
+            <span>{{ "AUTH.DONT_HAVE_ACCOUNT" | translate }}</span>
+            <b (click)="toggle()" class="pointer">{{
+              "AUTH.SIGN_UP_HERE" | translate
+            }}</b>
           </p>
         </div>
       </div>
@@ -93,14 +109,14 @@
     <div class="row content-row">
       <div class="col align-items-center flex-col">
         <div class="text sign-in">
-          <h2>Welcome</h2>
+          <h2>{{ "AUTH.WELCOME" | translate }}</h2>
         </div>
         <div class="img sign-in"></div>
       </div>
       <div class="col align-items-center flex-col">
         <div class="img sign-up"></div>
         <div class="text sign-up">
-          <h2>Join with us</h2>
+          <h2>{{ "AUTH.JOIN_US" | translate }}</h2>
         </div>
       </div>
     </div>

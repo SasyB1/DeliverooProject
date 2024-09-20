@@ -293,5 +293,22 @@
     "ENTER_DISH_NAME": "Enter dish name",
     "ENTER_DESCRIPTION": "Enter description",
     "ADD_DISHES_TO": "Add dishes to"
+  },
+  "AUTH": {
+    "NAME": "Name",
+    "LAST_NAME": "Last Name",
+    "EMAIL": "Email",
+    "PHONE": "Phone",
+    "PASSWORD": "Password",
+    "GUEST": "Guest",
+    "RESTAURANT_OWNER": "Restaurant Owner",
+    "SIGN_UP": "Sign Up",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+    "SIGN_IN_HERE": "Sign in here",
+    "DONT_HAVE_ACCOUNT": "Don't have an account?",
+    "SIGN_UP_HERE": "Sign up here",
+    "WELCOME": "Welcome",
+    "JOIN_US": "Join us",
+    "SIGN_IN": "Sign In"
   }
 }

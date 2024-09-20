@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { signal, computed } from '@angular/core';
 import { AuthService } from '../Services/auth.service';
 import Swal from 'sweetalert2';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslateModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
