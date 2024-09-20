@@ -310,5 +310,46 @@
     "WELCOME": "Benvenuto",
     "JOIN_US": "Unisciti a noi",
     "SIGN_IN": "Accedi"
+  },
+  "FAQ": {
+    "SU_DELIVEROO": "Su Deliveroo",
+    "UTILIZZARE_DELIVEROO": "Utilizzare Deliveroo",
+    "DOMANDE_SUL_ORDINE": "Domande sul mio ordine",
+    "SPESE_E_TARIFFE": "Spese e tariffe",
+
+    "COS_E_DELIVEROO": "Cos'è Deliveroo?",
+    "COS_E_DELIVEROO_DESC": "La missione di Deliveroo è quella di diventare la società di riferimento nel mondo del cibo a domicilio. Collaboriamo con i migliori ristoranti della città - dalle gemme locali alle grandi catene nazionali - per portarti dove vuoi i tuoi piatti preferiti. Inoltre, su Deliveroo troverai anche l’offerta di alcuni supermercati e piccole e grandi botteghe.",
+
+    "STORIA_DELIVEROO": "Qual è la storia della fondazione di Deliveroo?",
+    "STORIA_DELIVEROO_DESC": "Deliveroo è un'azienda britannica attiva nel settore digitale con una storia di successo. Dopo essersi trasferito da New York a Londra, il nostro fondatore rimase stupito dal non trovare servizi di food delivery di qualità. Quindi decise che la sua missione sarebbe stata quella di portare i piatti dei migliori ristoranti direttamente a casa dei loro clienti. Abbiamo poi iniziato ad inserire anche le offerte di alcuni supermercati.",
+    "STORIA_DELIVEROO_EXTRA": "Deliveroo collabora con circa 183.000 ristoranti e partner di generi alimentari più amati e con circa 135.000 rider per offrire la migliore esperienza di consegna di cibo al mondo.",
+    "STORIA_DELIVEROO_GLOBAL": "Deliveroo ha sede a Londra e uffici in tutto il mondo: opera in 10 mercati, tra cui Belgio, Francia, Hong Kong, Italia, Irlanda, Kuwait, Qatar, Singapore, Emirati Arabi Uniti e Regno Unito.",
+
+    "COME_FUNZIONA": "Come funziona?",
+    "COME_FUNZIONA_DESC": "Puoi ordinare sia dal sito sia dalla nostra app, disponibile per iOS e Android. Aggiungi il tuo indirizzo di consegna per vedere quali ristoranti e supermercati consegnano da te, scegli i tuoi piatti e prodotti preferiti ed effettua l'ordine.",
+    "COME_FUNZIONA_ACCETTATO": "Quando il tuo ordine viene accettato, il ristorante o il supermercato inizia a prepararlo e a confezionarlo. Una volta pronto, un nostro rider lo ritira e lo porta da te.",
+    "COME_FUNZIONA_PRE_ORARI": "Se vuoi essere super organizzato, puoi ordinare fino a 24 ore in anticipo con un ordine programmato.",
+
+    "RESPONSABILE_ORDINE": "Chi è responsabile del mio ordine?",
+    "RESPONSABILE_ORDINE_DESC": "Se un partner, come un ristorante o un supermercato, accetta il tuo ordine, viene concluso un contratto di vendita esclusivamente tra te e il partner. Deliveroo non è parte di quel contratto e non si assume alcuna responsabilità derivante da o in relazione a quel contratto di vendita. Deliveroo non si assume alcuna responsabilità per i prodotti offerti dal partner.",
+    "PARTNER_RESPONSABILITA": "Ogni partner è responsabile della vendita dei prodotti da te ordinati tramite la nostra app. Il partner garantisce i prodotti che offre sull’app Deliveroo in conformità alle normative vigenti.",
+
+    "IMPREVISTI_ORDINE": "E se succede qualcosa al mio ordine?",
+    "IMPREVISTI_DESC": "Abbiamo un team dedicato a seguire tutta la tua esperienza con Deliveroo, dal momento in cui effettui l'ordine a quando ti viene consegnato. Purtroppo gli imprevisti possono capitare a tutti. In questo caso, puoi utilizzare la funzione di Aiuto nell'app per parlare con il nostro customer service per ogni problema.",
+    "ORDINE_DIMENTICATO": "Cosa faccio se ho dimenticato di aggiungere qualcosa al mio ordine?",
+    "ORDINE_DIMENTICATO_DESC": "Puoi contattare il nostro customer service tramite la funzione Aiuto nell'app e faremo del nostro meglio per essere certi che i piatti mancanti vengano aggiunti al tuo ordine.",
+    "RITARDO_ORDINE": "Cosa succede se il mio ordine è in ritardo?",
+    "RITARDO_DESC": "A volte può succedere che accadano imprevisti che non possiamo controllare. Proviamo sempre a metterci in contatto con te quando capiamo che potrebbe esserci un ritardo e il nostro team fa sempre in modo di consegnarti l'ordine il prima possibile.",
+    "ANNULLA_ORDINE": "Posso annullare un ordine presso un partner?",
+    "ANNULLA_ORDINE_DESC": "È possibile annullare un ordine senza addebito in qualsiasi momento prima che il partner abbia iniziato a preparare la pietanza ('Ordine Iniziato'). Se desideri annullare un ordine prima che diventi un Ordine Iniziato, ti preghiamo di contattarci immediatamente tramite la nostra app. Se annulli un ordine dopo che è diventato un Ordine Iniziato, ti verrà addebitato l'intero prezzo per i prodotti, e se il rider è già stato incaricato, ti verrà addebitato anche il costo per la consegna.",
+
+    "FUNZIONAMENTO_SPESE": "Come funzionano?",
+    "FUNZIONAMENTO_SPESE_DESC": "Le spese di consegna variano in base alla distanza dal ristorante o supermercato. Inoltre, vengono applicate delle spese di servizio e un eventuale supplemento per ordini al di sotto di una certa soglia.",
+    "SPESE_CONSEGNA": "Spese di consegna",
+    "SPESE_CONSEGNA_DESC": "Più sei vicino al partner, minori saranno le spese di consegna. Alcuni partner gestiscono in autonomia le consegne e le spese di consegna. Potrai sempre visualizzare chiaramente l'importo esatto prima di procedere al pagamento.",
+    "SPESE_SERVIZIO": "Spese di servizio",
+    "SPESE_SERVIZIO_DESC": "Ci consentono di offrirti costantemente la migliore esperienza possibile con Deliveroo, inclusi un servizio clienti di prim'ordine e nuove funzionalità. Le spese di servizio sono calcolate in percentuale sul valore complessivo del carrello dell’ordine.",
+    "SUPPLEMENTO": "Supplemento",
+    "SUPPLEMENTO_DESC": "Si tratta di una tariffa aggiuntiva che viene applicata per ordini che non raggiungono la spesa minima fissata per il ristorante o il supermercato specifico."
   }
 }

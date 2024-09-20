@@ -310,5 +310,46 @@
     "WELCOME": "Welcome",
     "JOIN_US": "Join us",
     "SIGN_IN": "Sign In"
+  },
+  "FAQ": {
+    "SU_DELIVEROO": "About Deliveroo",
+    "UTILIZZARE_DELIVEROO": "Using Deliveroo",
+    "DOMANDE_SUL_ORDINE": "Questions about my order",
+    "SPESE_E_TARIFFE": "Fees and charges",
+
+    "COS_E_DELIVEROO": "What is Deliveroo?",
+    "COS_E_DELIVEROO_DESC": "Deliveroo's mission is to become the leading company in the world of food delivery. We work with the best restaurants in the city - from local gems to national chains - to bring your favorite dishes wherever you are. Additionally, on Deliveroo, you will also find offerings from supermarkets and small and large shops.",
+
+    "STORIA_DELIVEROO": "What is the story behind Deliveroo's founding?",
+    "STORIA_DELIVEROO_DESC": "Deliveroo is a UK-based company active in the digital sector with a success story. After moving from New York to London, our founder was surprised by the lack of high-quality food delivery services. He decided that his mission would be to bring the best restaurant dishes directly to customers' homes. We also began to introduce supermarket offerings.",
+    "STORIA_DELIVEROO_EXTRA": "Deliveroo works with around 183,000 restaurants and beloved grocery partners, and about 135,000 riders to offer the best food delivery experience worldwide.",
+    "STORIA_DELIVEROO_GLOBAL": "Deliveroo is headquartered in London and has offices worldwide: it operates in 10 markets, including Belgium, France, Hong Kong, Italy, Ireland, Kuwait, Qatar, Singapore, UAE, and the UK.",
+
+    "COME_FUNZIONA": "How does it work?",
+    "COME_FUNZIONA_DESC": "You can order from both the website and our app, available for iOS and Android. Add your delivery address to see which restaurants and supermarkets deliver to you, choose your favorite dishes and products, and place your order.",
+    "COME_FUNZIONA_ACCETTATO": "When your order is accepted, the restaurant or supermarket starts preparing and packaging it. Once it's ready, one of our riders will pick it up and deliver it to you.",
+    "COME_FUNZIONA_PRE_ORARI": "If you want to be super organized, you can place an order up to 24 hours in advance with a scheduled order.",
+
+    "RESPONSABILE_ORDINE": "Who is responsible for my order?",
+    "RESPONSABILE_ORDINE_DESC": "If a partner, such as a restaurant or supermarket, accepts your order, a sales contract is established exclusively between you and the partner. Deliveroo is not part of that contract and assumes no responsibility arising from or in connection with that sales contract. Deliveroo does not assume any responsibility for the products offered by the partner.",
+    "PARTNER_RESPONSABILITA": "Each partner is responsible for the sale of the products you order through our app. The partner guarantees the products offered on the Deliveroo app in accordance with applicable regulations.",
+
+    "IMPREVISTI_ORDINE": "What if something happens to my order?",
+    "IMPREVISTI_DESC": "We have a dedicated team to follow your entire experience with Deliveroo, from the moment you place your order to when it's delivered. Unfortunately, unforeseen circumstances can happen to anyone. In this case, you can use the Help function in the app to speak to our customer service for any issues.",
+    "ORDINE_DIMENTICATO": "What should I do if I forgot to add something to my order?",
+    "ORDINE_DIMENTICATO_DESC": "You can contact our customer service through the Help function in the app, and we will do our best to ensure the missing items are added to your order.",
+    "RITARDO_ORDINE": "What happens if my order is late?",
+    "RITARDO_DESC": "Sometimes unforeseen circumstances occur that we cannot control. We always try to contact you when we understand there may be a delay, and our team always makes sure to deliver your order as soon as possible.",
+    "ANNULLA_ORDINE": "Can I cancel an order with a partner?",
+    "ANNULLA_ORDINE_DESC": "You can cancel an order free of charge at any time before the partner starts preparing the dish ('Order Started'). If you want to cancel an order before it becomes an Order Started, please contact us immediately through our app. If you cancel an order after it has become an Order Started, you will be charged the full price for the products, and if the rider has already been dispatched, you will also be charged the delivery fee.",
+
+    "FUNZIONAMENTO_SPESE": "How do they work?",
+    "FUNZIONAMENTO_SPESE_DESC": "Delivery fees vary depending on the distance from the restaurant or supermarket. In addition, service fees and a possible surcharge for orders below a certain threshold may apply.",
+    "SPESE_CONSEGNA": "Delivery fees",
+    "SPESE_CONSEGNA_DESC": "The closer you are to the partner, the lower the delivery fees. Some partners manage delivery and fees independently. You will always see the exact amount clearly before proceeding to payment.",
+    "SPESE_SERVIZIO": "Service fees",
+    "SPESE_SERVIZIO_DESC": "These allow us to constantly offer you the best possible experience with Deliveroo, including top-tier customer service and new features. Service fees are calculated as a percentage of the total order value.",
+    "SUPPLEMENTO": "Surcharge",
+    "SUPPLEMENTO_DESC": "This is an additional fee that applies to orders that do not meet the minimum spend required for the specific restaurant or supermarket."
   }
 }

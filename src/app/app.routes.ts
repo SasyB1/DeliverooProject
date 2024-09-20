@@ -12,6 +12,7 @@ import { StoricoComponent } from './pages/storico/storico.component';
 import { GestioneComponent } from './pages/gestione/gestione.component';
 import { roleGuard } from './guards/role.guard';
 import { role1Guard } from './guards/role1.guard';
+import { FaqComponent } from './pages/faq/faq.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
@@ -52,5 +53,6 @@ export const routes: Routes = [
   },
   { path: 'storico', component: StoricoComponent, canActivate: [roleGuard] },
   { path: 'gestione/:id', component: GestioneComponent },
+  { path: 'faq', component: FaqComponent },
   { path: '**', redirectTo: 'homepage' },
 ];
