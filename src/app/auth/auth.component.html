@@ -33,6 +33,8 @@
               formControlName="telefono"
               type="text"
               placeholder="{{ 'AUTH.PHONE' | translate }}"
+              maxlength="10"
+              (input)="onPhoneInput($event)"
             />
           </div>
           <div class="input-group">

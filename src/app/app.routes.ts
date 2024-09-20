@@ -11,6 +11,7 @@ import { RecensioneComponent } from './pages/recensione/recensione.component';
 import { StoricoComponent } from './pages/storico/storico.component';
 import { GestioneComponent } from './pages/gestione/gestione.component';
 import { roleGuard } from './guards/role.guard';
+import { role1Guard } from './guards/role1.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
@@ -33,10 +34,12 @@ export const routes: Routes = [
       {
         path: 'restaurant',
         component: RestaurantComponent,
+        canActivate: [role1Guard],
       },
       {
         path: 'restaurant/details/:id',
         component: RestaurantDetailsComponent,
+        canActivate: [role1Guard],
       },
     ],
   },

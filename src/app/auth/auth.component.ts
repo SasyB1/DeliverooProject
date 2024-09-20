@@ -1,5 +1,10 @@
 import { Component, OnInit, Signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { signal, computed } from '@angular/core';
 import { AuthService } from '../Services/auth.service';
@@ -27,8 +32,11 @@ export class AuthComponent implements OnInit {
     this.signUpForm = this.fb.group({
       nome: [''],
       cognome: [''],
-      email: [''],
-      telefono: [''],
+      email: [
+        '',
+        [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)],
+      ],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       password: [''],
       ruolo: [''],
     });
@@ -111,5 +119,9 @@ export class AuthComponent implements OnInit {
       this.container.classList.toggle('sign-in');
       this.container.classList.toggle('sign-up');
     }
+  }
+  onPhoneInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/[^0-9]/g, '');
   }
 }
