@@ -69,7 +69,12 @@ export class AuthComponent implements OnInit {
       this.authService.login(this.signInForm.value).subscribe(
         (response) => {
           if (response && !response.error) {
-            this.router.navigate(['/homepage']);
+            const ruolo = response.ruolo;
+            if (ruolo == '2') {
+              this.router.navigate(['/account/restaurant']);
+            } else {
+              this.router.navigate(['/homepage']);
+            }
           } else if (response && response.error) {
             Swal.fire({
               title: 'Errore di Login',
@@ -78,11 +83,18 @@ export class AuthComponent implements OnInit {
               showConfirmButton: true,
             });
           }
+        },
+        (error) => {
+          Swal.fire({
+            title: 'Errore di Login',
+            text: 'Si è verificato un errore durante il login.',
+            icon: 'error',
+            showConfirmButton: true,
+          });
         }
       );
     }
   }
-
 
   ngOnInit() {
     this.container = document.getElementById('container');

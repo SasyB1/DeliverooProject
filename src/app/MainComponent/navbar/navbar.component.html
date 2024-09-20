@@ -8,48 +8,8 @@
       />
     </a>
     <div class="d-flex gap-3 me-3">
-      <div class="dropdown bg-light color-bg d-none d-sm-block">
-        <button
-          class="btn dropdown-toggle d-flex align-items-center color-text border border-light-subtle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="bi bi-chevron-down me-2"></i>
-          {{ "NAVBAR.COLLABORATE" | translate }}
-        </button>
-        <ul class="dropdown-menu color-bg">
-          <li>
-            <a
-              class="dropdown-item px-3 color-text"
-              href="https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjTi-b-soOIAxX5iv0HHUUCHEkQPAgI"
-            >
-              <i class="bi bi-basket me-2 iconDropDownNavbar"></i>
-              {{ "NAVBAR.PARTNER" | translate }}
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item px-3 color-text"
-              href="https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjTi-b-soOIAxX5iv0HHUUCHEkQPAgI"
-            >
-              <i class="bi bi-briefcase me-2 iconDropDownNavbar"></i>
-              {{ "NAVBAR.JOB" | translate }}
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item px-3 color-text"
-              href="https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjTi-b-soOIAxX5iv0HHUUCHEkQPAgI"
-            >
-              <i class="bi bi-building me-2 iconDropDownNavbar"></i>
-              {{ "NAVBAR.DELIVEROO_FOR_WORK" | translate }}
-            </a>
-          </li>
-        </ul>
-      </div>
-
       <a
+        *ngIf="!isAuthenticated()"
         class="btn btn-light border border-light-subtle no-hover color-text color-bg d-none d-md-block"
         role="button"
         routerLink="auth"

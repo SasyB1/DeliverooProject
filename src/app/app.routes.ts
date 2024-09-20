@@ -10,10 +10,11 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { RecensioneComponent } from './pages/recensione/recensione.component';
 import { StoricoComponent } from './pages/storico/storico.component';
 import { GestioneComponent } from './pages/gestione/gestione.component';
+import { roleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
-  { path: 'homepage', component: HomepageComponent },
+  { path: 'homepage', component: HomepageComponent, canActivate: [roleGuard] },
   { path: 'auth', component: AuthComponent },
   {
     path: 'catalogo',
