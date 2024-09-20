@@ -65,14 +65,29 @@ export class CartService {
   ) {
     const prezzoTotale =
       (piatto.prezzo + this.calculateIngredientiPrice(ingredienti)) * quantita;
-    const newCartItem: CartItem = {
-      piatto,
-      quantita,
-      ingredienti,
-      prezzoTotale,
-    };
+    const exist = this.cartItems().findIndex(
+      (item) =>
+        item.piatto.iD_Piatto === piatto.iD_Piatto &&
+        this.areIngredientsEqual(item.ingredienti || [], ingredienti)
+    );
 
-    this.cartItems.update((cart) => [...cart, newCartItem]);
+    if (exist > -1) {
+      this.cartItems.update((cart) => {
+        const existingItem = cart[exist];
+        existingItem.quantita += quantita;
+        existingItem.prezzoTotale += prezzoTotale;
+        return cart;
+      });
+    } else {
+      const newCartItem: CartItem = {
+        piatto,
+        quantita,
+        ingredienti,
+        prezzoTotale,
+      };
+      this.cartItems.update((cart) => [...cart, newCartItem]);
+    }
+
     localStorage.setItem('idRistorante', idRistorante.toString());
     this.calculateTotalPrice();
     this.saveCartToLocalStorage();

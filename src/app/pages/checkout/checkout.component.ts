@@ -57,7 +57,6 @@ export class CheckoutComponent implements OnInit {
       !this.numeroCivico ||
       !this.cap ||
       !this.citta ||
-      !this.citofono ||
       !this.idUtente
     ) {
       Swal.fire({
@@ -138,5 +137,27 @@ export class CheckoutComponent implements OnInit {
     }
 
     event.target.value = input;
+  }
+
+  onCapInput(event: any): void {
+    let input = event.target.value.replace(/\D/g, '');
+    if (input.length > 5) {
+      input = input.substring(0, 5);
+    }
+    event.target.value = input;
+    this.cap = input;
+  }
+  onNumeroCivicoInput(event: any): void {
+    let input = event.target.value.replace(/\D/g, '');
+    event.target.value = input;
+    this.numeroCivico = input;
+  }
+  onCardNumberInput(event: any): void {
+    let input = event.target.value.replace(/\D/g, '');
+    if (input.length > 16) {
+      input = input.substring(0, 16);
+    }
+    let formattedInput = input.match(/.{1,4}/g)?.join(' ') || input;
+    event.target.value = formattedInput;
   }
 }

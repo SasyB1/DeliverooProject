@@ -72,8 +72,10 @@
                 [(ngModel)]="numeroCivico"
                 placeholder="Numero Civico"
                 required
+                (input)="onNumeroCivicoInput($event)"
               />
             </div>
+
             <div class="col-6 mb-4">
               <label for="piano" class="form-label">Piano (facoltativo)</label>
               <input
@@ -107,8 +109,11 @@
                 [(ngModel)]="cap"
                 placeholder="CAP"
                 required
+                maxlength="5"
+                (input)="onCapInput($event)"
               />
             </div>
+
             <div class="col-12 mb-4">
               <label for="citofono" class="form-label"
                 >Citofono (facoltativo)</label
@@ -140,12 +145,13 @@
                 type="text"
                 class="form-control"
                 id="cardNumber"
-                maxlength="16"
-                pattern="[0-9]{16}"
+                maxlength="19"
                 placeholder="1234 5678 9012 3456"
                 required
+                (input)="onCardNumberInput($event)"
               />
             </div>
+
             <div class="col-6 mb-4">
               <label for="expiryDate" class="form-label"
                 >Data di scadenza</label
