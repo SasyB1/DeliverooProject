@@ -19,6 +19,12 @@
   </div>
   <div class="row">
     <div class="col-md-8">
+      <a
+        class="nav-link btn colorDelbg text-light py-1 me-2"
+        [routerLink]="['/gestione', restaurantId]"
+        routerLinkActive="active"
+        >Gestione Ordini</a
+      >
       <h2 class="color-text">Menù del Ristorante</h2>
       <div *ngFor="let menu of menus" class="mb-3">
         <div class="card color-bg">

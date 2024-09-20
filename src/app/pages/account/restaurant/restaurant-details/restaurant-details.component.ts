@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MenuService } from '../../../../Services/menu.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { iPiatto } from '../../../../Models/Piatto';
 @Component({
   selector: 'app-restaurant-details',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './restaurant-details.component.html',
   styleUrls: ['./restaurant-details.component.scss'],
 })

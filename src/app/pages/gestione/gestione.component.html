@@ -1,0 +1,54 @@
+<div class="text-center pb-3 color-bg color-text">
+  <button class="btn btnClr mx-2" (click)="filtraOrdini('Tutti')">Tutti</button>
+  <button class="btn btnClr mx-2" (click)="filtraOrdini('In Corso')">
+    In Corso
+  </button>
+  <button class="btn btnClr mx-2" (click)="filtraOrdini('Consegnato')">
+    Consegnato
+  </button>
+</div>
+
+<div
+  *ngIf="filtratiOrdini.length > 0; else noOrdini"
+  class="color-bg color-text"
+>
+  <h2 class="text-center">Ordini per Ristorante {{ idRistorante }}</h2>
+  <ul class="list-group">
+    <li
+      *ngFor="let ordine of filtratiOrdini"
+      class="list-group-item color-bg color-text"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p>ID Ordine: {{ ordine.iD_Ordine }}</p>
+          <p>Data Ordine: {{ ordine.dataOrdine | date : "short" }}</p>
+          <p>Stato: {{ ordine.stato }}</p>
+        </div>
+        <button
+          *ngIf="ordine.stato !== 'Consegnato'"
+          class="btn btnClr"
+          (click)="cambiaStato(ordine.iD_Ordine)"
+        >
+          Azione
+        </button>
+      </div>
+      <ul class="list-unstyled mt-2">
+        <li *ngFor="let dettaglio of ordine.dettagliOrdine" class="mb-2">
+          <p>Quantità: {{ dettaglio.quantita }}</p>
+          <p>Piatto: {{ dettaglio.piatto.nome }}</p>
+        </li>
+      </ul>
+      <p class="mt-2 font-weight-bold">
+        Prezzo Totale Ordine:
+        {{
+          calcolaPrezzoTotale(ordine.dettagliOrdine)
+            | currency : "EUR" : "symbol"
+        }}
+      </p>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noOrdini>
+  <p class="text-center">Nessun ordine trovato per questo ristorante.</p>
+</ng-template>

@@ -226,4 +226,21 @@ export class CartService {
       `${this.apiUrl}/get-ordini-utente/${idUtente}`
     );
   }
+
+  getOrdiniByRistorante(idRistorante: number): Observable<iOrdine[]> {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const idUtente = user?.iD_Utente;
+
+    return this.http.get<iOrdine[]>(
+      `${this.apiUrl}/get-ordini-ristorante/${idRistorante}`
+    );
+  }
+
+  cambiaStatoOrdine(idOrdine: number, nuovoStato: string): Observable<void> {
+    const formData = new FormData();
+    formData.append('idOrdine', idOrdine.toString());
+    formData.append('nuovoStato', nuovoStato);
+
+    return this.http.put<void>(`${this.apiUrl}/cambia-stato-ordine`, formData);
+  }
 }

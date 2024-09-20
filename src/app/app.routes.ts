@@ -9,6 +9,7 @@ import { RestaurantViewComponent } from './pages/catalogo/catalogoComponent/rest
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { RecensioneComponent } from './pages/recensione/recensione.component';
 import { StoricoComponent } from './pages/storico/storico.component';
+import { GestioneComponent } from './pages/gestione/gestione.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
@@ -41,5 +42,6 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'recensione', component: RecensioneComponent },
   { path: 'storico', component: StoricoComponent },
+  { path: 'gestione/:id', component: GestioneComponent },
   { path: '**', redirectTo: 'homepage' },
 ];
