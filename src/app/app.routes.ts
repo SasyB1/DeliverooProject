@@ -20,6 +20,7 @@ export const routes: Routes = [
   {
     path: 'catalogo',
     component: CatalogoComponent,
+    canActivate: [roleGuard],
     children: [
       {
         path: 'details/:id',
@@ -43,9 +44,13 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'recensione', component: RecensioneComponent },
-  { path: 'storico', component: StoricoComponent },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [roleGuard] },
+  {
+    path: 'recensione',
+    component: RecensioneComponent,
+    canActivate: [roleGuard],
+  },
+  { path: 'storico', component: StoricoComponent, canActivate: [roleGuard] },
   { path: 'gestione/:id', component: GestioneComponent },
   { path: '**', redirectTo: 'homepage' },
 ];
