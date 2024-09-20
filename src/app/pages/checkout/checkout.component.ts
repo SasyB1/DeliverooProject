@@ -81,6 +81,7 @@ export class CheckoutComponent implements OnInit {
     this.cartService.creaOrdine(this.idUtente, +idRistorante).subscribe({
       next: (response: any) => {
         const idOrdine = response.idOrdine;
+        localStorage.setItem('idOrdine', idOrdine.toString());
 
         this.cartItems.forEach((item) => {
           this.cartService
@@ -108,8 +109,8 @@ export class CheckoutComponent implements OnInit {
               },
             });
         });
-        this.cartService.clearCart();
-        this.router.navigate(['/catalogo']);
+        this.cartService.clearCart(false);
+        this.router.navigate(['/recensione']);
       },
       error: (err) => {
         console.error("Errore durante la creazione dell'ordine:", err);

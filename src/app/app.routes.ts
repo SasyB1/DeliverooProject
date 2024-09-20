@@ -7,6 +7,7 @@ import { RestaurantComponent } from './pages/account/restaurant/restaurant.compo
 import { RestaurantDetailsComponent } from './pages/account/restaurant/restaurant-details/restaurant-details.component';
 import { RestaurantViewComponent } from './pages/catalogo/catalogoComponent/restaurant-view/restaurant-view.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { RecensioneComponent } from './pages/recensione/recensione.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'homepage' },
@@ -37,5 +38,6 @@ export const routes: Routes = [
     ],
   },
   { path: 'checkout', component: CheckoutComponent },
+  { path: 'recensione', component: RecensioneComponent },
   { path: '**', redirectTo: 'homepage' },
 ];

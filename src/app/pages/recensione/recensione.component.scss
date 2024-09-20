@@ -1,0 +1,71 @@
+.recensione-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #35b8b2;
+}
+
+.rating-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.star {
+  font-size: 40px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.star.hovered {
+  color: #a3e0dc;
+}
+
+.star.selected {
+  color: #35b8b2;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+button.btn-primary {
+  background-color: #35b8b2;
+  color: white;
+}
+
+button.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+button.btn-primary:hover {
+  background-color: #28a196;
+}
+
+button.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}

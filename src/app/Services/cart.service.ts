@@ -4,6 +4,7 @@ import { iPiatto } from '../Models/Piatto';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
+import { iRecensione } from '../Models/Recensione';
 
 interface CartItem {
   piatto: iPiatto;
@@ -135,12 +136,15 @@ export class CartService {
     this.totalCartPrice.set(total);
   }
 
-  clearCart() {
+  clearCart(pulisciRistorante: boolean = true) {
     this.cartItems.set([]);
     this.totalCartPrice.set(0);
     localStorage.removeItem('cart');
-    localStorage.removeItem('idRistorante');
+    if (pulisciRistorante) {
+      localStorage.removeItem('idRistorante');
+    }
   }
+
   private saveCartToLocalStorage() {
     const cartItems = this.cartItems();
     localStorage.setItem('cart', JSON.stringify(cartItems));
@@ -191,6 +195,28 @@ export class CartService {
     return this.http.post<void>(
       `${this.apiUrl}/aggiungi-ingrediente-dettaglio-ordine`,
       formData
+    );
+  }
+  aggiungiRecensione(
+    idOrdine: number,
+    idRistorante: number,
+    idUtente: number,
+    valutazione: number,
+    commento: string
+  ): Observable<void> {
+    const formData = new FormData();
+    formData.append('idOrdine', idOrdine.toString());
+    formData.append('idRistorante', idRistorante.toString());
+    formData.append('idUtente', idUtente.toString());
+    formData.append('valutazione', valutazione.toString());
+    formData.append('commento', commento || '');
+
+    return this.http.post<void>(`${this.apiUrl}/aggiungi-recensione`, formData);
+  }
+
+  getRecensioniByRistorante(idRistorante: number): Observable<iRecensione[]> {
+    return this.http.get<iRecensione[]>(
+      `${this.apiUrl}/recensioni/${idRistorante}`
     );
   }
 }
