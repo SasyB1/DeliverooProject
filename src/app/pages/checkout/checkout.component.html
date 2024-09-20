@@ -1,10 +1,7 @@
 <div class="checkout-container container-fluid py-5 color-bg color-text">
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10 col-sm-12">
-      <h2 class="text-center mb-4" style="color: #35b8b2">
-        Riepilogo del tuo ordine
-      </h2>
-
+      <h2 class="text-center mb-4 custom-title">Riepilogo del tuo ordine</h2>
       <div class="order-summary mb-4 p-4 rounded shadow color-bg color-text">
         <div
           *ngFor="let item of cartItems"
@@ -16,9 +13,9 @@
                 <h4 class="card-title mb-0">{{ item.piatto.nome }}</h4>
                 <small class="text-muted ms-2">(x{{ item.quantita }})</small>
               </div>
-              <span class="fw-bold">{{
-                item.piatto.prezzo | currency : "EUR"
-              }}</span>
+              <span class="fw-bold">
+                {{ item.piatto.prezzo | currency : "EUR" }}
+              </span>
             </div>
 
             <ul
@@ -50,62 +47,136 @@
       </div>
 
       <div class="payment-form p-4 rounded shadow mb-5 color-bg color-text">
-        <h4 class="mb-4" style="color: #35b8b2">
-          Inserisci i dati della carta
-        </h4>
+        <h4 class="mb-4 custom-title">Inserisci i dati della carta</h4>
         <form>
-          <div class="mb-4">
-            <label for="cardNumber" class="form-label"
-              >Numero della carta</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="cardNumber"
-              maxlength="16"
-              pattern="[0-9]{16}"
-              placeholder="1234 5678 9012 3456"
-              required
-            />
+          <div class="row">
+            <div class="col-12 mb-4">
+              <label for="via" class="form-label">Via</label>
+              <input
+                type="text"
+                class="form-control"
+                name="via"
+                id="via"
+                [(ngModel)]="via"
+                placeholder="Inserisci la via"
+                required
+              />
+            </div>
+            <div class="col-6 mb-4">
+              <label for="numeroCivico" class="form-label">Numero Civico</label>
+              <input
+                type="text"
+                class="form-control"
+                name="numeroCivico"
+                id="numeroCivico"
+                [(ngModel)]="numeroCivico"
+                placeholder="Numero Civico"
+                required
+              />
+            </div>
+            <div class="col-6 mb-4">
+              <label for="piano" class="form-label">Piano (facoltativo)</label>
+              <input
+                type="text"
+                class="form-control"
+                name="piano"
+                id="piano"
+                [(ngModel)]="piano"
+                placeholder="Piano"
+              />
+            </div>
+            <div class="col-6 mb-4">
+              <label for="citta" class="form-label">Città</label>
+              <input
+                type="text"
+                class="form-control"
+                name="citta"
+                id="citta"
+                [(ngModel)]="citta"
+                [value]="cityNameFromLocalStorage"
+                readonly
+              />
+            </div>
+            <div class="col-6 mb-4">
+              <label for="cap" class="form-label">CAP</label>
+              <input
+                type="text"
+                class="form-control"
+                name="cap"
+                id="cap"
+                [(ngModel)]="cap"
+                placeholder="CAP"
+                required
+              />
+            </div>
+            <div class="col-12 mb-4">
+              <label for="citofono" class="form-label"
+                >Citofono (facoltativo)</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="citofono"
+                id="citofono"
+                [(ngModel)]="citofono"
+                placeholder="Nome sul citofono"
+              />
+            </div>
+            <div class="col-12 mb-4">
+              <label for="nomeCognome" class="form-label">Nome e Cognome</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nomeCognome"
+                [value]="userNameFromLocalStorage"
+                readonly
+              />
+            </div>
+            <div class="col-12 mb-4">
+              <label for="cardNumber" class="form-label"
+                >Numero della carta</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="cardNumber"
+                maxlength="16"
+                pattern="[0-9]{16}"
+                placeholder="1234 5678 9012 3456"
+                required
+              />
+            </div>
+            <div class="col-6 mb-4">
+              <label for="expiryDate" class="form-label"
+                >Data di scadenza</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="expiryDate"
+                maxlength="5"
+                placeholder="MM/YY"
+                required
+                (input)="onExpiryDateInput($event)"
+              />
+            </div>
+            <div class="col-6 mb-4">
+              <label for="cvv" class="form-label">CVV</label>
+              <input
+                type="text"
+                class="form-control"
+                id="cvv"
+                maxlength="3"
+                pattern="[0-9]{3}"
+                placeholder="123"
+                required
+              />
+            </div>
           </div>
 
-          <div class="row">
-            <div class="col-6">
-              <div class="mb-4">
-                <label for="expiryDate" class="form-label"
-                  >Data di scadenza</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="expiryDate"
-                  placeholder="MM/YY"
-                  maxlength="5"
-                  (input)="onExpiryDateInput($event)"
-                  required
-                />
-              </div>
-            </div>
-            <!-- CVV -->
-            <div class="col-6">
-              <div class="mb-4">
-                <label for="cvv" class="form-label">CVV</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cvv"
-                  maxlength="3"
-                  pattern="[0-9]{3}"
-                  placeholder="123"
-                  required
-                />
-              </div>
-            </div>
-          </div>
           <button
             type="submit"
-            class="btn w-100 py-2"
-            style="background-color: #35b8b2; color: white"
+            class="btn btn-confirm w-100 py-2"
             (click)="submitOrder($event)"
           >
             Conferma ordine

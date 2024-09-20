@@ -3,17 +3,30 @@ import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../../Services/cart.service';
 import { iCartItem } from '../../Models/CartItem';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
 })
 export class CheckoutComponent implements OnInit {
   cartItems: iCartItem[] = [];
   totalCartPrice: number = 0;
+
+  via: string = '';
+  numeroCivico: string = '';
+  piano: string = '';
+  cap: string = '';
+  citofono: string = '';
+  citta: string = '';
+
+  cityNameFromLocalStorage: string = '';
+  userNameFromLocalStorage: string = '';
+
   idUtente: number | null = null;
 
   constructor(private cartService: CartService, private router: Router) {}
@@ -25,6 +38,9 @@ export class CheckoutComponent implements OnInit {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user && user.iD_Utente) {
       this.idUtente = user.iD_Utente;
+      this.userNameFromLocalStorage = `${user.nome} ${user.cognome}`;
+      this.cityNameFromLocalStorage = localStorage.getItem('cityName') || '';
+      this.citta = this.cityNameFromLocalStorage;
     } else {
       console.error('ID Utente non trovato nel localStorage');
     }
@@ -36,7 +52,21 @@ export class CheckoutComponent implements OnInit {
       console.error('Errore: ID utente non trovato');
       return;
     }
-
+    if (
+      !this.via ||
+      !this.numeroCivico ||
+      !this.cap ||
+      !this.citta ||
+      !this.citofono ||
+      !this.idUtente
+    ) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Errore',
+        text: 'Tutti i campi obbligatori devono essere compilati',
+      });
+      return;
+    }
     if (this.cartItems.length === 0) {
       console.error('Errore: Il carrello è vuoto');
       return;
