@@ -6,53 +6,72 @@
 
 <div
   *ngIf="ordini.length > 0; else noOrdini"
-  class="px-5 pt-2 color-bg color-text"
+  class="px-5 pt-2 pb-5 color-bg color-text"
 >
   <div *ngFor="let ordine of ordini" class="card mb-4 shadow-sm border-0">
     <div class="card-header colorBg text-white">
-      <h3 class="mb-0">
-        {{ "ORDER.ORDER" | translate }}
-      </h3>
+      <h3 class="mb-0">{{ "ORDER.ORDER" | translate }}</h3>
     </div>
     <div class="card-body">
-      <p>
-        <strong>{{ "ORDER.DATE" | translate }}:</strong>
-        {{ ordine.dataOrdine | date }}
-      </p>
-      <p>
-        <strong>{{ "ORDER.RESTAURANT" | translate }}:</strong>
-        {{ ordine.nomeRistorante }}
-      </p>
-      <p>
-        <strong>{{ "ORDER.STATUS" | translate }}:</strong> {{ ordine.stato }}
-      </p>
+      <div class="row align-items-center">
+        <div class="col-md-3">
+          <p>
+            <strong>{{ "ORDER.DATE" | translate }}:</strong>
+            {{ ordine.dataOrdine | date : "short" }}
+          </p>
+          <p>
+            <strong>{{ "ORDER.RESTAURANT" | translate }}:</strong>
+            {{ ordine.nomeRistorante }}
+          </p>
+        </div>
 
-      <h4 class="mt-4">{{ "ORDER.DISH_DETAILS" | translate }}</h4>
-      <ul class="list-group list-group-flush">
-        <li
-          *ngFor="let dettaglio of ordine.dettagliOrdine"
-          class="list-group-item"
-        >
-          <strong>{{ dettaglio.piatto.nome }}</strong> -
-          {{ "ORDER.QUANTITY" | translate }}: {{ dettaglio.quantita }} -
-          {{ "ORDER.PRICE" | translate }}: {{ dettaglio.prezzo | currency }}
-          <ul
-            *ngIf="dettaglio.ingredienti && dettaglio.ingredienti.length > 0"
-            class="list-inline mt-2 d-flex flex-column"
-          >
-            <li
-              *ngFor="let ingrediente of dettaglio.ingredienti"
-              class="list-inline-item"
-            >
-              {{ ingrediente.nome }}
-              <span *ngIf="ingrediente.prezzo > 0">
-                - {{ "ORDER.INGREDIENT_PRICE" | translate }}:
-                {{ ingrediente.prezzo | currency }}
-              </span>
-            </li>
-          </ul>
-        </li>
-      </ul>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <ul class="list-unstyled">
+                <li *ngFor="let dettaglio of ordine.dettagliOrdine">
+                  <strong>{{ "ORDER.QUANTITY" | translate }}:</strong>
+                  {{ dettaglio.quantita }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-md-4">
+              <ul class="list-unstyled">
+                <li *ngFor="let dettaglio of ordine.dettagliOrdine">
+                  <strong>{{ dettaglio.piatto.nome }}</strong>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-md-4">
+              <ul class="list-unstyled">
+                <li *ngFor="let dettaglio of ordine.dettagliOrdine">
+                  <strong>{{ "ORDER.PRICE" | translate }}:</strong>
+                  {{ dettaglio.prezzo | currency : "EUR" : "symbol" }}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mt-2">
+            <p class="font-weight-bold">
+              {{ "ORDER.TOTAL_ORDER_PRICE" | translate }}:
+              {{
+                calcolaPrezzoTotale(ordine.dettagliOrdine)
+                  | currency : "EUR" : "symbol"
+              }}
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-3 text-end">
+          <p>
+            <strong>{{ "ORDER.STATUS" | translate }}:</strong>
+            {{ ordine.stato }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

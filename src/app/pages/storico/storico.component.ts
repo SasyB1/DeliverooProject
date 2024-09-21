@@ -39,6 +39,19 @@ export class StoricoComponent implements OnInit {
       }
     );
   }
+  calcolaPrezzoTotale(dettagliOrdine: any[]): number {
+    let totale = 0;
+    dettagliOrdine.forEach((dettaglio) => {
+      totale += dettaglio.prezzo * dettaglio.quantita;
+      if (dettaglio.ingredienti && dettaglio.ingredienti.length > 0) {
+        dettaglio.ingredienti.forEach((ingrediente: any) => {
+          totale += ingrediente.prezzo * dettaglio.quantita;
+        });
+      }
+    });
+    return totale;
+  }
+
   goBack() {
     this.router.navigate(['/']);
   }

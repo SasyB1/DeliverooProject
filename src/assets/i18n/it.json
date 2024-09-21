@@ -43,7 +43,8 @@
     "QUANTITY": "Quantità",
     "PRICE": "Prezzo",
     "INGREDIENT_PRICE": "Prezzo Ingrediente",
-    "NO_ORDERS": "Nessun ordine trovato."
+    "NO_ORDERS": "Nessun ordine trovato.",
+    "TOTAL_ORDER_PRICE": "Prezzo Totale Ordine"
   },
   "REVIEW": {
     "LEAVE_REVIEW": "Lascia una Recensione",
